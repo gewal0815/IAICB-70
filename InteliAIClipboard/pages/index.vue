@@ -1,21 +1,22 @@
 <template>
-  <div>
-    <h1>My Clipboard App</h1>
-    <Clipboard />
+  <div class="index-wrapper">
+    <Main />
   </div>
 </template>
 
 <script>
-import Clipboard from '@/components/Clipboard';
+import Main from '~/components/Main.vue'
 
 export default {
   components: {
-    Clipboard
+    Main
   }
-};
+}
 </script>
 
 <style>
-
+/* add any styles you need for the index page here */
 </style>
+
+
 

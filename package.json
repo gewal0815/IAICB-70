@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@nuxt/types": "^2.16.0"
+  },
+  "dependencies": {
+    "@nuxtjs/composition-api": "^0.33.1",
+    "@tensorflow-models/toxicity": "^1.2.2",
+    "@tensorflow/tfjs": "^4.2.0"
+  }
+}
