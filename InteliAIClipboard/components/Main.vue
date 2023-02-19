@@ -2,7 +2,8 @@
     <div class="page-wrapper">
       <div class="history-navigator">
         <ul>
-          <li v-for="(item, index) in history" :key="item.id" @click="selectItem(item)">
+          <li v-if="history.length === 0">There's no content</li>
+          <li v-else v-for="(item, index) in history" :key="item.id" @click="selectItem(item)">
             {{ item.content }}
           </li>
         </ul>
@@ -33,28 +34,29 @@
     data() {
       return {
         history: [
-          { id: 1, content: 'Item 1' },
-          { id: 2, content: 'Item 2' },
-          { id: 3, content: 'Item 3' },
-          { id: 4, content: 'Item 4' },
-          { id: 5, content: 'Item 5' },
+          
         ],
         inputValue: ''
       };
     },
     methods: {
-      addItem() {
-        const newItem = { id: Date.now(), content: this.inputValue };
-        const existingItemIndex = this.history.findIndex(item => item.id === newItem.id);
-        if (existingItemIndex >= 0) {
-          // Update existing item
-          this.history[existingItemIndex] = newItem;
-        } else {
-          // Add new item
-          this.history.push(newItem);
-        }
-        this.inputValue = '';
-      },
+addItem() {
+  if (!this.inputValue) {
+    this.history.push({ id: Date.now(), content: "Theres no History content" });
+  } else {
+    const newItem = { id: Date.now(), content: this.inputValue };
+    const existingItemIndex = this.history.findIndex(item => item.id === newItem.id);
+    if (existingItemIndex >= 0) {
+      // Update existing item
+      this.history[existingItemIndex] = newItem;
+    } else {
+      // Add new item
+      this.history.push(newItem);
+    }
+  }
+  this.inputValue = '';
+},
+
       selectItem(item) {
         console.log(item);
       }
@@ -70,7 +72,6 @@
   align-items: stretch;
   background-color: #e6f3ff;
 }
-
 .history-navigator {
   flex: 0 0 200px;
   background-color: #b2d4ff;
@@ -80,7 +81,6 @@
   min-width: 150px;
   max-width: 300px;
 }
-
 .main-content {
   flex: 1 0 0;
   padding: 20px;
@@ -89,7 +89,6 @@
   min-width: 150px;
   max-width: 600px;
 }
-
 .side-navigator {
   flex: 0 0 200px;
   background-color: #b2d4ff;
@@ -99,20 +98,17 @@
   min-width: 150px;
   max-width: 300px;
 }
-
 /* Brighter blue color */
 .history-navigator,
 .side-navigator {
   color: #fff;
   background-color: #0099ff;
 }
-
 /* Override link color */
 .history-navigator a,
 .side-navigator a {
   color: #fff;
 }
-
 @media (max-width: 767px) {
   .page-wrapper {
     flex-direction: column;
@@ -176,20 +172,17 @@
     max-width: 300px;
   }
 }
-
 /* Styles for history-navigator */
 .history-navigator {
   flex: 0 0 100%;
   max-width: 100%;
   overflow: auto;
 }
-
 .history-navigator ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 .history-navigator li {
   margin: 5px;
   padding: 5px;
@@ -198,7 +191,6 @@
   border-radius: 5px;
   cursor: pointer;
 }
-
 @media (min-width: 768px) {
   .history-navigator {
     flex: 0 0 200px;
