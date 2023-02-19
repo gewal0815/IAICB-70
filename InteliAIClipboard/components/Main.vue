@@ -1,6 +1,6 @@
 <template>
-    <div class="page-wrapper">
-        <div class="history-navigator">
+  <div class="page-wrapper">
+    <div class="history-navigator">
       <ul>
         <li v-if="history.length === 0">There's no History content</li>
         <li
@@ -10,41 +10,36 @@
           @click="selectItem(item)"
         >
           <span class="delete-item" @click.stop="deleteItem(index)">
-            <img src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png" alt="Delete">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
+              alt="Delete"
+            />
           </span>
           {{ item.content }}
         </li>
       </ul>
     </div>
-      <div class="main-content">
-        <div
-          style="
-            width: 95%;
-            border: 1px solid blue;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-          "
-        >
-          <input
-            type="text"
-            v-model="inputValue"
-            placeholder="Type here..."
-            @keydown.enter="addItem"
-          />
-          <i class="fas fa-search" @click="addItem"></i>
-        </div>
-  
-      </div>
-      <div class="side-navigator">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a velit
-          in est aliquet faucibus quis sit amet elit. Nunc et maximus eros. Mauris
-          nec metus vitae eros eleifend pulvinar vel eget leo.
-        </p>
+    <div class="main-content">
+      <div class="main-content-show">
+        <input
+          class="input"
+          type="text"
+          v-model="inputValue"
+          placeholder="Type here..."
+          @keydown.enter="addItem"
+        />
+        <i class="fas fa-search" @click="addItem"></i>
       </div>
     </div>
-  </template>
+    <div class="side-navigator">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a velit
+        in est aliquet faucibus quis sit amet elit. Nunc et maximus eros. Mauris
+        nec metus vitae eros eleifend pulvinar vel eget leo.
+      </p>
+    </div>
+  </div>
+</template>
 
 <script>
 export default {
@@ -55,10 +50,9 @@ export default {
     };
   },
   methods: {
-    
-
     deleteItem(index) {
-      this.history.splice(index, 1) },
+      this.history.splice(index, 1);
+    },
 
     addItem() {
       if (!this.inputValue) {
@@ -87,7 +81,18 @@ export default {
 </script>
 
 <style>
-
+.input {
+  border: 1px solid blue;
+  border-radius: 2px;
+}
+.main-content-show {
+  width: 95%;
+  border: 1px solid blue;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
 .page-wrapper {
   display: flex;
   flex-direction: row;
@@ -103,6 +108,7 @@ export default {
   margin: 10px 2px 10px 0;
   min-width: 150px;
   max-width: 300px;
+  border-radius: 10px;
 }
 .main-content {
   flex: 1 0 0;
@@ -111,6 +117,7 @@ export default {
   margin: 10px 2px;
   min-width: 150px;
   max-width: 600px;
+  border-radius: 10px;
 }
 .side-navigator {
   flex: 0 0 200px;
@@ -120,6 +127,7 @@ export default {
   margin: 10px 0 10px 2px;
   min-width: 150px;
   max-width: 300px;
+  border-radius: 10px;
 }
 /* Brighter blue color */
 .history-navigator,
@@ -133,7 +141,6 @@ export default {
   color: #fff;
 }
 
-
 .history-navigator li {
   margin: 5px;
   padding: 5px;
@@ -144,6 +151,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 5px;
 }
 
 .delete-item {
@@ -167,18 +175,21 @@ export default {
     height: 100%;
     margin: 10px 2px 10px 0;
     max-width: 100%;
+    border-radius: 0;
   }
   .main-content {
     order: 2;
     height: 100%;
     margin: 10px 2px;
     max-width: 100%;
+    border-radius: 0;
   }
   .side-navigator {
     order: 3;
     height: 100%;
     margin: 10px 0 10px 2px;
     max-width: 100%;
+    border-radius: 0;
   }
   .page-wrapper {
     display: grid;
@@ -192,31 +203,31 @@ export default {
     height: 100%;
     margin: 10px 2px;
     max-width: 100%;
+    border-radius: 0;
   }
   .history-navigator li {
-  margin: 5px;
-  padding: 5px;
-  background-color: #0099ff;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    margin: 5px;
+    padding: 5px;
+    background-color: #0099ff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+  }
 
-.delete-item {
-  cursor: pointer;
-  order: 2; /* move delete item to the right */
-}
+  .delete-item {
+    cursor: pointer;
+    order: 2; /* move delete item to the right */
+  }
 
-.delete-item img {
-  height: 16px;
-  margin-left: 5px;
-  order: 1; /* move the image to the left of the text */
-}
-
-
+  .delete-item img {
+    height: 16px;
+    margin-left: 5px;
+    order: 1; /* move the image to the left of the text */
+  }
 }
 @media (min-width: 768px) and (max-width: 1023px) {
   .page-wrapper {
@@ -228,6 +239,7 @@ export default {
     margin: 10px 2px 10px 0;
     min-width: 150px;
     max-width: 300px;
+    border-radius: 10px;
   }
   .main-content {
     display: flex;
@@ -240,6 +252,7 @@ export default {
     max-width: 600px;
     display: flex;
     align-items: center;
+    border-radius: 10px;
   }
   .main-content input {
     flex: 1 0 auto;
@@ -249,8 +262,8 @@ export default {
     margin: 10px 0 10px 2px;
     min-width: 150px;
     max-width: 300px;
+    border-radius: 10px;
   }
-
 }
 /* Styles for history-navigator */
 .history-navigator {
@@ -273,6 +286,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 5px;
 }
 
 .delete-item {
@@ -291,6 +305,7 @@ export default {
     flex: 0 0 200px;
     max-width: 300px;
     overflow: visible;
+    border-radius: 10px;
   }
 }
 </style>
