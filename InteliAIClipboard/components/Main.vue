@@ -1,68 +1,86 @@
 <template>
-    <div class="page-wrapper">
-      <div class="history-navigator">
-        <ul>
-          <li v-if="history.length === 0">There's no content</li>
-          <li v-else v-for="(item, index) in history" :key="item.id" @click="selectItem(item)">
-            {{ item.content }}
-          </li>
-        </ul>
-      </div>
-      <div class="main-content">
-        <div style="width: 95%; border: 1px solid blue; padding: 10px; display: flex; align-items: center;">
-          <input type="text" v-model="inputValue" placeholder="Type here..." @keydown.enter="addItem">
-          <i class="fas fa-search" @click="addItem"></i>
-        </div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis tellus
-          magna. Nam in leo sit amet lorem tincidunt blandit vel et dolor. Aenean
-          finibus varius nibh a tincidunt.
-        </p>
-      </div>
-      <div class="side-navigator">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a velit
-          in est aliquet faucibus quis sit amet elit. Nunc et maximus eros. Mauris
-          nec metus vitae eros eleifend pulvinar vel eget leo.
-        </p>
-      </div>
+  <div class="page-wrapper">
+    <div class="history-navigator">
+      <ul>
+        <li v-if="history.length === 0">There's no History content</li>
+        <li
+          v-else
+          v-for="(item, index) in history"
+          :key="item.id"
+          @click="selectItem(item)"
+        >
+          {{ item.content }}
+        </li>
+      </ul>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        history: [
-          
-        ],
-        inputValue: ''
-      };
-    },
-    methods: {
-addItem() {
-  if (!this.inputValue) {
-    this.history.push({ id: Date.now(), content: "Theres no History content" });
-  } else {
-    const newItem = { id: Date.now(), content: this.inputValue };
-    const existingItemIndex = this.history.findIndex(item => item.id === newItem.id);
-    if (existingItemIndex >= 0) {
-      // Update existing item
-      this.history[existingItemIndex] = newItem;
-    } else {
-      // Add new item
-      this.history.push(newItem);
-    }
-  }
-  this.inputValue = '';
-},
+    <div class="main-content">
+      <div
+        style="
+          width: 95%;
+          border: 1px solid blue;
+          padding: 10px;
+          display: flex;
+          align-items: center;
+        "
+      >
+        <input
+          type="text"
+          v-model="inputValue"
+          placeholder="Type here..."
+          @keydown.enter="addItem"
+        />
+        <i class="fas fa-search" @click="addItem"></i>
+      </div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis tellus
+        magna. Nam in leo sit amet lorem tincidunt blandit vel et dolor. Aenean
+        finibus varius nibh a tincidunt.
+      </p>
+    </div>
+    <div class="side-navigator">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a velit
+        in est aliquet faucibus quis sit amet elit. Nunc et maximus eros. Mauris
+        nec metus vitae eros eleifend pulvinar vel eget leo.
+      </p>
+    </div>
+  </div>
+</template>
 
-      selectItem(item) {
-        console.log(item);
+<script>
+export default {
+  data() {
+    return {
+      history: [],
+      inputValue: '',
+    };
+  },
+  methods: {
+    addItem() {
+      if (!this.inputValue) {
+        this.history.push({ id: Date.now(), content: '' });
+      } else {
+        const newItem = { id: Date.now(), content: this.inputValue };
+        const existingItemIndex = this.history.findIndex(
+          (item) => item.id === newItem.id
+        );
+        if (existingItemIndex >= 0) {
+          // Update existing item
+          this.history[existingItemIndex] = newItem;
+        } else {
+          // Add new item
+          this.history.push(newItem);
+        }
       }
-    }
-  };
-  </script>
+      this.inputValue = '';
+    },
+
+    selectItem(item) {
+      console.log(item);
+    },
+  },
+};
+</script>
 
 <style>
 .page-wrapper {
