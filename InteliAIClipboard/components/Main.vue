@@ -84,13 +84,21 @@ export default {
 .input {
   border: 1px solid blue;
   border-radius: 2px;
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 .main-content-show {
   width: 95%;
+  height:20vh;
   border: 1px solid blue;
   padding: 10px;
+
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: center;
   border-radius: 10px;
 }
 .page-wrapper {
