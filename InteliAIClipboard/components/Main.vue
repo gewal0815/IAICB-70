@@ -83,8 +83,11 @@ export default {
 <style>
 .input {
   border: 1px solid blue;
-  border-radius: 2px;
+  border-radius: 20px;
   width: 95%;
+  margin:10px;
+  padding: 10px;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -122,7 +125,7 @@ export default {
   flex: 1 0 0;
   padding: 20px;
   height: 100%;
-  margin: 10px 2px;
+  margin: 0px 2px;
   min-width: 150px;
   max-width: 600px;
   border-radius: 10px;
