@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/types": "^2.16.0",
+    "nuxt": "^3.2.2"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.2.0",
+    "clipboard": "^2.0.11",
+    "clippy": "^0.0.0"
+  }
+}
