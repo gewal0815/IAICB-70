@@ -21,6 +21,7 @@
     </div>
     <div class="main-content">
       <div class="main-content-show">
+        <!-- Input field and search button -->
         <input
           class="input"
           type="text"
@@ -29,6 +30,8 @@
           @keydown.enter="addItem"
         />
         <i class="fas fa-search" @click="addItem"></i>
+
+
       </div>
     </div>
     <div class="side-navigator">
@@ -42,6 +45,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -49,6 +53,11 @@ export default {
       inputValue: '',
     };
   },
+
+
+
+
+
   methods: {
     deleteItem(index) {
       this.history.splice(index, 1);
@@ -76,6 +85,8 @@ export default {
     selectItem(item) {
       console.log(item);
     },
+
+
   },
 };
 </script>
@@ -85,17 +96,16 @@ export default {
   border: 1px solid blue;
   border-radius: 20px;
   width: 95%;
-  margin:10px;
+  margin: 10px;
   padding: 10px;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 .main-content-show {
   width: 95%;
-  height:20vh;
+  height: 20vh;
   border: 1px solid blue;
   padding: 10px;
 
