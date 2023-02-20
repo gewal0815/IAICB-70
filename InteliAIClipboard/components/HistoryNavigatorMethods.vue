@@ -1,9 +1,6 @@
 <script>
-
 export default {
   methods: {
-
-
     deleteItem(index) {
       this.history.splice(index, 1);
     },
@@ -15,8 +12,8 @@ export default {
           // The last item is empty, remove it
           this.history.pop();
         }
-        this.history.push({ id: Date.now(), content: "" });
-        this.inputValue = "";
+        this.history.push({ id: Date.now(), content: '' });
+        this.inputValue = '';
         this.showTextArea = true;
       } else {
         const newItem = { id: Date.now(), content: this.inputValue };
@@ -36,11 +33,9 @@ export default {
     },
 
     selectItem(item) {
-      console.log(item);
+      this.inputValue = item.content;
+      this.showTextArea = true;
     },
-
-
-
   },
 };
 </script>
