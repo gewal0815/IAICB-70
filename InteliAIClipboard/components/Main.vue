@@ -19,7 +19,13 @@
         <i class="fas fa-search" @click="addItem"></i>
       </div>
       <div v-if="showTextArea">
-        <textarea v-model="inputValue" class="text-area" readonly></textarea>
+        <div class="text-area-wrapper">
+          <textarea v-model="inputValue" class="text-area" readonly></textarea>
+          <div class="text-area-buttons">
+            <button @click="copyText">Copy</button>
+            <button @click="deleteText">Delete</button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="side-navigator">

@@ -13,10 +13,34 @@ input,textarea {
 
 .text-area {
    margin-left: 1vw;
-   margin-top: -85px;
+   margin-top: -80px;
    width: 90%vw;
    height:10vh; 
 }
+
+.text-area-wrapper {
+    position: relative;
+  }
+  .text-area-buttons {
+    position: absolute;
+    top: 5px;
+    right: 100px;
+    display: flex;
+  }
+  .text-area-buttons button {
+    margin-left: 5px;
+    border: 1px solid blue;
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: #e6f3ff;
+    color: #0099ff;
+    cursor: pointer;
+  }
+  .text-area-buttons button:hover {
+    background-color: #0099ff;
+    color: #fff;
+  }
+
 .main-content-show {
   width: 95%;
   height: 20vh;
@@ -114,7 +138,7 @@ input,textarea {
     
       .text-area {
         margin-left: 1vw;
-        margin-top: -85px;
+        
     
      }
   .page-wrapper {
@@ -267,7 +291,7 @@ textarea {
 
   .text-area {
     margin-left: 1vw;
-    margin-top: -85px;
+    
 
  }
 
