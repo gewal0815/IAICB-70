@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="side-navigator">
-      <p></p>
+      
     </div>
   </div>
 </template>
@@ -43,10 +43,13 @@ export default {
       showTextArea: false, // add new flag to show/hide textarea
       history: [],
       inputValue: '',
+
     };
   },
 
-  methods: {},
+  methods: {
+    
+  },
 };
 </script>
 
