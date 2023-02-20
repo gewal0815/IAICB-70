@@ -8,17 +8,18 @@
         :key="item.id"
         @click="selectItem(item)"
       >
+        <span class="content">{{
+          item.content.length > 15
+            ? item.content.slice(0, 15) + '...'
+            : item.content
+        }}</span>
+
         <span class="delete-item" @click.stop="deleteItem(index)">
           <img
             src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
             alt="Delete"
           />
         </span>
-        <span class="content">{{
-          item.content.length > 20
-            ? item.content.slice(0, 20) + '...'
-            : item.content
-        }}</span>
       </li>
     </ul>
   </div>
