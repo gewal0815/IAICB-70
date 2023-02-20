@@ -21,6 +21,8 @@
     </div>
   </template>
   <script>
+
+  
   export default {
     props: {
       history: Array,

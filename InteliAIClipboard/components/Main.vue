@@ -21,9 +21,7 @@
     </div>
     <div class="side-navigator">
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a velit
-        in est aliquet faucibus quis sit amet elit. Nunc et maximus eros. Mauris
-        nec metus vitae eros eleifend pulvinar vel eget leo.
+        
       </p>
     </div>
   </div>
@@ -55,6 +53,4 @@ export default {
 @import '../utils/scss/Main.scss';
 </style>
 
-<style>
-@import '../utils/scss/Main.scss';
-</style>
+
