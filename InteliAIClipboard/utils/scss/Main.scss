@@ -1,5 +1,5 @@
 
-input,textarea {
+input {
   border: 1px solid blue;
   border-radius: 20px;
   width: 95%;
@@ -13,9 +13,10 @@ input,textarea {
 
 .text-area {
    margin-left: 1vw;
-   margin-top: -80px;
-   width: 90%vw;
-   height:10vh; 
+   margin-top: -16vh;
+   width: 100%vw;
+   height:10vh;
+   padding-top: 3vh; 
 }
 
 .text-area-wrapper {
@@ -24,13 +25,13 @@ input,textarea {
   .text-area-buttons {
     position: absolute;
     top: 5px;
-    right: 100px;
+    right: 48px;
     display: flex;
   }
   .text-area-buttons button {
     margin-left: 5px;
     border: 1px solid blue;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 5px 10px;
     background-color: #e6f3ff;
     color: #0099ff;
@@ -138,6 +139,7 @@ input,textarea {
     
       .text-area {
         margin-left: 1vw;
+        margin-top: -16vh;
         
     
      }
@@ -280,7 +282,7 @@ input,textarea {
 textarea {
     border: 1px solid blue;
     border-radius: 20px;
-    width: 80%;
+    width: 86%;
     margin: 10px;
     padding: 10px;
   
