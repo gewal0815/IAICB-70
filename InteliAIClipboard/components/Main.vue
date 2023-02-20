@@ -1,332 +1,64 @@
 <template>
-  <div class="page-wrapper">
-    <div class="history-navigator">
-      <ul>
-        <li v-if="history.length === 0">There's no History content</li>
-        <li
-          v-else
-          v-for="(item, index) in history"
-          :key="item.id"
-          @click="selectItem(item)"
-        >
-          <span class="delete-item" @click.stop="deleteItem(index)">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
-              alt="Delete"
-            />
-          </span>
-          {{ item.content }}
-        </li>
-      </ul>
-    </div>
-    <div class="main-content">
-      <div class="main-content-show">
-        <!-- Input field and search button -->
-        <input
-          class="input"
-          type="text"
-          v-model="inputValue"
-          placeholder="Type here..."
-          @keydown.enter="addItem"
-        />
-        <i class="fas fa-search" @click="addItem"></i>
-
-
+    <div class="page-wrapper">
+      <div class="history-navigator">
+        <ul>
+          <li v-if="history.length === 0">There's no History content</li>
+          <li
+            v-else
+            v-for="(item, index) in history"
+            :key="item.id"
+            @click="selectItem(item)"
+          >
+            <span class="delete-item" @click.stop="deleteItem(index)">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
+                alt="Delete"
+              />
+            </span>
+            {{ item.content }}
+          </li>
+        </ul>
+      </div>
+      <div class="main-content">
+        <div class="main-content-show">
+          <!-- Input field and search button -->
+          <input
+            class="input"
+            type="text"
+            v-model="inputValue"
+            placeholder="Type here..."
+            @keydown.enter="addItem"
+          />
+          <i class="fas fa-search" @click="addItem"></i>
+  
+  
+        </div>
+      </div>
+      <div class="side-navigator">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a velit
+          in est aliquet faucibus quis sit amet elit. Nunc et maximus eros. Mauris
+          nec metus vitae eros eleifend pulvinar vel eget leo.
+        </p>
       </div>
     </div>
-    <div class="side-navigator">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a velit
-        in est aliquet faucibus quis sit amet elit. Nunc et maximus eros. Mauris
-        nec metus vitae eros eleifend pulvinar vel eget leo.
-      </p>
-    </div>
-  </div>
-</template>
-
-<script>
-
-export default {
-  data() {
-    return {
-      history: [],
-      inputValue: '',
-    };
-  },
-
-
-
-
-
-  methods: {
-    deleteItem(index) {
-      this.history.splice(index, 1);
+  </template>
+  
+  <script>
+  import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
+  
+  export default {
+    mixins: [HistoryNavigatorMethods],
+    
+    data() {
+      return {
+        history: [],
+        inputValue: '',
+      };
     },
-
-    addItem() {
-      if (!this.inputValue) {
-        this.history.push({ id: Date.now(), content: '' });
-      } else {
-        const newItem = { id: Date.now(), content: this.inputValue };
-        const existingItemIndex = this.history.findIndex(
-          (item) => item.id === newItem.id
-        );
-        if (existingItemIndex >= 0) {
-          // Update existing item
-          this.history[existingItemIndex] = newItem;
-        } else {
-          // Add new item
-          this.history.push(newItem);
-        }
-      }
-      this.inputValue = '';
-    },
-
-    selectItem(item) {
-      console.log(item);
-    },
-
-
-  },
-};
-</script>
+  };
+  </script>
 
 <style>
-.input {
-  border: 1px solid blue;
-  border-radius: 20px;
-  width: 95%;
-  margin: 10px;
-  padding: 10px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.main-content-show {
-  width: 95%;
-  height: 20vh;
-  border: 1px solid blue;
-  padding: 10px;
-
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  border-radius: 10px;
-}
-.page-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-  background-color: #e6f3ff;
-}
-.history-navigator {
-  flex: 0 0 200px;
-  background-color: #b2d4ff;
-  padding: 20px;
-  height: 100%;
-  margin: 10px 2px 10px 0;
-  min-width: 150px;
-  max-width: 300px;
-  border-radius: 10px;
-}
-.main-content {
-  flex: 1 0 0;
-  padding: 20px;
-  height: 100%;
-  margin: 0px 2px;
-  min-width: 150px;
-  max-width: 600px;
-  border-radius: 10px;
-}
-.side-navigator {
-  flex: 0 0 200px;
-  background-color: #b2d4ff;
-  padding: 20px;
-  height: 100%;
-  margin: 10px 0 10px 2px;
-  min-width: 150px;
-  max-width: 300px;
-  border-radius: 10px;
-}
-/* Brighter blue color */
-.history-navigator,
-.side-navigator {
-  color: #fff;
-  background-color: #0099ff;
-}
-/* Override link color */
-.history-navigator a,
-.side-navigator a {
-  color: #fff;
-}
-
-.history-navigator li {
-  margin: 5px;
-  padding: 5px;
-  background-color: #0099ff;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 5px;
-}
-
-.delete-item {
-  cursor: pointer;
-}
-
-.delete-item img {
-  height: 16px;
-  margin-left: 5px;
-}
-
-@media (max-width: 767px) {
-  .page-wrapper {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    height: 100vh;
-  }
-  .history-navigator {
-    order: 1;
-    height: 100%;
-    margin: 10px 2px 10px 0;
-    max-width: 100%;
-    border-radius: 0;
-  }
-  .main-content {
-    order: 2;
-    height: 100%;
-    margin: 10px 2px;
-    max-width: 100%;
-    border-radius: 0;
-  }
-  .side-navigator {
-    order: 3;
-    height: 100%;
-    margin: 10px 0 10px 2px;
-    max-width: 100%;
-    border-radius: 0;
-  }
-  .page-wrapper {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    grid-template-columns: 1fr;
-    height: 100%;
-  }
-  .main-content,
-  .side-navigator {
-    width: 100%;
-    height: 100%;
-    margin: 10px 2px;
-    max-width: 100%;
-    border-radius: 0;
-  }
-  .history-navigator li {
-    margin: 5px;
-    padding: 5px;
-    background-color: #0099ff;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 5px;
-  }
-
-  .delete-item {
-    cursor: pointer;
-    order: 2; /* move delete item to the right */
-  }
-
-  .delete-item img {
-    height: 16px;
-    margin-left: 5px;
-    order: 1; /* move the image to the left of the text */
-  }
-}
-@media (min-width: 768px) and (max-width: 1023px) {
-  .page-wrapper {
-    flex-wrap: wrap;
-    height: 100%;
-  }
-  .history-navigator {
-    flex: 0 0 200px;
-    margin: 10px 2px 10px 0;
-    min-width: 150px;
-    max-width: 300px;
-    border-radius: 10px;
-  }
-  .main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-  .main-content > div {
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-  }
-  .main-content input {
-    flex: 1 0 auto;
-  }
-  .side-navigator {
-    flex: 0 0 200px;
-    margin: 10px 0 10px 2px;
-    min-width: 150px;
-    max-width: 300px;
-    border-radius: 10px;
-  }
-}
-/* Styles for history-navigator */
-.history-navigator {
-  flex: 0 0 100%;
-  max-width: 100%;
-  overflow: auto;
-}
-.history-navigator ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.history-navigator li {
-  margin: 5px;
-  padding: 5px;
-  background-color: #0099ff;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 5px;
-}
-
-.delete-item {
-  cursor: pointer;
-  order: 2; /* move delete item to the right */
-}
-
-.delete-item img {
-  height: 16px;
-  margin-left: 5px;
-  order: 1; /* move the image to the left of the text */
-}
-
-@media (min-width: 768px) {
-  .history-navigator {
-    flex: 0 0 200px;
-    max-width: 300px;
-    overflow: visible;
-    border-radius: 10px;
-  }
-}
+ @import "../utils/scss/Main.scss";
 </style>
