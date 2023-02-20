@@ -1,5 +1,5 @@
 
-.input {
+input,textarea {
   border: 1px solid blue;
   border-radius: 20px;
   width: 95%;
@@ -9,6 +9,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.text-area {
+   margin-left: 1vw;
+   margin-top: -85px;
+   width: 90%vw;
+   height:10vh; 
 }
 .main-content-show {
   width: 95%;
@@ -92,6 +99,24 @@
 }
 
 @media (max-width: 767px) {
+
+    textarea {
+        border: 1px solid blue;
+        border-radius: 20px;
+        width: 80%;
+        margin: 10px;
+        padding: 10px;
+      
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    
+      .text-area {
+        margin-left: 1vw;
+        margin-top: -85px;
+    
+     }
   .page-wrapper {
     flex-direction: column;
     justify-content: flex-start;
@@ -157,7 +182,7 @@
     order: 1; /* move the image to the left of the text */
   }
 }
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px){
   .page-wrapper {
     flex-wrap: wrap;
     height: 100%;
@@ -227,6 +252,24 @@
   margin-left: 5px;
   order: 1; /* move the image to the left of the text */
 }
+
+textarea {
+    border: 1px solid blue;
+    border-radius: 20px;
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text-area {
+    margin-left: 1vw;
+    margin-top: -85px;
+
+ }
 
 @media (min-width: 768px) {
   .history-navigator {

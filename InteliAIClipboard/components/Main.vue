@@ -17,20 +17,19 @@
             @keydown.enter="addItem"
           />
           <i class="fas fa-search" @click="addItem"></i>
-          <!-- New div with textarea -->
-          <div>
-            <textarea v-model="inputValue" class="text-area"></textarea>
-          </div>
+        </div>
+        <div v-if="showTextArea">
+          <textarea v-model="inputValue" class="text-area" readonly></textarea>
         </div>
       </div>
       <div class="side-navigator">
-        <p>
-          
-        </p>
+        <p></p>
       </div>
     </div>
   </template>
   
+
+
 <script>
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 
@@ -39,21 +38,16 @@ export default {
 
   data() {
     return {
+      showTextArea: false, // add new flag to show/hide textarea
       history: [],
       inputValue: '',
     };
   },
 
-  methods: {
-
-
-
-  },
+  methods: {},
 };
 </script>
 
 <style>
 @import '../utils/scss/Main.scss';
 </style>
-
-

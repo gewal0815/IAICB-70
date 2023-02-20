@@ -1,5 +1,4 @@
 <script>
-
 export default {
   methods: {
     deleteItem(index) {
@@ -8,7 +7,14 @@ export default {
 
     addItem() {
       if (!this.inputValue) {
+        const lastItem = this.history[this.history.length - 1];
+        if (lastItem && !lastItem.content) {
+          // The last item is empty, remove it
+          this.history.pop();
+        }
         this.history.push({ id: Date.now(), content: '' });
+        this.inputValue = '';
+        this.showTextArea = true;
       } else {
         const newItem = { id: Date.now(), content: this.inputValue };
         const existingItemIndex = this.history.findIndex(
@@ -21,8 +27,9 @@ export default {
           // Add new item
           this.history.push(newItem);
         }
+
+        this.showTextArea = true;
       }
-      this.inputValue = '';
     },
 
     selectItem(item) {
