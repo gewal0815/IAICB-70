@@ -1,7 +1,7 @@
 /* Global Styles */
 
 :root {
-  --ButtonColor: rgb(152, 151, 166);
+  --ButtonColor: #9897a6;
   --ButtonColorBackground: #0099ff;
   --ButtonPadding: 4px;
 }
@@ -124,12 +124,12 @@ textarea {
 }
 
 .history-navigator-label {
+  display: flex;
   font-size: 24px;
   font-weight: 500;
   color: #333;
-  padding: 20px;
-  margin: 10px;
-  border: none;
+  padding: 10px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #ddd;
 }
 .history-navigator,
@@ -162,6 +162,7 @@ textarea {
   background-color: #f1f1f1;
   color: #333;
   border-radius: 5px;
+  margin-bottom: 2px;
   cursor: pointer;
 }
 
