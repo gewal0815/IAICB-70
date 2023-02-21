@@ -232,10 +232,15 @@ textarea {
     width: 95%;
   }
 
-  .history-navigator,
-  .side-navigator {
-    flex: 0 0 100%;
-  }
+  .history-navigator li,
+.side-navigator li {
+  background-color: #f1f1f1;
+  color: #333;
+  border-radius: 5px;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+
   .main-content {
     flex: 0 0 100%;
     margin: 10px 0;
