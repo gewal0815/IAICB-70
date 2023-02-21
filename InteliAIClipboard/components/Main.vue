@@ -7,7 +7,14 @@
       @select-item="selectItem"
     />
     <div class="main-content">
+
       <div class="main-content-show">
+        <div class="main-content-show-Icon-left">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/7017/7017557.png"
+          alt="AI Icon"
+        />
+      </div>
         <div class="input-wrapper">
           <input
             ref="input"
@@ -22,7 +29,6 @@
             <button class="close-button" @click="clearInput">Delete</button>
           </div>
         </div>
-        <i class="fas fa-search" @click="addItem"></i>
       </div>
       <div v-if="showTextArea" class="text-area-wrapper">
         <textarea v-model="inputValue" class="text-area" readonly></textarea>
