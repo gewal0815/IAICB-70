@@ -34,6 +34,7 @@
     </div>
 
     <div class="side-navigator">
+      <label class="side-navigator-label">Last Copied Item !</label>
       <div ref="clipboardData"></div>
       <div v-for="(item, index) in copiedItems" :key="index">{{ item }}</div>
     </div>
@@ -82,8 +83,16 @@ export default {
         document.execCommand('copy');
         clipboardData.innerHTML = '';
 
-        // Add the copied text to the array
-        this.copiedItems.push(this.inputValue);
+        // Replace the last item in the copiedItems array with the current value of inputValue
+        if (this.copiedItems.length > 0) {
+          this.copiedItems.splice(
+            this.copiedItems.length - 1,
+            1,
+            this.inputValue
+          );
+        } else {
+          this.copiedItems.push(this.inputValue);
+        }
       }
     },
   },
