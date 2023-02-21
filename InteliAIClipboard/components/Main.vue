@@ -107,7 +107,7 @@ export default {
         }
 
         // Update the clipboard items
-       
+        this.checkClipboard();
       }
     },
 
@@ -133,6 +133,7 @@ export default {
   },
 };
 </script>
+
 
 <style>
 @import '../utils/scss/Main.scss';
