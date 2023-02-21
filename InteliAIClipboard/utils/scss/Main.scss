@@ -64,7 +64,7 @@
     justify-content: center;
   }
   
-
+/* Input Wrapper*/
   .input-wrapper {
     display: flex;
     align-items: center;
@@ -102,7 +102,7 @@
 
 
 
-  
+  /* Page Wrapper */
   .page-wrapper {
     display: flex;
     flex-direction: row;
@@ -111,6 +111,22 @@
     background-color: #e6f3ff;
   }
   
+
+  /*History Navigator*/
+
+  .history-navigator-label {
+    display:flex;
+    justify-content: center;
+    align-items: stretch;
+    font-size: 19px;
+    font-weight: 500;
+    color: brown;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid blue;
+    border-radius: 8px;
+
+  }
   .history-navigator,
   .side-navigator {
     flex: 0 0 200px;
@@ -163,6 +179,7 @@
     margin-left: 5px;
     order: 1;
   }
+
   /* Media Query larger screen */
   @media (min-width: 768px) {
     .page-wrapper {
@@ -195,7 +212,7 @@
       width: 100%;
     }
   }
-
+  /* Media Query xs screen */
   @media (max-width: 768px) {
     .page-wrapper {
       flex-direction: column;

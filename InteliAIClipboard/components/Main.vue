@@ -8,7 +8,7 @@
       />
       <div class="main-content">
         <div class="main-content-show">
-          <!-- Input field and search button -->
+          
           <div class="input-wrapper">
             <input
               ref="input"  

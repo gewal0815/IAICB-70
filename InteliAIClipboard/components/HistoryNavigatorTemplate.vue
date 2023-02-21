@@ -1,5 +1,6 @@
 <template>
   <div class="history-navigator">
+    <label class="history-navigator-label">Memory Lane</label>
     <ul>
       <li v-if="history.length === 0">There's no History content</li>
       <li
