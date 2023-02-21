@@ -19,8 +19,8 @@
               @keydown.enter="addItem"
             />
             <div class="input-buttons">
-              <button class="edit-button" @click="editText">Edit</button> <!-- add click event to edit-button -->
-              <button class="close-button" @click="clearInput">Delete</button> <!-- add click event to close-button -->
+              <button class="edit-button" @click="editText">Edit</button> 
+              <button class="close-button" @click="clearInput">Delete</button> 
             </div>
           </div>
           <i class="fas fa-search" @click="addItem"></i>
