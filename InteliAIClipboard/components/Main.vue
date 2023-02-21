@@ -130,9 +130,16 @@ export default {
   mounted() {
     // Check the clipboard when the component is mounted
     this.checkClipboard();
+
+    // Listen for the "copy" event on the document object
+    document.addEventListener('copy', () => {
+      // Update the clipboard items
+      this.checkClipboard();
+    });
   },
 };
 </script>
+
 
 
 <style>
