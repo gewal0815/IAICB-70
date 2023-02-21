@@ -64,6 +64,44 @@
     justify-content: center;
   }
   
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    width: 95%;
+  }
+  
+  .input {
+    flex: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid blue;
+    border-radius: 10px;
+  }
+  
+  .input-buttons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .edit-button, .close-button {
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid blue;
+    border-radius: 10px;
+    background-color: #e6f3ff;
+    color: #0099ff;
+    cursor: pointer;
+  }
+  
+  .edit-button:hover, .close-button:hover {
+    background-color: #0099ff;
+    color: #fff;
+  }
+  
+
+
+
   
   .page-wrapper {
     display: flex;
