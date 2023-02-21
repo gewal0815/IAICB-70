@@ -8,31 +8,27 @@
   
   input,
   textarea {
-    width: 95%;
-    margin: 10px;
+    width: 100%;
+    margin: 10px 0;
     padding: 10px;
     border: 1px solid blue;
     border-radius: 20px;
   }
   
   .text-area {
-    margin-left: 1vw;
-    margin-top: -16vh;
-    width: 100%vw;
+    margin-top: 10px;
+    width: 100%;
     height: 10vh;
-    padding-top: 3vh;
+    padding: 10px;
     border-radius: 10px;
     resize: none;
-  }
-  
-  .text-area-wrapper {
     position: relative;
   }
   
   .text-area-buttons {
     position: absolute;
     top: 5px;
-    right: 48px;
+    right: 5px;
     display: flex;
   }
   
@@ -52,13 +48,14 @@
   }
   
   .main-content-show {
-    width: 95%;
-    height: 20vh;
+    width: 100%;
+    height: auto;
     padding: 10px;
     border: 1px solid blue;
     border-radius: 10px;
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
   }
   
