@@ -36,6 +36,8 @@ export default {
       this.inputValue = item.content;
       this.showTextArea = true;
     },
+
+    
   },
 };
 </script>
