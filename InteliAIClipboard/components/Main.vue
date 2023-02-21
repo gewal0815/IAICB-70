@@ -7,14 +7,13 @@
       @select-item="selectItem"
     />
     <div class="main-content">
-
       <div class="main-content-show">
         <div class="main-content-show-Icon-left">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/7017/7017557.png"
-          alt="AI Icon"
-        />
-      </div>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/7017/7017557.png"
+            alt="AI Icon"
+          />
+        </div>
         <div class="input-wrapper">
           <input
             ref="input"
@@ -43,6 +42,12 @@
       <label class="side-navigator-label">Last Copied Item !</label>
       <div ref="clipboardData"></div>
       <div v-for="(item, index) in copiedItems" :key="index">{{ item }}</div>
+      <div v-if="clipboardItems.length > 0">
+        <label class="side-navigator-label">Items in Clipboard:</label>
+        <div v-for="(item, index) in clipboardItems" :key="index">
+          {{ item }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -59,6 +64,7 @@ export default {
       history: [],
       inputValue: '',
       copiedItems: [],
+      clipboardItems: [],
     };
   },
 
@@ -99,8 +105,31 @@ export default {
         } else {
           this.copiedItems.push(this.inputValue);
         }
+
+        // Update the clipboard items
+       
       }
     },
+
+    checkClipboard() {
+      // Check if there is any data in the clipboard
+      navigator.clipboard
+        .readText()
+        .then((clipText) => {
+          const clipboardItems = clipText.split('\n');
+
+          // Filter out any empty items
+          this.clipboardItems = clipboardItems.filter((item) => item !== '');
+        })
+        .catch(() => {
+          // Do nothing if the clipboard is not accessible
+        });
+    },
+  },
+
+  mounted() {
+    // Check the clipboard when the component is mounted
+    this.checkClipboard();
   },
 };
 </script>
