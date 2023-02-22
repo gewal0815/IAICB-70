@@ -3,7 +3,6 @@
     <HistoryNavigatorTemplate
       :history="history"
       :input-value="inputValue"
-      :show-text-area="showTextArea"
       @delete-item="deleteItem"
       @select-item="selectItem"
       
