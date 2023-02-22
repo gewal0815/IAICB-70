@@ -59,7 +59,6 @@
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 import { PrismaClient } from '@prisma/client'
 import SavedModal from '~/components/SavedModal.vue'
-
 export default {
   mixins: [HistoryNavigatorMethods],
   components: { SavedModal },
@@ -73,24 +72,19 @@ export default {
       showModal: false,
     };
   },
-
   methods: {
-
     editText() {
       this.showTextArea = true;
       this.$nextTick(() => {
         this.$refs.input.focus(); // bring the focus back to the input field
       });
     },
-
     clearInput() {
       this.inputValue = ''; // clear the input field
       this.showTextArea = false;
     },
-
     copyText() {
       const clipboardData = this.$refs.clipboardData;
-
       // Make sure clipboardData is defined before setting its innerHTML
       if (clipboardData) {
         clipboardData.innerHTML = this.inputValue;
@@ -101,7 +95,6 @@ export default {
         selection.addRange(range);
         document.execCommand('copy');
         clipboardData.innerHTML = '';
-
         // Replace the last item in the copiedItems array with the current value of inputValue
         if (this.copiedItems.length > 0) {
           this.copiedItems.splice(
@@ -112,19 +105,16 @@ export default {
         } else {
           this.copiedItems.push(this.inputValue);
         }
-
         // Update the clipboard items
         this.checkClipboard();
       }
     },
-
     checkClipboard() {
       // Check if there is any data in the clipboard
       navigator.clipboard
         .readText()
         .then((clipText) => {
           const clipboardItems = clipText.split('\n');
-
           // Filter out any empty items
           this.clipboardItems = clipboardItems.filter((item) => item !== '');
         })
@@ -133,11 +123,9 @@ export default {
         });
     },
   },
-
   mounted() {
     // Check the clipboard when the component is mounted
     this.checkClipboard();
-
     // Listen for the "copy" event on the document object
     document.addEventListener('copy', () => {
       // Update the clipboard items

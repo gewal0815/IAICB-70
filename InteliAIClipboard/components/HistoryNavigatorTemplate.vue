@@ -8,6 +8,7 @@
         v-for="(item, index) in history"
         :key="item.id"
         @click="selectItem(item)"
+        :style="{ color: item.color }"
       >
         <span class="content">{{
           item.content.length > 15
@@ -25,6 +26,7 @@
     </ul>
   </div>
 </template>
+
 <script>
 export default {
   props: {
@@ -35,7 +37,6 @@ export default {
     deleteItem(index) {
       this.$emit('delete-item', index);
     },
-
     selectItem(item) {
       this.$emit('select-item', item);
     },
