@@ -30,12 +30,12 @@
         </div>
       </div>
       <div v-if="showTextArea" class="text-area-wrapper">
-        <textarea v-model="inputValue" class="text-area" readonly></textarea>
-        <div class="text-area-buttons">
-          <button @click="copyText">Copy</button>
-          <button >Delete</button>
-        </div>
+      <textarea v-model="inputValue" class="text-area" :readonly="!isCodeSnippet"></textarea>
+      <div class="text-area-buttons">
+        <button @click="copyText">Copy</button>
+        <button>Delete</button>
       </div>
+    </div>
     </div>
 
     <div class="side-navigator">
