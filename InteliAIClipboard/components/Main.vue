@@ -3,10 +3,13 @@
     <HistoryNavigatorTemplate
       :history="history"
       :input-value="inputValue"
+      :show-text-area="showTextArea"
       @delete-item="deleteItem"
       @select-item="selectItem"
+      
     />
     <div class="main-content">
+      
       <div class="main-content-show">
         <div class="main-content-show-Icon-left">
           <img
@@ -41,6 +44,7 @@
     <div class="side-navigator">
       <label class="side-navigator-label">Last Copied Item !</label>
       <div ref="clipboardData"></div>
+     
       <div v-for="(item, index) in copiedItems" :key="index">{{ item }}</div>
       <div v-if="clipboardItems.length > 0">
         <label class="side-navigator-label">Items in Clipboard:</label>
@@ -54,6 +58,7 @@
 
 <script>
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
+import { PrismaClient } from '@prisma/client'
 
 export default {
   mixins: [HistoryNavigatorMethods],
@@ -65,10 +70,12 @@ export default {
       inputValue: '',
       copiedItems: [],
       clipboardItems: [],
+      nuxtConfig: null,
     };
   },
 
   methods: {
+   
     editText() {
       this.showTextArea = true;
       this.$nextTick(() => {
@@ -139,8 +146,6 @@ export default {
   },
 };
 </script>
-
-
 
 <style>
 @import '../utils/scss/Main.scss';

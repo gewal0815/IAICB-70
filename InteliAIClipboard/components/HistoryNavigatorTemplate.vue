@@ -30,6 +30,7 @@ export default {
   props: {
     history: Array,
     inputValue: String,
+    showTextArea: Boolean
   },
   methods: {
     deleteItem(index) {
