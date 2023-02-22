@@ -5,10 +5,8 @@
       :input-value="inputValue"
       @delete-item="deleteItem"
       @select-item="selectItem"
-      
     />
     <div class="main-content">
-      
       <div class="main-content-show">
         <div class="main-content-show-Icon-left">
           <img
@@ -35,7 +33,7 @@
         <textarea v-model="inputValue" class="text-area" readonly></textarea>
         <div class="text-area-buttons">
           <button @click="copyText">Copy</button>
-          <button @click="showModal = true">Delete</button>
+          <button  @click="showModal = true">Delete</button>
         </div>
       </div>
     </div>
@@ -43,7 +41,7 @@
     <div class="side-navigator">
       <label class="side-navigator-label">Last Copied Item !</label>
       <div ref="clipboardData"></div>
-     
+
       <div v-for="(item, index) in copiedItems" :key="index">{{ item }}</div>
       <div v-if="clipboardItems.length > 0">
         <label class="side-navigator-label">Items in Clipboard:</label>
@@ -54,7 +52,7 @@
     </div>
   </div>
 
-  <SavedModal v-show="showModal" @close-modal="showModal = false"/>
+  <SavedModal v-show="showModal" @close-modal="showModal = false" />
 </template>
 
 <script>
@@ -77,7 +75,7 @@ export default {
   },
 
   methods: {
-   
+
     editText() {
       this.showTextArea = true;
       this.$nextTick(() => {
