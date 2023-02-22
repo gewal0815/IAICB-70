@@ -35,7 +35,7 @@
         <textarea v-model="inputValue" class="text-area" readonly></textarea>
         <div class="text-area-buttons">
           <button @click="copyText">Copy</button>
-          <button @click="deleteText">Delete</button>
+          <button @click="showModal = true">Delete</button>
         </div>
       </div>
     </div>
@@ -53,15 +53,18 @@
       </div>
     </div>
   </div>
+
+  <SavedModal v-show="showModal" @close-modal="showModal = false"/>
 </template>
 
 <script>
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 import { PrismaClient } from '@prisma/client'
+import SavedModal from '~/components/SavedModal.vue'
 
 export default {
   mixins: [HistoryNavigatorMethods],
-
+  components: { SavedModal },
   data() {
     return {
       showTextArea: false,
@@ -69,7 +72,7 @@ export default {
       inputValue: '',
       copiedItems: [],
       clipboardItems: [],
-      nuxtConfig: null,
+      showModal: false,
     };
   },
 
