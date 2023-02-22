@@ -33,7 +33,7 @@
         <textarea v-model="inputValue" class="text-area" readonly></textarea>
         <div class="text-area-buttons">
           <button @click="copyText">Copy</button>
-          <button  @click="showModal = true">Delete</button>
+          <button >Delete</button>
         </div>
       </div>
     </div>
@@ -84,6 +84,7 @@ export default {
       this.showTextArea = false;
     },
     copyText() {
+      this.showModal = true
       const clipboardData = this.$refs.clipboardData;
       // Make sure clipboardData is defined before setting its innerHTML
       if (clipboardData) {

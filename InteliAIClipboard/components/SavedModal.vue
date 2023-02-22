@@ -3,8 +3,8 @@
     <div class="modal-overlay" @click="$emit('close-modal')">
       <div class="modal" @click.stop>
         <img class="check" src="https://cdn-icons-png.flaticon.com/512/2763/2763138.png" alt="" />
-        <h6>Saved!</h6>
-        <p>Your Details have been saved Successfully</p>
+        <h6>Copied!</h6>
+        <p>Your Details have been Copied Successfully</p>
         <button @click="$emit('close-modal')">Go Home</button>
       </div>
       <div class="close" @click="$emit('close-modal')">
