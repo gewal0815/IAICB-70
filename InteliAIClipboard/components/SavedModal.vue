@@ -5,7 +5,7 @@
         <img class="check" src="https://cdn-icons-png.flaticon.com/512/2763/2763138.png" alt="" />
         <h6>Saved!</h6>
         <p>Your Details have been saved Successfully</p>
-        <button>Go Home</button>
+        <button @click="$emit('close-modal')">Go Home</button>
       </div>
       <div class="close" @click="$emit('close-modal')">
         <img class="close-img" src="https://cdn-icons-png.flaticon.com/512/2763/2763138.png" alt="" />
@@ -59,7 +59,7 @@ p {
   margin: 20px 0;
 }
 button {
-  background-color: #ac003e;
+  background-color: #00ac53;
   width: 150px;
   height: 40px;
   color: white;
