@@ -4,7 +4,7 @@
 
 
 * {
-  margin: 0;
+  margin: 2px;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
@@ -202,6 +202,10 @@ textarea {
 
 /* Media Query larger screen */
 @media (min-width: 768px) {
+  * {
+    margin: 2px;
+  }
+  
   .page-wrapper {
     width: 100%;
     display: flex;
@@ -239,6 +243,11 @@ textarea {
 }
 /* Media Query xs screen */
 @media (max-width: 768px) {
+  * {
+    margin: 0px;
+
+  }
+  
   .page-wrapper {
     flex-direction: column;
     align-items: center;
