@@ -53,15 +53,18 @@
   </div>
 
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
+  <EndpointModel />
 </template>
 
 <script>
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
+import EndpointModel from './Notes/EndpointModel.vue';
+
 import { PrismaClient } from '@prisma/client'
 import SavedModal from '~/components/SavedModal.vue'
 export default {
   mixins: [HistoryNavigatorMethods],
-  components: { SavedModal },
+  components: { SavedModal, EndpointModel },
   data() {
     return {
       showTextArea: false,
@@ -138,4 +141,6 @@ export default {
 
 <style>
 @import '../utils/scss/Main.scss';
+@import '../utils/scss/Global.scss';
+
 </style>

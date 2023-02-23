@@ -2,14 +2,7 @@
 
 /* Global Styles */
 
-:root {
-  --ButtonColor: #9897a6;
-  --ButtonColorBackground: #0099ff;
-  --ButtonPadding: 4px;
 
-  --BorderColor: #f5f5f5;
-
-}
 * {
   margin: 0;
   padding: 0;
@@ -18,7 +11,7 @@
 }
 
 body {
-  background-color: #f5f5f5;
+  background-color: var(--MainBackground);
 }
 
 input,
@@ -26,7 +19,7 @@ textarea {
   width: 100%;
   margin: 10px 0;
   padding: 10px;
-  border: 1px solid blue;
+  border: var(--) solid blue;
   border-radius: 20px;
 }
 
@@ -66,7 +59,7 @@ textarea {
 
 .main-content-show {
   padding: 20px;
-  border: 1px solid #ddd;
+  border: var(--BorderSize) solid #ddd;
   border-radius: 5px;
   background-color: #fff;
 }
