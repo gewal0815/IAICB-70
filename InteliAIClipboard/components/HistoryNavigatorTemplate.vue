@@ -34,7 +34,6 @@
 
 <script>
 import { createClient } from '@supabase/supabase-js';
-import { reactive } from 'vue';
 import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
 
 export default {
@@ -86,10 +85,21 @@ export default {
       // Save new items to the database
       const newItems = newVal.slice(oldVal.length);
       newItems.forEach((item) => this.saveToDatabase(item));
+
+      // Add new item to the database if inputValue is not empty
+      if (newVal.length > 0 && this.inputValue !== '') {
+        const newItem = {
+          content: this.inputValue,
+          color: 'blue',
+          created_at: new Date(),
+        };
+        this.saveToDatabase(newItem);
+      }
     },
     deep: true,
   },
 },
+
 
 
 };
