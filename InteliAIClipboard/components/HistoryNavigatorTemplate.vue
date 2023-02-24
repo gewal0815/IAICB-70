@@ -6,7 +6,7 @@
       <li
         v-if="!showTextArea"
         v-for="(item, index) in history"
-        :key="item.id"
+        :key="item.uuid"
         @click="selectItem(item)"
         :style="{ color: item.color }"
       >
@@ -21,7 +21,7 @@
             : item.content
         }}</span>
 
-        <span class="delete-item" @click.stop="deleteItem(item.uuid)">
+        <span class="delete-item" @click.stop="deleteItem(item.content)">
           <img
             src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
             alt="Delete"
@@ -37,7 +37,7 @@ import { createClient } from '@supabase/supabase-js';
 import { reactive } from 'vue';
 import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
 import { v4 as uuidv4 } from 'uuid';
-
+const uuid = uuidv4();
 export default {
   props: {
     history: Array,
@@ -53,104 +53,92 @@ export default {
   },
   methods: {
     async clearDatabase() {
-      const { error: deleteError } = await this.supabaseClient
+      const { error } = await this.supabaseClient
         .from('history')
         .delete()
         .eq('color', 'blue');
 
-      if (deleteError) {
-        console.error(deleteError);
+      if (error) {
+        console.error('Error deleting blue items:', error);
       } else {
-        console.log('Rows with color blue deleted on Startup');
+        console.log('Blue items deleted on startup');
       }
     },
-    async deleteItem(uuid) {
-  console.log('Deleting item with UUID:', uuid);
-  
-  console.log('History array:', this.history);
+    async deleteItem(content) {
+      console.log('Deleting item with UUID:', uuid);
 
-  // Find the item in the history array with the given UUID
-  const itemToDelete = this.history.find((item) => item.uuid === uuid);
+      const itemToDelete = this.history.find(
+        (item) => item.content === item.content
+      );
+      console.log(itemToDelete);
+      if (!itemToDelete) {
+        console.error(`No item found in history with UUID ${uuid}`);
+        return;
+      }
 
-  // If no item with the given UUID is found, log an error and return
-  if (!itemToDelete) {
-    console.error(`No item found in history with UUID ${uuid}`);
-    return;
-  }
+      const { error } = await this.supabaseClient
+        .from('history')
+        .delete()
+        .eq('content', itemToDelete.content);
 
-  // Remove item from the database
-  const { data, error } = await this.supabaseClient
-    .from('history')
-    .delete()
-    .eq('uuid', uuid);
+      if (error) {
+        console.error('Error deleting item:', error);
+        return;
+      }
 
-  if (error) {
-    console.error('Error deleting item:', error);
-    return;
-  }
+      const index = this.history.findIndex((item) => item.uuid === uuid);
+      if (index >= 0) {
+        this.history.splice(index, 1);
+      }
 
-  // Remove item from the list
-  const index = this.history.findIndex((item) => item.uuid === uuid);
-  if (index >= 0) {
-    this.history.splice(index, 1);
-  }
+      console.log('History array after deletion:', this.history);
 
-  console.log('History array after deletion:', this.history);
-
-  this.$emit('delete-item', index);
-}
-,
+      this.$emit('delete-item', index);
+    },
 
     selectItem(item) {
       this.$emit('select-item', item);
-      console.table(item);
 
       this.saveToDatabase(item);
     },
 
     async saveToDatabase(item) {
-      const uuid = uuidv4(); // generate a new UUID for the item
-
-      const { data, error } = await this.supabaseClient.from('history').insert({
+      const { error } = await this.supabaseClient.from('history').insert({
         id: item.id,
         color: item.color,
+
         date: item.date,
         content: item.content,
-        uuid: uuid, // insert the generated UUID
+        uuid: uuid,
       });
 
       if (error) {
-        console.error(error);
-      } else {
-        console.log('Item saved to database:', data);
+        console.error('Error saving item:', error);
+        return;
       }
+
+      console.log('Item saved to database:', item);
+      const test = item;
     },
   },
   watch: {
     history: {
       handler(newVal, oldVal) {
-        const uuid = uuidv4();
-        // Save new items to the database
         const newItems = newVal.slice(oldVal.length);
-
-        console.log('New Items:', newItems);
 
         newItems.forEach((item) => this.saveToDatabase(item));
 
-        // Add new item to the database if inputValue is not empty
         if (newVal.length > 0 && this.inputValue !== '') {
           const newItem = {
             content: this.inputValue,
             color: 'blue',
             created_at: new Date(),
-            uuid: uuid, // insert the generated UUID
+            uuid: this.uuid,
           };
           this.saveToDatabase(newItem);
         }
 
-        console.log('History array:', this.history);
-
-        newItems.forEach((item) => this.deleteItem(item.uuid));
+        console.log('History array after saving new items:', this.history);
       },
       deep: true,
     },
