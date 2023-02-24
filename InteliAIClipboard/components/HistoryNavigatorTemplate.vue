@@ -61,7 +61,7 @@ export default {
   if (deleteError) {
     console.error(deleteError);
   } else {
-    console.log('Rows with color blue deleted');
+    console.log('Rows with color blue deleted on Startup');
   }
 }
 ,
