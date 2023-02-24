@@ -21,11 +21,7 @@
             : item.content
         }}</span>
 
-        <span
-          class="delete-item"
-          @click.stop="deleteItem(index)"
-          
-        >
+        <span class="delete-item" @click.stop="deleteItem(index)">
           <img
             src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
             alt="Delete"
@@ -39,7 +35,7 @@
 <script>
 import { createClient } from '@supabase/supabase-js';
 import { reactive } from 'vue';
-import { SUPABASEKEY,SUPABASEURL } from "../utils/key/key.vue";
+import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
 
 export default {
   props: {
@@ -52,17 +48,27 @@ export default {
     };
   },
   methods: {
-    deleteItem(index) {
-      this.$emit('delete-item', index);
-      // Remove item from the database
+    async deleteItem(index) {
       const item = this.history[index];
-      this.supabaseClient.from('history').delete().eq('id', item.id);
+
+      // Remove item from the database
+      const { error } = await this.supabaseClient
+        .from('history')
+        .delete()
+        .eq('id', item.id);
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      // Remove item from the list
+      this.$emit('delete-item', index);
     },
     selectItem(item) {
-      this.$emit('select-item', item); 
+      this.$emit('select-item', item);
       console.table(item);
       console.table(this.history);
-      
+
       this.saveToDatabase(item);
     },
     async saveToDatabase(item) {
@@ -86,4 +92,3 @@ export default {
   },
 };
 </script>
-
