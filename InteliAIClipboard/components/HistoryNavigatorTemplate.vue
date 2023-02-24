@@ -36,6 +36,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { reactive } from 'vue';
 import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
+import moment from 'moment';
 
 export default {
   props: {
@@ -47,7 +48,24 @@ export default {
       supabaseClient: createClient(SUPABASEURL, SUPABASEKEY),
     };
   },
+  created() {
+    this.clearDatabase();
+  },
   methods: {
+    async clearDatabase() {
+  const { error: deleteError } = await this.supabaseClient
+    .from('history')
+    .delete()
+    .eq('color', 'blue');
+
+  if (deleteError) {
+    console.error(deleteError);
+  } else {
+    console.log('Rows with color blue deleted');
+  }
+}
+,
+
     async deleteItem(index) {
       const item = this.history[index];
 
@@ -80,28 +98,25 @@ export default {
       }
     },
   },
-watch: {
-  history: {
-    handler(newVal, oldVal) {
-      // Save new items to the database
-      const newItems = newVal.slice(oldVal.length);
-      newItems.forEach((item) => this.saveToDatabase(item));
+  watch: {
+    history: {
+      handler(newVal, oldVal) {
+        // Save new items to the database
+        const newItems = newVal.slice(oldVal.length);
+        newItems.forEach((item) => this.saveToDatabase(item));
 
-      // Add new item to the database if inputValue is not empty
-      if (newVal.length > 0 && this.inputValue !== '') {
-        const newItem = {
-          content: this.inputValue,
-          color: 'blue',
-          created_at: new Date(),
-        };
-        this.saveToDatabase(newItem);
-      }
+        // Add new item to the database if inputValue is not empty
+        if (newVal.length > 0 && this.inputValue !== '') {
+          const newItem = {
+            content: this.inputValue,
+            color: 'blue',
+            created_at: new Date(),
+          };
+          this.saveToDatabase(newItem);
+        }
+      },
+      deep: true,
     },
-    deep: true,
   },
-},
-
-
-
 };
 </script>
