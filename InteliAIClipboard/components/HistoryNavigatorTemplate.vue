@@ -59,7 +59,7 @@ export default {
       this.supabaseClient.from('history').delete().eq('id', item.id);
     },
     selectItem(item) {
-      this.$emit('select-item', item);
+      this.$emit('select-item', item); 
       console.table(item);
       console.table(this.history);
       
