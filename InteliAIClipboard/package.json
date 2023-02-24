@@ -28,6 +28,7 @@
     "mysql": "^2.18.1",
     "prettier": "^2.8.4",
     "prisma": "^4.10.1",
+    "uuidv4": "^6.2.13",
     "vue-clipboard2": "^0.3.3",
     "vuejs-paginate": "^2.1.0"
   }

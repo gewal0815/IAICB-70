@@ -34,6 +34,7 @@
 
 <script>
 import { createClient } from '@supabase/supabase-js';
+import { reactive } from 'vue';
 import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
 
 export default {
@@ -79,7 +80,7 @@ export default {
       }
     },
   },
-  watch: {
+watch: {
   history: {
     handler(newVal, oldVal) {
       // Save new items to the database
