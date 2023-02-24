@@ -81,14 +81,16 @@ export default {
     },
   },
   watch: {
-    history: {
-      handler(newVal, oldVal) {
-        // Save new items to the database
-        const newItems = newVal.slice(oldVal.length);
-        newItems.forEach((item) => this.saveToDatabase(item));
-      },
-      deep: true,
+  history: {
+    handler(newVal, oldVal) {
+      // Save new items to the database
+      const newItems = newVal.slice(oldVal.length);
+      newItems.forEach((item) => this.saveToDatabase(item));
     },
+    deep: true,
   },
+},
+
+
 };
 </script>
