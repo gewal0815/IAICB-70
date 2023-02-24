@@ -30,12 +30,16 @@
         </div>
       </div>
       <div v-if="showTextArea" class="text-area-wrapper">
-      <textarea v-model="inputValue" class="text-area" :readonly="!isCodeSnippet"></textarea>
-      <div class="text-area-buttons">
-        <button @click="copyText">Copy</button>
-        <button>Delete</button>
+        <textarea
+          v-model="inputValue"
+          class="text-area"
+          :readonly="!isCodeSnippet"
+        ></textarea>
+        <div class="text-area-buttons">
+          <button @click="copyText">Copy</button>
+          <button @click="handleSubmit()">Delete</button>
+        </div>
       </div>
-    </div>
     </div>
 
     <div class="side-navigator">
@@ -60,11 +64,15 @@
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 import EndpointModel from './Notes/EndpointModel.vue';
 
-import { PrismaClient } from '@prisma/client'
-import SavedModal from '~/components/SavedModal.vue'
+import { PrismaClient } from '@prisma/client';
+import SavedModal from '~/components/SavedModal.vue';
+
+
+
 export default {
   mixins: [HistoryNavigatorMethods],
   components: { SavedModal, EndpointModel },
+
   data() {
     return {
       showTextArea: false,
@@ -73,6 +81,7 @@ export default {
       copiedItems: [],
       clipboardItems: [],
       showModal: false,
+      inputValue: '',
     };
   },
   methods: {
@@ -87,7 +96,7 @@ export default {
       this.showTextArea = false;
     },
     copyText() {
-      this.showModal = true
+      this.showModal = true;
       const clipboardData = this.$refs.clipboardData;
       // Make sure clipboardData is defined before setting its innerHTML
       if (clipboardData) {
@@ -136,11 +145,11 @@ export default {
       this.checkClipboard();
     });
   },
+
 };
 </script>
 
 <style>
 @import '../utils/scss/Main.scss';
 @import '../utils/scss/Global.scss';
-
 </style>

@@ -18,7 +18,7 @@ import { SUPABASEKEY,SUPABASEURL } from "../../utils/key/key.vue";
 export default {
   setup() {
 
-    const supabase = createClient(SUPABASEURL,SUPABASEKEY );
+    const supabase = createClient(SUPABASEURL, SUPABASEKEY );
 
     const notesInput = reactive({
       title: '',

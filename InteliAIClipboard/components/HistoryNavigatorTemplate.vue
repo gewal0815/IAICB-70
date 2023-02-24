@@ -15,9 +15,17 @@
             ? item.content.slice(0, 15) + '...'
             : item.content
         }}</span>
-        <span class="content" v-else>{{ item.content.length > 100 ? item.content.slice(0, 100) + '...' : item.content }}</span>
+        <span class="content" v-else>{{
+          item.content.length > 100
+            ? item.content.slice(0, 100) + '...'
+            : item.content
+        }}</span>
 
-        <span class="delete-item" @click.stop="deleteItem(index)">
+        <span
+          class="delete-item"
+          @click.stop="deleteItem(index)"
+          
+        >
           <img
             src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
             alt="Delete"
@@ -29,18 +37,53 @@
 </template>
 
 <script>
+import { createClient } from '@supabase/supabase-js';
+import { reactive } from 'vue';
+import { SUPABASEKEY,SUPABASEURL } from "../utils/key/key.vue";
+
 export default {
   props: {
     history: Array,
     inputValue: String,
   },
+  data() {
+    return {
+      supabaseClient: createClient(SUPABASEURL, SUPABASEKEY),
+    };
+  },
   methods: {
     deleteItem(index) {
       this.$emit('delete-item', index);
+      // Remove item from the database
+      const item = this.history[index];
+      this.supabaseClient.from('history').delete().eq('id', item.id);
     },
     selectItem(item) {
       this.$emit('select-item', item);
+      console.table(item);
+      console.table(this.history);
+      
+      this.saveToDatabase(item);
+    },
+    async saveToDatabase(item) {
+      const { data, error } = await this.supabaseClient
+        .from('history')
+        .insert(item);
+      if (error) {
+        console.error(error);
+      }
+    },
+  },
+  watch: {
+    history: {
+      handler(newVal, oldVal) {
+        // Save new items to the database
+        const newItems = newVal.slice(oldVal.length);
+        newItems.forEach((item) => this.saveToDatabase(item));
+      },
+      deep: true,
     },
   },
 };
 </script>
+
