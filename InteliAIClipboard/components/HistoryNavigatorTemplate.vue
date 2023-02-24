@@ -93,7 +93,7 @@ export default {
 
       console.log('History array after deletion:', this.history);
 
-      this.$emit('delete-item', index);
+      this.$emit('delete-item', index );
     },
 
     selectItem(item) {
