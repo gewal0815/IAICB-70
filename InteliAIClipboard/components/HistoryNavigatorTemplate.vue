@@ -68,14 +68,16 @@ export default {
 
     async deleteItem(index) {
       const item = this.history[index];
-
+      
+     console.table("item" +item.id);
+     this.saveToDatabase(item);
       // Remove item from the database
       const { error } = await this.supabaseClient
         .from('history')
         .delete()
         .eq('id', item.id);
       if (error) {
-        console.error(error);
+        console.error("Error" +error);
         return;
       }
 
@@ -89,14 +91,25 @@ export default {
 
       this.saveToDatabase(item);
     },
+
     async saveToDatabase(item) {
-      const { data, error } = await this.supabaseClient
-        .from('history')
-        .insert(item);
-      if (error) {
-        console.error(error);
-      }
-    },
+     
+  const { data, error } = await this.supabaseClient
+    .from('history')
+    .insert({
+      
+      id: item.id, // use the actual ID from the item object
+      color: item.color,
+      date: item.date,
+      content: item.content,
+      
+    });
+    console.log("saveToDatabase"+item.id);
+  if (error) {
+    console.error(error);
+  }
+}
+
   },
   watch: {
     history: {
@@ -111,6 +124,7 @@ export default {
             content: this.inputValue,
             color: 'blue',
             created_at: new Date(),
+            
           };
           this.saveToDatabase(newItem);
         }
