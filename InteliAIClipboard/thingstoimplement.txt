@@ -1,0 +1,25 @@
+
+
+__ Train a model with Tensorflow to get a prediction about inserted History
+    Link or link  from the inputvalue or history DB or Array ...
+
+__ Include a Supabase OAuth user , make an guard that all Sides only
+    reachable with Authenticated profile.
+
+ - started 25.02.2023 - finished (No)
+
+__ Include the Prediction (.TEXT.) in the showTextArea as an Pill in upper left. 
+__ Include the Prediction (.TEXT.) underneath the Input Field as selectable Row. 
+
+__ Put in the Memory Lane, an delete object to demark it to blue, should be a modal named unmarked shown 
+
+__ When the save or unmarked modal shown , close it automatically after 2 sec - the sec should count down in upper left from the modal
+
+
+
+__ Fix the code and refactor the code.
+
+
+
+
+
