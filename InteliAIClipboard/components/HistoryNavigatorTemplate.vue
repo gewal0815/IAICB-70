@@ -54,17 +54,17 @@ export default {
   },
   methods: {
     async clearDatabase() {
-      const { error } = await this.supabaseClient
-        .from('history')
-        .delete()
-        .eq('color', 'blue');
+  const { error } = await this.supabaseClient
+    .from('history')
+    .delete()
+    .match({ color: ["blue", null, ""] });
 
-      if (error) {
-        console.error('Error deleting blue items:', error);
-      } else {
-        console.log('Blue items deleted on startup');
-      }
-    },
+  if (error) {
+    console.error('Error deleting blue or empty color items:', error);
+  } else {
+    console.log('Blue or empty color items deleted on startup');
+  }
+},
     async deleteItem(uuid1) {
       console.log('Deleting item with UUID:', uuid);
 

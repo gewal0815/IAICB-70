@@ -57,7 +57,7 @@
   </div>
 
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
-  <EndpointModel />
+  <!--<EndpointModel />-->
 </template>
 
 <script>
