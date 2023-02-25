@@ -64,37 +64,39 @@ export default {
         console.log('Blue items deleted on startup');
       }
     },
-    async deleteItem(content) {
-      console.log('Deleting item with UUID:', uuid);
+    async deleteItem(uuid) {
+  console.log('Deleting item with UUID:', uuid);
 
-      const itemToDelete = this.history.find(
-        (item) => item.content === item.content
-      );
-      console.log(itemToDelete);
-      if (!itemToDelete) {
-        console.error(`No item found in history with UUID ${uuid}`);
-        return;
-      }
+  const itemToDelete = this.history.find(
+    (item) => item.uuid === uuid && item.content === 'blue'
+  );
+  console.log("Item to delete: ", itemToDelete);
+  
+  if (!itemToDelete) {
+    console.error(`No item found in history with UUID "${uuid}" and content "blue"`);
+    return;
+  }
 
-      const { error } = await this.supabaseClient
-        .from('history')
-        .delete()
-        .eq('content', itemToDelete.content);
+  const { error } = await this.supabaseClient
+    .from('history')
+    .delete()
+    .eq('uuid', uuid);
 
-      if (error) {
-        console.error('Error deleting item:', error);
-        return;
-      }
+  if (error) {
+    console.error('Error deleting item:', error);
+    return;
+  }
 
-      const index = this.history.findIndex((item) => item.uuid === uuid);
-      if (index >= 0) {
-        this.history.splice(index, 1);
-      }
+  const index = this.history.findIndex((item) => item.uuid === uuid);
+  if (index >= 0) {
+    this.history.splice(index, 1);
+  }
 
-      console.log('History array after deletion:', this.history);
+  console.log('History array after deletion:', this.history);
 
-      this.$emit('delete-item', index );
-    },
+  this.$emit('delete-item', index );
+}
+,
 
     selectItem(item) {
       this.$emit('select-item', item);
@@ -103,8 +105,9 @@ export default {
     },
 
     async saveToDatabase(item) {
+      console.log(this.history.id);
       const { error } = await this.supabaseClient.from('history').insert({
-        id: item.id,
+        id: this.history.id,
         color: item.color,
 
         date: item.date,
@@ -118,7 +121,7 @@ export default {
       }
 
       console.log('Item saved to database:', item);
-      const test = item;
+      
     },
   },
   watch: {
