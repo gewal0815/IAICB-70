@@ -21,7 +21,7 @@
             : item.content
         }}</span>
 
-        <span class="delete-item" @click.stop="deleteItem(item.uuid,)">
+        <span class="delete-item" @click.stop="deleteItem(item.uuid)">
           <img
             src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
             alt="Delete"
@@ -51,29 +51,43 @@ export default {
   },
   created() {
     this.clearDatabase();
+    // fetch items from the database with color green
+    this.supabaseClient
+      .from('history')
+      .select('*')
+      .eq('color', 'green')
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Error fetching data from the database:', error);
+        } else {
+          // add the items to the history array
+          data.forEach((item) => {
+            this.history.push(item);
+          });
+        }
+      });
   },
+
   methods: {
     async clearDatabase() {
-  const { error } = await this.supabaseClient
-    .from('history')
-    .delete()
-    .match({ color: ["blue", null, ""] });
+      const { error } = await this.supabaseClient
+        .from('history')
+        .delete()
+        .match({ color: ['blue', null, ''] });
 
-  if (error) {
-    console.error('Error deleting blue or empty color items:', error);
-  } else {
-    console.log('Blue or empty color items deleted on startup');
-  }
-},
+      if (error) {
+        console.error('Error deleting blue or empty color items:', error);
+      } else {
+        console.log('Blue or empty color items deleted on startup');
+      }
+    },
     async deleteItem(uuid1) {
       console.log('Deleting item with UUID:', uuid);
-
-
 
       const { error } = await this.supabaseClient
         .from('history')
         .delete()
-        .eq('uuid', uuid); 
+        .eq('uuid', uuid);
 
       if (error) {
         console.error('Error deleting item:', error);
