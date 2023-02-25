@@ -21,7 +21,7 @@
             : item.content
         }}</span>
 
-        <span class="delete-item" @click.stop="deleteItem(item.content)">
+        <span class="delete-item" @click.stop="deleteItem(item.uuid,)">
           <img
             src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
             alt="Delete"
@@ -37,7 +37,8 @@ import { createClient } from '@supabase/supabase-js';
 import { reactive } from 'vue';
 import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
 import { v4 as uuidv4 } from 'uuid';
-const uuid = uuidv4();
+
+let uuid = '';
 export default {
   props: {
     history: Array,
@@ -64,39 +65,30 @@ export default {
         console.log('Blue items deleted on startup');
       }
     },
-    async deleteItem(uuid) {
-  console.log('Deleting item with UUID:', uuid);
+    async deleteItem(uuid1) {
+      console.log('Deleting item with UUID:', uuid);
 
-  const itemToDelete = this.history.find(
-    (item) => item.uuid === uuid && item.content === 'blue'
-  );
-  console.log("Item to delete: ", itemToDelete);
-  
-  if (!itemToDelete) {
-    console.error(`No item found in history with UUID "${uuid}" and content "blue"`);
-    return;
-  }
 
-  const { error } = await this.supabaseClient
-    .from('history')
-    .delete()
-    .eq('uuid', uuid);
 
-  if (error) {
-    console.error('Error deleting item:', error);
-    return;
-  }
+      const { error } = await this.supabaseClient
+        .from('history')
+        .delete()
+        .eq('uuid', uuid);
 
-  const index = this.history.findIndex((item) => item.uuid === uuid);
-  if (index >= 0) {
-    this.history.splice(index, 1);
-  }
+      if (error) {
+        console.error('Error deleting item:', error);
+        return;
+      }
 
-  console.log('History array after deletion:', this.history);
+      const index = this.history.findIndex((item) => item.uuid === uuid);
+      if (index >= 0) {
+        this.history.splice(index, 1);
+      }
 
-  this.$emit('delete-item', index );
-}
-,
+      console.log('History array after deletion:', this.history);
+
+      this.$emit('delete-item', index);
+    },
 
     selectItem(item) {
       this.$emit('select-item', item);
@@ -105,14 +97,14 @@ export default {
     },
 
     async saveToDatabase(item) {
+      uuid = uuidv4(); // generate a new uuid for each item
       console.log(this.history.id);
       const { error } = await this.supabaseClient.from('history').insert({
         id: this.history.id,
         color: item.color,
-
         date: item.date,
         content: item.content,
-        uuid: uuid,
+        uuid: uuid, // include the uuid property in the item object
       });
 
       if (error) {
@@ -121,23 +113,25 @@ export default {
       }
 
       console.log('Item saved to database:', item);
-      
     },
   },
   watch: {
     history: {
       handler(newVal, oldVal) {
         const newItems = newVal.slice(oldVal.length);
-
-        newItems.forEach((item) => this.saveToDatabase(item));
+        // add the uuid property to each new item
+        newItems.forEach((item) => {
+          item.uuid = uuidv4();
+          this.saveToDatabase(item);
+        });
 
         if (newVal.length > 0 && this.inputValue !== '') {
           const newItem = {
             content: this.inputValue,
             color: 'blue',
             created_at: new Date(),
-            uuid: this.uuid,
           };
+          newItem.uuid = uuidv4(); // generate a uuid for the new item
           this.saveToDatabase(newItem);
         }
 
