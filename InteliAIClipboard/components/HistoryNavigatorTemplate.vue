@@ -30,6 +30,7 @@
       </li>
     </ul>
   </div>
+  
 </template>
 
 <script>
@@ -43,6 +44,7 @@ export default {
   props: {
     history: Array,
     inputValue: String,
+    
   },
   data() {
     return {
@@ -107,7 +109,7 @@ export default {
 
     selectItem(item) {
       this.$emit('select-item', item);
-
+      this.showModal = true;
       this.saveToDatabase(item);
     },
 
@@ -137,7 +139,7 @@ export default {
         // add the uuid property to each new item
         newItems.forEach((item) => {
           item.uuid = uuidv4();
-          this.saveToDatabase(item);
+          //this.saveToDatabase(item);
         });
 
         if (newVal.length > 0 && this.inputValue !== '') {
