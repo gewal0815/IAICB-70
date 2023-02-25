@@ -73,7 +73,7 @@ export default {
       const { error } = await this.supabaseClient
         .from('history')
         .delete()
-        .eq('uuid', uuid);
+        .eq('uuid', uuid); 
 
       if (error) {
         console.error('Error deleting item:', error);
