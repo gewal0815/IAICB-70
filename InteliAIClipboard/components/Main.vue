@@ -63,11 +63,7 @@
 <script>
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 import EndpointModel from './Notes/EndpointModel.vue';
-
-import { PrismaClient } from '@prisma/client';
 import SavedModal from '~/components/SavedModal.vue';
-
-
 
 export default {
   mixins: [HistoryNavigatorMethods],
@@ -145,7 +141,6 @@ export default {
       this.checkClipboard();
     });
   },
-
 };
 </script>
 
