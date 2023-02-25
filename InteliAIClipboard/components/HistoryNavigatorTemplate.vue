@@ -47,6 +47,7 @@ export default {
   data() {
     return {
       supabaseClient: createClient(SUPABASEURL, SUPABASEKEY),
+      showTextArea: false,
     };
   },
   created() {
