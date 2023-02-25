@@ -5,12 +5,10 @@ __ Train a model with Tensorflow to get a prediction about inserted History
 
 _______________________________________________________________________________
 
---- started 25.02.2023 - finished (No)
+
 
 __ Include a Supabase OAuth user , make an guard that all Sides only
     reachable with Authenticated profile.
-
-
 
     Authentication: should this person be allowed in? If yes, who are they?
     Authorization: once they are in, what are they allowed to do?

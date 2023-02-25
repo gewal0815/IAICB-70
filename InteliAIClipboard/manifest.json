@@ -1,0 +1,16 @@
+{
+    "name": "InteliAi Clipboard",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "description": "Get copy information from all opened tabs",
+    "permissions": [
+      "tabs",
+      "clipboardRead",
+      "clipboardWrite"
+
+    ],
+    "action": {
+        "default_popup": "index.html"
+    }
+
+  }

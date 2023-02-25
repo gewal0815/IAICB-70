@@ -52,6 +52,7 @@ export default {
     };
   },
   created() {
+    
     this.clearDatabase();
     // fetch items from the database with color green
     this.supabaseClient
@@ -71,11 +72,12 @@ export default {
   },
 
   methods: {
+
     async clearDatabase() {
       const { error } = await this.supabaseClient
         .from('history')
         .delete()
-        .match({ color: 'blue'});
+        .match({ color: ['blue']});
 
       if (error) {
         console.error('Error deleting blue or empty color items:', error);
@@ -83,6 +85,7 @@ export default {
         console.log('Blue or empty color items deleted on startup');
       }
     },
+
     async deleteItem(uuid1) {
       console.log('Deleting item with UUID:', uuid);
 
