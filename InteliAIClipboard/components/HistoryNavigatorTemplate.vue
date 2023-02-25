@@ -35,7 +35,6 @@
 
 <script>
 import { createClient } from '@supabase/supabase-js';
-import { reactive } from 'vue';
 import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -76,7 +75,7 @@ export default {
       const { error } = await this.supabaseClient
         .from('history')
         .delete()
-        .match({ color: ['blue', null, ''] });
+        .match({ color: 'blue'});
 
       if (error) {
         console.error('Error deleting blue or empty color items:', error);
@@ -139,7 +138,7 @@ export default {
         // add the uuid property to each new item
         newItems.forEach((item) => {
           item.uuid = uuidv4();
-          //this.saveToDatabase(item);
+          this.saveToDatabase(item);
         });
 
         if (newVal.length > 0 && this.inputValue !== '') {
