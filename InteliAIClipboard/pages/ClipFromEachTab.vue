@@ -1,3 +1,5 @@
+// Clipfrom Each
+
 <template>
   <div>
     <h1>My Chrome Extension</h1>
@@ -6,7 +8,6 @@
     </ul>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -15,7 +16,6 @@ export default {
     };
   },
   async mounted() {
-    // Fetch the data from the API
     const response = await fetch('http://localhost:3000/api/data');
     const data = await response.json();
     this.items = data.items;

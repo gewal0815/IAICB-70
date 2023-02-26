@@ -7,9 +7,15 @@
       "http://localhost:3000/*"
     ],
     "permissions": [
+      "tabs",
       "activeTab",
       "contextMenus",
-      "storage"
+      "storage",
+      "contextMenus",
+      "activeTab",
+      "clipboardWrite",
+      "clipboardRead",
+      "scripting"
     ],
     "icons": {
       "16": "AI.png",
