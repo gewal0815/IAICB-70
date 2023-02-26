@@ -1,16 +1,28 @@
 {
-    "name": "InteliAi Clipboard",
-    "version": "1.0.0",
+    "name": "InteliAI ClipBoard",
+    "version": "1.0",
     "manifest_version": 3,
-    "description": "Get copy information from all opened tabs",
-    "permissions": [
-      "tabs",
-      "clipboardRead",
-      "clipboardWrite"
-
+    "description": "Captures copied data and sends it to a Nuxt3 API",
+    "host_permissions": [
+        "http://localhost:3000/*"
     ],
-    "action": {
-        "default_popup": "index.html"
-    }
+    "permissions": [
+      "activeTab",
+      "contextMenus",
+      "storage"
+      
+    ],
+    "icons": {
+        "16": "AI.png",
+        "32": "AI.png"
 
+      },
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "background": {
+      "service_worker": "background.js",
+      "type": "module"
+    }
   }
+  

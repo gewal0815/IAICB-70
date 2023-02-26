@@ -58,16 +58,18 @@
 
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
   <!--<EndpointModel />-->
+  <ClipFromEachTab />
 </template>
 
 <script>
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 import EndpointModel from './Notes/EndpointModel.vue';
 import SavedModal from '~/components/SavedModal.vue';
+import ClipFromEachTab from '~~/pages/ClipFromEachTab.vue';
 
 export default {
   mixins: [HistoryNavigatorMethods],
-  components: { SavedModal, EndpointModel },
+  components: { SavedModal, EndpointModel, ClipFromEachTab },
 
   data() {
     return {

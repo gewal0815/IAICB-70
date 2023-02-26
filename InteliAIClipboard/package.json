@@ -30,6 +30,8 @@
     "prettier": "^2.8.4",
     "prisma": "^4.10.1",
     "uuidv4": "^6.2.13",
+    "vue": "^3.2.47",
+    "vue-cli": "^2.9.6",
     "vue-clipboard2": "^0.3.3",
     "vuejs-paginate": "^2.1.0"
   }
