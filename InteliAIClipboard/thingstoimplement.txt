@@ -29,6 +29,16 @@ _______________________________________________________________________________
 __ Fix the code and refactor the code.
 
 
+* started *
+__ make an Chrome Extension 
+files :             background.js
+                    contentScript.js
+                    manifest.json
+                    ChromeExtTemplate.vue
+
+Todo:               make an Handler in contentScript who gives me the url where the code copied from
+
+
 
 
 

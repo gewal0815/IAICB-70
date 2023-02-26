@@ -4,25 +4,26 @@
     "manifest_version": 3,
     "description": "Captures copied data and sends it to a Nuxt3 API",
     "host_permissions": [
-        "http://localhost:3000/*"
+      "http://localhost:3000/*"
     ],
     "permissions": [
       "activeTab",
       "contextMenus",
       "storage"
-      
     ],
     "icons": {
-        "16": "AI.png",
-        "32": "AI.png"
-
-      },
-    "host_permissions": [
-      "<all_urls>"
-    ],
+      "16": "AI.png",
+      "32": "AI.png"
+    },
     "background": {
       "service_worker": "background.js",
       "type": "module"
-    }
+    },
+    "content_scripts": [
+        {
+          "js": ["contentScript.js"],
+          "matches": ["http://*/*", "https://*/*"]
+        }
+    ]
   }
   
