@@ -59,6 +59,7 @@
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
   <!--<EndpointModel />-->
 
+
 </template>
 
 <script>
@@ -66,10 +67,9 @@ import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 import EndpointModel from './Notes/EndpointModel.vue';
 import SavedModal from '~/components/SavedModal.vue';
 
-
 export default {
   mixins: [HistoryNavigatorMethods],
-  components: {  SavedModal, EndpointModel },
+  components: {   SavedModal, EndpointModel },
 
 
 

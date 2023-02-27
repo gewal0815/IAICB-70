@@ -9,24 +9,23 @@
 
   "action": {
       "default_icon": {
-        "16": "assets/icon16.png",
-        "48": "assets/icon48.png",
-        "128": "assets/icon128.png"
+        "16": "assets/AI.png",
+        "48": "assets/AI.png",
+        "128": "assets/AI.png"
       },
-      "default_title": "Awesome Extension"
-    },
-      "icons": {
-      "16": "AI.png",
-      "32": "AI.png"
+      "default_title": "InteliAI Clipboard"
     },
 
-      "background": {
-      "service_worker": "background.js"
-  },
+
+    "background": {
+      "service_worker": "background.js",
+      "type": "module"
+    },
       "content_scripts": [
       {
           "matches": ["<all_urls>"],
-          "js": ["content-scripts/main.js"]
+          "js": ["content-scripts/main.js"],
+          "type": "module"
       }
   ],
   "permissions": [
