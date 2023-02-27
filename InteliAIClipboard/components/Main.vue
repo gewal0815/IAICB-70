@@ -56,14 +56,9 @@
     </div>
   </div>
 
-  <div>
-    <p>URL: {{ url }}</p>
-    <p>Text: {{ text }}</p>
-  </div>
-
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
   <!--<EndpointModel />-->
-
+<ShowUrlAndText />
 
 </template>
 
@@ -71,12 +66,12 @@
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 import EndpointModel from './Notes/EndpointModel.vue';
 import SavedModal from '~/components/SavedModal.vue';
-
+import ShowUrlAndText  from '~/components/ShowUrlAndText.vue';
 
 
 export default {
   mixins: [HistoryNavigatorMethods],
-  components: {   SavedModal, EndpointModel },
+  components: {  ShowUrlAndText , SavedModal, EndpointModel },
 
 
 
@@ -89,8 +84,7 @@ export default {
       clipboardItems: [],
       showModal: false,
       inputValue: '',
-      url: '',
-      text: ''
+
     };
   },
   methods: {
@@ -155,14 +149,7 @@ export default {
       this.checkClipboard();
     });
 
-    chrome.runtime.getBackgroundPage(backgroundPage => {
-      backgroundPage.chrome.storage.local.get('copiedData', data => {
-        if (data.copiedData) {
-          this.url = data.copiedData.url;
-          this.text = data.copiedData.text;
-        }
-      });
-    });
+
   },
 };
 </script>
