@@ -18,18 +18,19 @@
 
 
     "background": {
-      "service_worker": "background.js",
-      "type": "module"
+      "service_worker": "background.js"
+      
     },
       "content_scripts": [
       {
           "matches": ["<all_urls>"],
-          "js": ["content-scripts/main.js"],
+          "js": ["contentScript.js"],
           "type": "module"
       }
   ],
+  
   "permissions": [
-      "tabs"
+    "contextMenus", "activeTab", "clipboardWrite", "scripting", "storage"
   ]
 
 }
