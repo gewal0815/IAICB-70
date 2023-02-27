@@ -17,7 +17,7 @@ chrome.contextMenus.create({
             }
           }, (result) => {
             const text = result[0];
-          console.log("text:" + text);
+          console.table("text:" + text);
             const url = tab.url;
           console.log("url:" + url);
             const data = { url: url, text: text };
