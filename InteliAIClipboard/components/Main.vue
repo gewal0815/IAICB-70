@@ -58,18 +58,20 @@
 
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
   <!--<EndpointModel />-->
-  <ClipFromEachTab />
+
 </template>
 
 <script>
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 import EndpointModel from './Notes/EndpointModel.vue';
 import SavedModal from '~/components/SavedModal.vue';
-import ClipFromEachTab from '~~/pages/ClipFromEachTab.vue';
+
 
 export default {
   mixins: [HistoryNavigatorMethods],
-  components: { SavedModal, EndpointModel, ClipFromEachTab },
+  components: {  SavedModal, EndpointModel },
+
+
 
   data() {
     return {
@@ -137,6 +139,7 @@ export default {
   mounted() {
     // Check the clipboard when the component is mounted
     this.checkClipboard();
+    
     // Listen for the "copy" event on the document object
     document.addEventListener('copy', () => {
       // Update the clipboard items

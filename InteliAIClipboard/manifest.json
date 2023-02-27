@@ -1,35 +1,36 @@
 {
-    "name": "InteliAI ClipBoard",
-    "version": "1.0",
-    "manifest_version": 3,
-    "description": "Captures copied data and sends it to a Nuxt3 API",
-    "host_permissions": [
-      "http://localhost:3000/*"
-    ],
-    "permissions": [
-      "tabs",
-      "activeTab",
-      "contextMenus",
-      "storage",
-      "contextMenus",
-      "activeTab",
-      "clipboardWrite",
-      "clipboardRead",
-      "scripting"
-    ],
-    "icons": {
+  "name": "InteliAI ClipBoard",
+  "version": "1.0",
+  "description": "Captures copied data and sends it to a Nuxt3 API",
+  "manifest_version": 3,
+  "host_permissions": [
+    "http://localhost:3000/*"
+  ],
+
+  "action": {
+      "default_icon": {
+        "16": "assets/icon16.png",
+        "48": "assets/icon48.png",
+        "128": "assets/icon128.png"
+      },
+      "default_title": "Awesome Extension"
+    },
+      "icons": {
       "16": "AI.png",
       "32": "AI.png"
     },
-    "background": {
-      "service_worker": "background.js",
-      "type": "module"
-    },
-    "content_scripts": [
-        {
-          "js": ["contentScript.js"],
-          "matches": ["http://*/*", "https://*/*"]
-        }
-    ]
-  }
-  
+
+      "background": {
+      "service_worker": "background.js"
+  },
+      "content_scripts": [
+      {
+          "matches": ["<all_urls>"],
+          "js": ["content-scripts/main.js"]
+      }
+  ],
+  "permissions": [
+      "tabs"
+  ]
+
+}
