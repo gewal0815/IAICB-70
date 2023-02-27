@@ -5,6 +5,16 @@ chrome.contextMenus.create({
   contexts: ['page', 'selection'],
 });
 
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === "dataCopied") {
+    const data = {
+      text: request.text,
+      url: request.url,
+    };
+    chrome.storage.local.set({ copiedData: data });
+  }
+});
+
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
   if (info.menuItemId === 'copy-data') {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -24,7 +34,6 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
           const url = tab.url;
           console.log('url:' + url);
 
-          localStorage.setItem("url", url);
           const data = { url: url, text: text };
           chrome.storage.local.set({ copiedData: data }, () => {
             chrome.contextMenus.update('copy-data', { title: 'Copied!' });
