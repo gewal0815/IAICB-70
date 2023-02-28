@@ -30,25 +30,33 @@
       </li>
     </ul>
   </div>
-  
+  <SavedModal v-if="showModal" :selectedHistoryItem="selectedHistoryItem" @close-modal="closeSavedModal" />
 </template>
 
 <script>
 import { createClient } from '@supabase/supabase-js';
 import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
 import { v4 as uuidv4 } from 'uuid';
+import SavedModal from './SavedModal.vue';
 
 let uuid = '';
 export default {
+  
   props: {
     history: Array,
     inputValue: String,
     
   },
+  components: {
+    SavedModal,
+  },
+
   data() {
     return {
       supabaseClient: createClient(SUPABASEURL, SUPABASEKEY),
       showTextArea: false,
+      showModal: false, // Add showModal data property
+      selectedHistoryItem: null, // Add selectedHistoryItem data property
     };
   },
   created() {
@@ -111,8 +119,14 @@ export default {
 
     selectItem(item) {
       this.$emit('select-item', item);
+      this.selectedHistoryItem = item;
       this.showModal = true;
       this.saveToDatabase(item);
+    },
+
+    closeSavedModal() {
+      this.selectedHistoryItem = null;
+      this.showModal = false;
     },
 
     async saveToDatabase(item) {

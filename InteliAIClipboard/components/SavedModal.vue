@@ -5,6 +5,9 @@
         <img class="check" src="https://cdn-icons-png.flaticon.com/512/2763/2763138.png" alt="" />
         <h6>Copied!</h6>
         <p>Your Details have been Copied Successfully</p>
+        
+        <p v-if="selectedHistoryItem">{{ selectedHistoryItem.content }}</p>
+
         <button @click="$emit('close-modal')">Go Home</button>
       </div>
       <div class="close" @click="$emit('close-modal')">
@@ -15,7 +18,12 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    selectedHistoryItem: Object, // Add selectedHistoryItem prop
+  },
+
+}
 </script>
 
 <style scoped>
@@ -28,6 +36,7 @@ export default {}
   display: flex;
   justify-content: center;
   background-color: #000000da;
+  z-index: 10012;
 }
 .modal {
   text-align: center;
@@ -37,6 +46,7 @@ export default {}
   margin-top: 10%;
   padding: 60px 0;
   border-radius: 20px;
+  
 }
 .close {
   margin: 10% 0 0 16px;
