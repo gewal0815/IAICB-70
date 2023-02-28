@@ -36,9 +36,9 @@ __ make an Chrome Extension
 files :             background.js
                     contentScript.js
                     manifest.json
-                    ChromeExtTemplate.vue
+                    ShowUrlAndText.vue
 
-Todo:               make an Handler in contentScript who gives me the url where the code copied from
+Todo:               only to show in the client the URL and TEXT in Console 
 
 
 
