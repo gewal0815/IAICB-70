@@ -1,4 +1,3 @@
-
 chrome.contextMenus.create({
   id: 'copy-data',
   title: 'Copy Data',
@@ -11,7 +10,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       text: request.text,
       url: request.url,
     };
-    chrome.storage.local.set({ copiedData: data });
+    chrome.storage.local.set({ copiedData: data }, function() {
+      console.log('Data saved to storage:', data);
+    });
   }
 });
 
@@ -30,28 +31,28 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         },
         (result) => {
           const text = result[0];
-          console.table('text:' + text);
+          console.log('Selected text:', text);
           const url = tab.url;
-          console.log('url:' + url);
+          console.log('URL:', url);
 
           const data = { url: url, text: text };
-          chrome.storage.local.set({ copiedData: data }, () => {
+          chrome.storage.local.set({ copiedData: data }, function() {
+            console.log('Data saved to storage:', data);
+
+
             chrome.contextMenus.update('copy-data', { title: 'Copied!' });
             setTimeout(() => {
+
+              chrome.storage.local.get(["copiedData"]).then((result) => {
+                console.log("Value currently is " + result.copiedData);
+              });
               chrome.contextMenus.update('copy-data', { title: 'Copy Data' });
             }, 5000);
           });
-          chrome.permissions.request(
-            { permissions: ['clipboardWrite'] },
-            (granted) => {
-              if (granted) {
-                navigator.clipboard.writeText(text);
-              }
-            }
-          );
 
         }
       );
     });
   }
 });
+

@@ -31,7 +31,7 @@
   ],
   
   "permissions": [
-    "contextMenus", "activeTab", "clipboardWrite", "scripting", "storage"
+    "contextMenus", "activeTab", "clipboardWrite", "scripting", "storage","downloads"
   ]
 
 }

@@ -8,22 +8,25 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      loading: true,
-      data: null,
-    };
-  },
-  mounted() {
-    chrome.storage.local.get('copiedData', (result) => {
-      this.copiedText = result.copiedData.text;
-      this.copiedUrl = result.copiedData.url;
-      console.log("Textf"+this.copiedText);
-      console.log("URLf"+this.copiedUrl);
-      
 
-    });
+export default {
+  async mounted() {
+    const data = await this.getCopiedData();
+    console.log(data);
+  },
+  methods: {
+    getCopiedData() {
+      return new Promise((resolve, reject) => {
+        chrome.storage.local.get(['copiedData'], (result) => {
+          if (chrome.runtime.lastError) {
+            reject(chrome.runtime.lastError);
+          } else {
+            resolve(result.copiedData);
+          }
+        });
+      });
+    },
   },
 };
+
 </script>
