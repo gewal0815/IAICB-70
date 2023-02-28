@@ -2,13 +2,13 @@
   <transition name="modal-fade">
     <div class="modal-overlay" @click="$emit('close-modal')">
       <div class="modal" @click.stop>
-        <img class="check" src="https://cdn-icons-png.flaticon.com/512/2763/2763138.png" alt="" />
+        <img class="check" src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="" />
         <h6>Copied!</h6>
-        <p>Your Details have been Copied Successfully</p>
-        
         <p v-if="selectedHistoryItem">{{ selectedHistoryItem.content }}</p>
-
-        <button @click="$emit('close-modal')">Go Home</button>
+        <div class="buttons-container">
+          <button class="home-button" @click="$emit('close-modal')">Save to your static History</button>
+          <button class="cancel-button" @click="$emit('close-modal')">Cancel</button>
+        </div>
       </div>
       <div class="close" @click="$emit('close-modal')">
         <img class="close-img" src="https://cdn-icons-png.flaticon.com/512/2763/2763138.png" alt="" />
@@ -16,6 +16,7 @@
     </div>
   </transition>
 </template>
+
 
 <script>
 export default {
@@ -27,6 +28,35 @@ export default {
 </script>
 
 <style scoped>
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.home-button {
+  background-color: #00ac53;
+  width: 250px;
+  height: 40px;
+  color: white;
+  font-size: 14px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  width: 150px;
+  height: 40px;
+  color: white;
+  font-size: 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+
 .modal-overlay {
   position: fixed;
   top: 0;
