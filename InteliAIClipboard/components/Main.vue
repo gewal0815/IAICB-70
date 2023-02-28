@@ -66,7 +66,7 @@
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 import EndpointModel from './Notes/EndpointModel.vue';
 import SavedModal from '~/components/SavedModal.vue';
-import ShowUrlAndText  from '~/components/ShowUrlAndText.vue';
+import ShowUrlAndText  from '../ShowUrlAndText.vue';
 
 
 export default {
