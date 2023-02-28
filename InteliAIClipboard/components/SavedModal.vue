@@ -6,7 +6,7 @@
         <h6>Copied!</h6>
         <p v-if="selectedHistoryItem">{{ selectedHistoryItem.content }}</p>
         <div class="buttons-container">
-          <button class="home-button" @click="$emit('close-modal')">Save to your static History</button>
+          <button class="save-button" @click="$emit('close-modal')">Save to your static History</button>
           <button class="cancel-button" @click="$emit('close-modal')">Cancel</button>
         </div>
       </div>
@@ -35,7 +35,7 @@ export default {
   margin-top: 50px;
 }
 
-.home-button {
+.save-button {
   background-color: #00ac53;
   width: 250px;
   height: 40px;

@@ -132,6 +132,9 @@ export default {
     async saveToDatabase(item) {
       uuid = uuidv4(); // generate a new uuid for each item
       console.log(this.history.id);
+
+      item.color ? item.color : item.color = "blue";
+
       const { error } = await this.supabaseClient.from('history').insert({
         id: this.history.id,
         color: item.color,
