@@ -50,7 +50,14 @@
       <div v-if="clipboardItems.length > 0">
         <label class="side-navigator-label">Items in Clipboard:</label>
         <div v-for="(item, index) in clipboardItems" :key="index">
-          {{ item }}
+          <div
+            v-if="item"
+            :data-full-text="item"
+            @mouseover="showFullText($event)"
+            @mouseleave="showSlicedText($event)"
+          >
+            {{ item.length > 15 ? item.slice(0, 40) + '...' : item }}
+          </div>
         </div>
       </div>
     </div>
@@ -58,22 +65,18 @@
 
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
   <!--<EndpointModel />-->
-<ShowUrlAndText />
-
+  <!--<ShowUrlAndText />-->
 </template>
 
 <script>
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 import EndpointModel from './Notes/EndpointModel.vue';
 import SavedModal from '~/components/SavedModal.vue';
-import ShowUrlAndText  from '../ShowUrlAndText.vue';
-
+import ShowUrlAndText from '../ShowUrlAndText.vue';
 
 export default {
   mixins: [HistoryNavigatorMethods],
-  components: {  ShowUrlAndText , SavedModal, EndpointModel },
-
-
+  components: { ShowUrlAndText, SavedModal, EndpointModel },
 
   data() {
     return {
@@ -84,10 +87,20 @@ export default {
       clipboardItems: [],
       showModal: false,
       inputValue: '',
-
     };
   },
   methods: {
+    showFullText(event) {
+      const target = event.target;
+      const fullText = target.dataset.fullText;
+      target.textContent = fullText;
+    },
+    showSlicedText(event) {
+      const target = event.target;
+      const slicedText = target.textContent.slice(0, 40) + '...';
+      target.textContent = slicedText;
+    },
+
     editText() {
       this.showTextArea = true;
       this.$nextTick(() => {
@@ -142,14 +155,12 @@ export default {
   mounted() {
     // Check the clipboard when the component is mounted
     this.checkClipboard();
-    
+
     // Listen for the "copy" event on the document object
     document.addEventListener('copy', () => {
       // Update the clipboard items
       this.checkClipboard();
     });
-
-
   },
 };
 </script>
