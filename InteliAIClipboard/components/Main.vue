@@ -64,10 +64,7 @@
   </div>
 
   <div>
-    <div class="test" ref="test">
-      URL: {{ url }}<br />
-      Text: {{ text }}
-    </div>
+    <div class="test" ref="test"></div>
   </div>
 
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
@@ -159,6 +156,25 @@ export default {
         });
     },
   },
+  setup() {
+    const url = ref('');
+    const text = ref('');
+
+    window.addEventListener('message', (event) => {
+      if (event.source === window && event.data) {
+        url.value = event.data.url;
+        text.value = event.data.text;
+        console.log('URL1 INSIDE VUE ' + url.value);
+        console.log('TEXT1 INSIDE VUE ' + text.value);
+        const testDiv = document.querySelector('.test');
+        if (testDiv) {
+          testDiv.innerHTML = 'URL: ' + url.value + '<br>Text: ' + text.value;
+        }
+      }
+    });
+
+    return { url, text };
+  },
   mounted() {
     const chrome = {
       runtime: {
@@ -203,17 +219,6 @@ export default {
       console.log('URL0 INSIDE VUE ' + this.url);
       console.log('TEXT0 INSIDE VUE ' + this.text);
     });
-
-window.addEventListener('message', (event) => {
-  if (event.source === window && event.data) {
-    this.url = event.data.url;
-    this.text = event.data.text;
-    console.log('URL1 INSIDE VUE ' + this.url);
-    console.log('TEXT1 INSIDE VUE ' + this.text);
-    this.$refs.test.innerHTML = 'URL: ' + this.url + '<br>Text: ' + this.text;
-  }
-});
-
 
     fetch('/api/users/')
       .then((response) => response.json())
