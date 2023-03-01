@@ -204,16 +204,16 @@ export default {
       console.log('TEXT0 INSIDE VUE ' + this.text);
     });
 
-    window.addEventListener('message', (event) => {
-      if (event.source === window && event.data) {
-        this.url = event.data.url;
-        this.text = event.data.text;
-        console.log('URL1 INSIDE VUE ' + this.url);
-        console.log('TEXT1 INSIDE VUE ' + this.text);
-        this.$refs.test.innerHTML =
-          'URL: ' + this.url + '<br>Text: ' + this.text;
-      }
-    });
+window.addEventListener('message', (event) => {
+  if (event.source === window && event.data) {
+    this.url = event.data.url;
+    this.text = event.data.text;
+    console.log('URL1 INSIDE VUE ' + this.url);
+    console.log('TEXT1 INSIDE VUE ' + this.text);
+    this.$refs.test.innerHTML = 'URL: ' + this.url + '<br>Text: ' + this.text;
+  }
+});
+
 
     fetch('/api/users/')
       .then((response) => response.json())
