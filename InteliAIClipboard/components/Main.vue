@@ -161,6 +161,15 @@ export default {
       // Update the clipboard items
       this.checkClipboard();
     });
+
+    fetch('/api/users/')
+      .then((response) => response.json())
+      .then((data) => {
+        const filteredData = data.filter((user) => user.id === '12');
+        const item = filteredData[0].item;
+        console.log(item);
+      })
+      .catch((error) => console.error(error));
   },
 };
 </script>
