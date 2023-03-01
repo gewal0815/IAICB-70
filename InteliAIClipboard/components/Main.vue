@@ -58,11 +58,15 @@
           >
             {{ item.length > 15 ? item.slice(0, 40) + '...' : item }}
           </div>
-          <div >
-            {{  this.url }} {{ text }}
-          </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="test" ref="test">
+      URL: {{ url }}<br />
+      Text: {{ text }}
     </div>
   </div>
 
@@ -196,16 +200,18 @@ export default {
     chrome.runtime.onMessage.addListener((message) => {
       this.url = message.url;
       this.text = message.text;
-      console.log("URL0 INSIDE VUE "+this.url);
-        console.log("TEXT0 INSIDE VUE "+this.text);
+      console.log('URL0 INSIDE VUE ' + this.url);
+      console.log('TEXT0 INSIDE VUE ' + this.text);
     });
 
     window.addEventListener('message', (event) => {
       if (event.source === window && event.data) {
         this.url = event.data.url;
         this.text = event.data.text;
-        console.log("URL1 INSIDE VUE "+this.url);
-        console.log("TEXT1 INSIDE VUE "+this.text);
+        console.log('URL1 INSIDE VUE ' + this.url);
+        console.log('TEXT1 INSIDE VUE ' + this.text);
+        this.$refs.test.innerHTML =
+          'URL: ' + this.url + '<br>Text: ' + this.text;
       }
     });
 
