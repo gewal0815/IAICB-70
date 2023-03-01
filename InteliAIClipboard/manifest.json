@@ -3,9 +3,7 @@
   "version": "1.0",
   "description": "Captures copied data and sends it to a Nuxt3 API",
   "manifest_version": 3,
-  "host_permissions": [
-    "http://localhost:3000/*"
-  ],
+
 
   "action": {
       "default_icon": {
@@ -31,7 +29,7 @@
   ],
   
   "permissions": [
-    "contextMenus", "activeTab", "clipboardWrite", "scripting", "storage","downloads"
+    "contextMenus", "activeTab", "clipboardWrite", "scripting", "storage","downloads","tabs"
   ]
 
 }
