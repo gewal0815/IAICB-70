@@ -162,6 +162,7 @@ export default {
       this.checkClipboard();
     });
 
+
     fetch('/api/users/')
       .then((response) => response.json())
       .then((data) => {

@@ -22,7 +22,7 @@ export default defineEventHandler(async (e) => {
         }
         const newUser = {
             id: uuid(),
-            item: body.username,
+            item: '',
             online: true,
         };
 
