@@ -2,10 +2,10 @@
   <div>
     <div class="card">
       <label>Input</label>
-      <input v-model="notesInput.title" />
+      <input  />
       <label>Insert</label>
-      <textarea v-model="notesInput.note"> </textarea>
-      <button @click="handleSubmit">Save</button>
+      <textarea > </textarea>
+      <button @click="login">Save</button>
     </div>
   </div>
 </template>
@@ -13,38 +13,27 @@
 <script>
 import { createClient } from '@supabase/supabase-js';
 import { reactive } from 'vue';
-import { SUPABASEKEY,SUPABASEURL } from "../../utils/key/key.vue";
+import { SUPABASEKEY, SUPABASEURL } from '../../utils/key/key.vue';
+
+definePageMeta({
+  layout: 'custom',
+});
+
+const supabase = createClient(SUPABASEURL, SUPABASEKEY);
+
+const login = async () => {
+  const { error } = supabase.auth.signInWithOAuth({
+    provider: 'google',
+  });
+  if (error) {
+    console.log('Supabase Auth Error' + error);
+  }
+};
+
 
 export default {
   setup() {
 
-    const supabase = createClient(SUPABASEURL, SUPABASEKEY );
-
-    const notesInput = reactive({
-      title: '',
-      note: '',
-    });
-
-    const handleSubmit = async () => {
-      if (!notesInput.title || !notesInput.note) return;
-
-      const { data, error } = await supabase
-        .from('notes')
-        .insert({ title: notesInput.title, note: notesInput.note });
-
-      if (error) {
-        console.error(error);
-      } else {
-        notesInput.title = '';
-        notesInput.note = '';
-      }
-    };
-
-    return {
-      notesInput,
-      handleSubmit,
-    
-    };
   },
 };
 </script>
