@@ -30,6 +30,8 @@
       </li>
     </ul>
   </div>
+
+
   <SavedModal v-if="showModal" :selectedHistoryItem="selectedHistoryItem" @close-modal="closeSavedModal" />
 </template>
 
@@ -41,7 +43,7 @@ import SavedModal from './SavedModal.vue';
 
 let uuid = '';
 export default {
-  
+ 
   props: {
     history: Array,
     inputValue: String,
@@ -60,7 +62,7 @@ export default {
     };
   },
   created() {
-    
+    //const { data: { user } } = supabase.auth.getUser()
     this.clearDatabase();
     // fetch items from the database with color green
     this.supabaseClient
