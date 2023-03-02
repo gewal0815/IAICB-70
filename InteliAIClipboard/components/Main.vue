@@ -215,12 +215,6 @@ export default {
       this.checkClipboard();
     });
 
-    chrome.runtime.onMessage.addListener((message) => {
-      this.url = message.url;
-      this.text = message.text;
-      console.log('URL0 INSIDE VUE ' + this.url);
-      console.log('TEXT0 INSIDE VUE ' + this.text);
-    });
 
     fetch('/api/users/')
       .then((response) => response.json())
