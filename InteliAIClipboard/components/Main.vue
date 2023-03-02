@@ -91,7 +91,6 @@ export default {
       clipboardItems: [],
       showModal: false,
       inputValue: '',
-
     };
   },
   methods: {
@@ -162,14 +161,13 @@ export default {
     const text = ref('');
 
     if (process.client) {
-
-      
       window.addEventListener('message', (event) => {
         if (event.source === window && event.data) {
           url.value = event.data.url;
-          text.value = event.data.text;
+          text.value = event.data.text.result;
           console.log('URL1 INSIDE VUE ' + url.value);
           console.log('TEXT1 INSIDE VUE ' + text.value);
+
           const testDiv = document.querySelector('.test');
           testDiv.innerHTML = 'URL: ' + url.value + '<br>Text: ' + text.value;
         }
@@ -215,7 +213,6 @@ export default {
       // Update the clipboard items
       this.checkClipboard();
     });
-
 
     fetch('/api/users/')
       .then((response) => response.json())

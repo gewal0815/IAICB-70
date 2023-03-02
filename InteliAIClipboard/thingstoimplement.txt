@@ -37,8 +37,10 @@ files :             background.js
                     manifest.json
                     Setup Method in Main.vue
 
-Todo:               get The Text from the different Tabs in the same Browser
-                    next point is to get it also from a other Chrome Instance
+Todo:              * done* get The Text from the different Tabs in the same Browser.
+                    next point is to get it also from a other Chrome Instance.
+
+                    
 
 
 _______________________________________________________________________________
