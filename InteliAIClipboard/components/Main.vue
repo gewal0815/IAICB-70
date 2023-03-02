@@ -91,6 +91,8 @@ export default {
       clipboardItems: [],
       showModal: false,
       inputValue: '',
+      value1: '',
+      value2: ''
     };
   },
   methods: {

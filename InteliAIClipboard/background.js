@@ -18,8 +18,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
   
-
-  
   if (info.menuItemId === 'copy-data') {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       var tab = tabs[0];
