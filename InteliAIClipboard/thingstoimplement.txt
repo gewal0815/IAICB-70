@@ -8,8 +8,8 @@ __ Train a model with Tensorflow to get a prediction about inserted History
 
 _______________________________________________________________________________
 
-__ Include a Supabase OAuth user , make an guard that all Sides only
-    reachable with Authenticated profile.
+__ Include a Supabase OAuth GOOGLE provider  * Done *
+   make an guard that all Sides only reachable with Authenticated profile. * open *
 
     Authentication: should this person be allowed in? If yes, who are they?
     Authorization: once they are in, what are they allowed to do?
