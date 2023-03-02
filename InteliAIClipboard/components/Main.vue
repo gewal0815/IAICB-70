@@ -177,33 +177,7 @@ export default {
     return { url, text };
   },
   mounted() {
-    const chrome = {
-      runtime: {
-        onMessage: {
-          addListener: () => {},
-        },
-        sendMessage: () => {},
-      },
-      tabs: {
-        query: () => {},
-      },
-      scripting: {
-        executeScript: () => {},
-      },
-      storage: {
-        local: {
-          set: () => {},
-          get: () => {},
-        },
-      },
-      contextMenus: {
-        create: () => {},
-        update: () => {},
-        onClicked: {
-          addListener: () => {},
-        },
-      },
-    };
+
 
     // Check the clipboard when the component is mounted
     this.checkClipboard();
