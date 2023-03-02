@@ -157,27 +157,24 @@ export default {
     },
   },
   setup() {
-  const url = ref('');
-  const text = ref('');
+    const url = ref('');
+    const text = ref('');
 
-  if (process.client) {
-    window.addEventListener('message', (event) => {
-      if (event.source === window && event.data) {
-        url.value = event.data.url;
-        text.value = event.data.text;
-        console.log('URL1 INSIDE VUE ' + url.value);
-        console.log('TEXT1 INSIDE VUE ' + text.value);
-        const testDiv = document.querySelector('.test');
-        if (testDiv) {
+    if (process.client) {
+      window.addEventListener('message', (event) => {
+        if (event.source === window && event.data) {
+          url.value = event.data.url;
+          text.value = event.data.text;
+          console.log('URL1 INSIDE VUE ' + url.value);
+          console.log('TEXT1 INSIDE VUE ' + text.value);
+          const testDiv = document.querySelector('.test');
           testDiv.innerHTML = 'URL: ' + url.value + '<br>Text: ' + text.value;
         }
-      }
-    });
-  }
+      });
+    }
 
-  return { url, text };
-}
-,
+    return { url, text };
+  },
   mounted() {
     const chrome = {
       runtime: {
@@ -222,10 +219,6 @@ export default {
       console.log('URL0 INSIDE VUE ' + this.url);
       console.log('TEXT0 INSIDE VUE ' + this.text);
     });
-
-
-
-
 
     fetch('/api/users/')
       .then((response) => response.json())
