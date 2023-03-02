@@ -17,52 +17,54 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
-  
   if (info.menuItemId === 'copy-data') {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      var tab = tabs[0];
-      chrome.scripting.executeScript(
-        {
-          target: { tabId: tab.id },
-          func: () => {
-            const selection = window.getSelection().toString();
-            const text = selection || document.title;
-            return text;
-          },
-        },
-        (result) => {
-          const text = result[0];
-          console.log('Selected text:', text);
-          const url = tab.url;
-          console.log('URL:', url);
+      for (var i = 0; i < tabs.length; i++) {
+          var tab = tabs[i];
+      
+          chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            func: () => {
+              const selection = window.getSelection().toString();
+              const text = selection || document.title;
+              return text;
+            },
+          }, (result) => {
+            const text = result[0];
+            console.log('Selected text:', text);
+            const url = tab.url;
+            console.log('URL:', url);
 
-          const data = { url: url, text: text };
-          chrome.storage.local.set({ copiedData: data }, function() {
-            console.log('Data saved to storage:', data);
+            const data = { url: url, text: text };
+            chrome.storage.local.set({ copiedData: data }, function() {
+              console.log('Data saved to storage:', data);
 
-            chrome.contextMenus.update('copy-data', { title: 'Copied!' });
-            setTimeout(() => {
+              chrome.contextMenus.update('copy-data', { title: 'Copied!' });
+              setTimeout(() => {
+                chrome.storage.local.get(["copiedData"], function(result) {
+                  console.log("Value currently is " + result.copiedData.url);
 
-              chrome.storage.local.get(["copiedData"]).then((result) => {
-                console.log("Value currently is " + result.copiedData.url);
-              });
+                  // Send message to content script with url and text
+                  chrome.tabs.query({ url: 'http://localhost:3000/*' }, function(tabs) {
+                    if (tabs.length > 0) {
+                      const tabId = tabs[0].id;
+                      chrome.tabs.sendMessage(tabId, { url: url, text: text }, function(response) {
+                        console.log('Message sent:', response);
+                      });
+                    } else {
+                      console.log('No matching tabs found.');
+                    }
+                  });
+                });
 
-              let  msg = {
-                txt: url
-              }
-              //chrome.tabs.sendMessage(tab.id, msg);
-              
-              chrome.contextMenus.update('copy-data', { title: 'Copy Data' });
-              
-              // Send message to content script with url and text
-              chrome.tabs.sendMessage(tab.id, { url: url, text: text });
-              
-            }, 5000);
+                chrome.contextMenus.update('copy-data', { title: 'Copy Data' });
+              }, 5000);
+            });
           });
-
-        }
-      );
+      }
     });
   }
 });
+
+
 
