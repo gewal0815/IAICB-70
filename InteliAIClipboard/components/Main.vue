@@ -157,9 +157,10 @@ export default {
     },
   },
   setup() {
-    const url = ref('');
-    const text = ref('');
+  const url = ref('');
+  const text = ref('');
 
+  if (process.client) {
     window.addEventListener('message', (event) => {
       if (event.source === window && event.data) {
         url.value = event.data.url;
@@ -172,9 +173,11 @@ export default {
         }
       }
     });
+  }
 
-    return { url, text };
-  },
+  return { url, text };
+}
+,
   mounted() {
     const chrome = {
       runtime: {
@@ -219,6 +222,10 @@ export default {
       console.log('URL0 INSIDE VUE ' + this.url);
       console.log('TEXT0 INSIDE VUE ' + this.text);
     });
+
+
+
+
 
     fetch('/api/users/')
       .then((response) => response.json())
