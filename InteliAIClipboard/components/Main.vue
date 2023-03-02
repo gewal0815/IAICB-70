@@ -161,6 +161,8 @@ export default {
     const text = ref('');
 
     if (process.client) {
+
+      
       window.addEventListener('message', (event) => {
         if (event.source === window && event.data) {
           url.value = event.data.url;

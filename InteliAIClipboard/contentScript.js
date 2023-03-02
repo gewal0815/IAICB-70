@@ -1,17 +1,5 @@
 console.log("Chrome Extension work here");
 
-function sendCopiedData(text, url) {
-  chrome.runtime.sendMessage(
-    { action: 'dataCopied', text: text, url: url },
-    (response) => {
-      if (chrome.runtime.lastError) {
-        console.error(chrome.runtime.lastError.message);
-      } else {
-        console.log('Message sent:', response);
-      }
-    }
-  );
-}
 
   
   chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {

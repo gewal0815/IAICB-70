@@ -37,10 +37,6 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
           console.log('Selected text:', text);
           const url = tab.url;
           console.log('URL:', url);
-          let  msg = {
-            txt: url
-          }
-          chrome.tabs.sendMessage(tab.id, msg);
 
           const data = { url: url, text: text };
           chrome.storage.local.set({ copiedData: data }, function() {
@@ -56,7 +52,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
               let  msg = {
                 txt: url
               }
-              chrome.tabs.sendMessage(tab.id, msg);
+              //chrome.tabs.sendMessage(tab.id, msg);
               
               chrome.contextMenus.update('copy-data', { title: 'Copy Data' });
               
