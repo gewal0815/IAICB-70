@@ -37,8 +37,8 @@ files :             background.js
                     manifest.json
                     Setup Method in Main.vue
 
-Todo:               Text can be copied on only the actually opened Tab ,
-                    but it should be from a diferrent opened tab and show in the Main
+Todo:               get The Text from the different Tabs in the same Browser
+                    next point is to get it also from a other Chrome Instance
 
 
 _______________________________________________________________________________
