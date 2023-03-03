@@ -116,10 +116,11 @@ export default {
       this.showTextArea = false;
     },
     copyText() {
-      this.showModal = true;
+     
       const clipboardData = this.$refs.clipboardData;
       // Make sure clipboardData is defined before setting its innerHTML
       if (clipboardData) {
+        this.showModal = true;
         clipboardData.innerHTML = this.inputValue;
         const range = document.createRange();
         range.selectNode(clipboardData);
