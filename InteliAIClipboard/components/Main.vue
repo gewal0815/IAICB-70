@@ -77,9 +77,10 @@ import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
 import EndpointModel from './Notes/EndpointModel.vue';
 import SavedModal from '~/components/SavedModal.vue';
 import ShowUrlAndText from '../ShowUrlAndText.vue';
+import { db_atags, addTag } from '~~/server/db/aTags';
 
 export default {
-  mixins: [HistoryNavigatorMethods],
+  mixins: [HistoryNavigatorMethods, db_atags, addTag],
   components: { ShowUrlAndText, SavedModal, EndpointModel },
 
   data() {
@@ -116,7 +117,6 @@ export default {
       this.showTextArea = false;
     },
     copyText() {
-     
       const clipboardData = this.$refs.clipboardData;
       // Make sure clipboardData is defined before setting its innerHTML
       if (clipboardData) {
@@ -158,28 +158,41 @@ export default {
     },
   },
   setup() {
-    const url = ref('');
-    const text = ref('');
+  // get Data from the Background Server on Setup
+  const url = ref('');
+  const text = ref('');
+  const aTags = ref([]);
 
-    if (process.client) {
-      window.addEventListener('message', (event) => {
-        if (event.source === window && event.data) {
-          url.value = event.data.url;
-          text.value = event.data.text.result;
-          console.log('URL1 INSIDE VUE ' + url.value);
-          console.log('TEXT1 INSIDE VUE ' + text.value);
+  if (process.client) {
+    window.addEventListener('message', (event) => {
+      if (event.source === window && event.data) {
+        url.value = event.data.url;
+        text.value = event.data.text.result;
+        aTags.value = event.data.aTags;
 
-          const testDiv = document.querySelector('.test');
-          testDiv.innerHTML = 'URL: ' + url.value + '<br>Text: ' + text.value;
-        }
-      });
-    }
+        console.log('URL INSIDE VUE: ' + url.value);
+        console.log('TEXT INSIDE VUE: ' + text.value);
+        console.log('ATAGS INSIDE VUE: ', aTags.value);
 
-    return { url, text };
-  },
+        const testDiv = document.querySelector('.test');
+        testDiv.innerHTML =
+          'URL: ' +
+          url.value +
+          '<br>Text: ' +
+          text.value +
+          '<br>aTags: ' +
+          JSON.stringify(aTags.value);
+
+        addTag(aTags.value)
+          .then(() => console.log('Tags added successfully'))
+          .catch((error) => console.error(error));
+      }
+    });
+  }
+
+  return { url, text, aTags };
+},
   mounted() {
-
-
     // Check the clipboard when the component is mounted
     this.checkClipboard();
 

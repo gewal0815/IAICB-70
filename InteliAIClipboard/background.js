@@ -49,7 +49,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                 {
                   target: { tabId: tab.id },
                   func: () => {
-                    const aTags = Array.from(document.getElementsByTagName('a')).map(a => ({ text: a.innerText, href: a.href }));
+                    const aTags = Array.from(
+                      document.getElementsByTagName('a')
+                    ).map((a) => ({ text: a.innerText, href: a.href }));
                     return aTags;
                   },
                 },
@@ -59,7 +61,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                   chrome.contextMenus.update('copy-data', { title: 'Copied!' });
                   setTimeout(() => {
                     chrome.storage.local.get(['copiedData'], function (result) {
-                      console.log('Value currently is ' + result.copiedData.url);
+                      console.log(
+                        'Value currently is ' + result.copiedData.url
+                      );
 
                       // Send message to content script with url, text, and a tags
                       chrome.tabs.query(
@@ -81,7 +85,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                       );
                     });
 
-                    chrome.contextMenus.update('copy-data', { title: 'Copy Data' });
+                    chrome.contextMenus.update('copy-data', {
+                      title: 'Copy Data',
+                    });
                   }, 5000);
                 }
               );
@@ -92,4 +98,3 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     });
   }
 });
-
