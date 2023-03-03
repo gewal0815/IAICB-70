@@ -40,10 +40,17 @@ files :             background.js
 Todo:              * done* get The Text from the different Tabs in the same Browser.
                     next point is to get it also from a other Chrome Instance.
 
-                    
+
 
 
 _______________________________________________________________________________
 
+___ make an server Endpoint called /api/aTags 
+        call it in Main.vue additem Method push the values
+        from the grabed aTags from the input
+
+        files:          Main.vue under setup
+                        aTags.js (server/db)
+                        index.js (server/aTags)
 
 
