@@ -45,7 +45,7 @@ Todo:              * done* get The Text from the different Tabs in the same Brow
 
 _______________________________________________________________________________
 
-___ make an server Endpoint called /api/aTags 
+___ * Done * make an server Endpoint called /api/aTags 
         call it in Main.vue additem Method push the values
         from the grabed aTags from the input
 
@@ -53,4 +53,7 @@ ___ make an server Endpoint called /api/aTags
                         aTags.js (server/db)
                         index.js (server/aTags)
 
-
+        for later should have a Delete function to delete the non Static
+        db_atags.
+        
+        This given Data should be a base for train A AI model
