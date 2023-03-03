@@ -8,6 +8,7 @@
   "action": {
       "default_icon": {
         "16": "assets/AI.png",
+        "32": "assets/AI.png",
         "48": "assets/AI.png",
         "128": "assets/AI.png"
       },

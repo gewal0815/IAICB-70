@@ -1,7 +1,7 @@
 console.log("Chrome Extension work here");
 
 
-  
+  // for the copy Data function
   chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log("response Text:"+request.txt);
 
@@ -12,7 +12,11 @@ console.log("Chrome Extension work here");
     }
   });
 
+  // Message send to vue Component ()
   chrome.runtime.onMessage.addListener((message) => {
     // Send message to Vue component
     window.postMessage(message);
   });
+  
+
+
