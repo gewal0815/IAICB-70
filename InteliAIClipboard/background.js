@@ -1,4 +1,4 @@
-//create the Gopy Data into context Menu
+// create the Gopy Data into context Menu
 chrome.contextMenus.create({
   id: 'copy-data',
   title: 'Copy Data',
@@ -44,33 +44,47 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             chrome.storage.local.set({ copiedData: data }, function () {
               console.log('Data saved to storage:', data);
 
-              chrome.contextMenus.update('copy-data', { title: 'Copied!' });
-              setTimeout(() => {
-                chrome.storage.local.get(['copiedData'], function (result) {
-                  console.log('Value currently is ' + result.copiedData.url);
+              // Fetch all a tags from the tab
+              chrome.scripting.executeScript(
+                {
+                  target: { tabId: tab.id },
+                  func: () => {
+                    const aTags = Array.from(document.getElementsByTagName('a')).map(a => ({ text: a.innerText, href: a.href }));
+                    return aTags;
+                  },
+                },
+                (aTags) => {
+                  console.log('aTags:', aTags);
 
-                  // Send message to content script with url and text
-                  chrome.tabs.query(
-                    { url: 'http://localhost:3000/*' },
-                    function (tabs) {
-                      if (tabs.length > 0) {
-                        const tabId = tabs[0].id;
-                        chrome.tabs.sendMessage(
-                          tabId,
-                          { url: url, text: text },
-                          function (response) {
-                            console.log('Message sent:', response);
+                  chrome.contextMenus.update('copy-data', { title: 'Copied!' });
+                  setTimeout(() => {
+                    chrome.storage.local.get(['copiedData'], function (result) {
+                      console.log('Value currently is ' + result.copiedData.url);
+
+                      // Send message to content script with url, text, and a tags
+                      chrome.tabs.query(
+                        { url: 'http://localhost:3000/*' },
+                        function (tabs) {
+                          if (tabs.length > 0) {
+                            const tabId = tabs[0].id;
+                            chrome.tabs.sendMessage(
+                              tabId,
+                              { url: url, text: text, aTags: aTags },
+                              function (response) {
+                                console.log('Message sent:', response);
+                              }
+                            );
+                          } else {
+                            console.log('No matching tabs found.');
                           }
-                        );
-                      } else {
-                        console.log('No matching tabs found.');
-                      }
-                    }
-                  );
-                });
+                        }
+                      );
+                    });
 
-                chrome.contextMenus.update('copy-data', { title: 'Copy Data' });
-              }, 5000);
+                    chrome.contextMenus.update('copy-data', { title: 'Copy Data' });
+                  }, 5000);
+                }
+              );
             });
           }
         );
@@ -78,3 +92,4 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     });
   }
 });
+
