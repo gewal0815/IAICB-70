@@ -26,7 +26,7 @@ _______________________________________________________________________________
 __ Fix the code and refactor the code.
 
 
-__ Refactor the HistoryNavigatorTemplate and the HistoryNavigatorMethods
+__ Refactor the HistoryNavigatorTemplate and the HistoryNavigatorMethods, Main
 
 _______________________________________________________________________________
 
