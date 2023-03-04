@@ -78,6 +78,9 @@ import EndpointModel from './Notes/EndpointModel.vue';
 import SavedModal from '~/components/SavedModal.vue';
 import ShowUrlAndText from '../ShowUrlAndText.vue';
 import { db_atags, addTag } from '~~/server/db/aTags';
+import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
+import { v4 as uuidv4 } from 'uuid';
+import { createClient } from '@supabase/supabase-js';
 
 export default {
   mixins: [HistoryNavigatorMethods, db_atags, addTag],
@@ -94,6 +97,7 @@ export default {
       inputValue: '',
     };
   },
+
   methods: {
     showFullText(event) {
       const target = event.target;
@@ -158,41 +162,68 @@ export default {
     },
   },
   setup() {
-  // get Data from the Background Server on Setup
-  const url = ref('');
-  const text = ref('');
-  const aTags = ref([]);
+    const supabase = createClient(SUPABASEURL, SUPABASEKEY);
 
-  if (process.client) {
-    window.addEventListener('message', (event) => {
-      if (event.source === window && event.data) {
-        url.value = event.data.url;
-        text.value = event.data.text.result;
-        aTags.value = event.data.aTags;
+    // get Data from the Background Server on Setup
+    const url = ref('');
+    const text = ref('');
+    const aTags = ref([]);
+    const uuid = uuidv4();
 
-        console.log('URL INSIDE VUE: ' + url.value);
-        console.log('TEXT INSIDE VUE: ' + text.value);
-        console.log('ATAGS INSIDE VUE: ', aTags.value);
+    if (process.client) {
+      window.addEventListener('message', (event) => {
+        if (event.source === window && event.data) {
+          url.value = event.data.url;
+          text.value = event.data.text.result;
+          aTags.value = event.data.aTags;
+          let documentId;
 
-        const testDiv = document.querySelector('.test');
-        testDiv.innerHTML =
-          'URL: ' +
-          url.value +
-          '<br>Text: ' +
-          text.value +
-          '<br>aTags: ' +
-          JSON.stringify(aTags.value);
+          // Iterate over the array to find the object that contains the desired documentId property
 
-        addTag(aTags.value)
-          .then(() => console.log('Tags added successfully'))
-          .catch((error) => console.error(error));
-      }
-    });
-  }
+          for (let i = 0; i < aTags.value.length; i++) {
+            if (aTags.value[i].documentId) {
+              documentId = aTags.value[i].documentId;
+              break;
+            }
+          }
+          // Insert the values to the Db Table aTags
+          if (aTags.value && documentId) {
+            supabase
+              .from('aTags')
+              .insert({
+                id_aTag: JSON.stringify(aTags.value),
+                uuid: documentId,
+              })
+              .then((response) => {
+                console.log('Stringified Tag' + response);
+              });
+          }
 
-  return { url, text, aTags };
-},
+          // Delete if null values in id_aTag
+          supabase.from('aTags').delete().eq('id_aTag', 'null');
+
+          const testDiv = document.querySelector('.test');
+          testDiv.innerHTML =
+            'URL: ' +
+            url.value +
+            '<br>Text: ' +
+            text.value +
+            '<br>aTags: ' +
+            JSON.stringify(aTags.value);
+
+          // Add the Atags into Array
+
+          addTag(aTags.value)
+            .then(() => console.log('Tags added successfully'))
+            .catch((error) => console.error(error));
+        }
+      });
+    }
+
+    return { url, text, aTags };
+  },
   mounted() {
+
     // Check the clipboard when the component is mounted
     this.checkClipboard();
 
