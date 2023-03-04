@@ -53,8 +53,6 @@ ___ * Done * make an server Endpoint called /api/aTags
                         aTags.js (server/db)
                         index.js (server/aTags)
 
-        PUT the given objext in supabase DB documentID and Result 
-        for later should have a Delete function to delete the non Static
-        db_atags.
+        * DONE * PUT the given objext in supabase DB documentID and Result 
         
         This given Data should be a base to train A AI model
