@@ -81,7 +81,6 @@ import {
   createClient,
 } from './MixingImports.vue';
 
-
 export default {
   mixins: [HistoryNavigatorMethods, db_atags, addTag],
   components: { SavedModal },
@@ -161,7 +160,9 @@ export default {
         });
     },
   },
+
   setup() {
+    // Process Client
     const supabase = createClient(SUPABASEURL, SUPABASEKEY);
 
     // get Data from the Background Server on Setup
@@ -178,7 +179,6 @@ export default {
           let documentId;
 
           // Iterate over the array to find the object that contains the desired documentId property
-
           for (let i = 0; i < aTags.value.length; i++) {
             if (aTags.value[i].documentId) {
               documentId = aTags.value[i].documentId;
@@ -191,6 +191,7 @@ export default {
               console.log('url value is null. Skipping insert.');
               return;
             }
+
             supabase
               .from('aTags')
               .insert({
@@ -205,7 +206,6 @@ export default {
           }
 
           // Add the Atags into Array
-
           addTag(aTags.value)
             .then(() => console.log('Tags added successfully'))
             .catch((error) => console.error(error));
@@ -215,6 +215,7 @@ export default {
 
     return { url, text, aTags };
   },
+
   mounted() {
     // Check the clipboard when the component is mounted
     this.checkClipboard();

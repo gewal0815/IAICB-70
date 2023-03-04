@@ -6,7 +6,7 @@ import ShowUrlAndText from '../ShowUrlAndText.vue';
 import { db_atags, addTag } from '~~/server/db/aTags';
 import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
 import { createClient } from '@supabase/supabase-js';
-
+import { v4 as uuidv4 } from 'uuid';
 export {
   HistoryNavigatorMethods,
   EndpointModel,
@@ -17,6 +17,7 @@ export {
   SUPABASEKEY,
   SUPABASEURL,
   createClient,
+  uuidv4,
 };
 </script>
 

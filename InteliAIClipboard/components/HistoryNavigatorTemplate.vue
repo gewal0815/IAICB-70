@@ -31,23 +31,27 @@
     </ul>
   </div>
 
-
-  <SavedModal v-if="showModal" :selectedHistoryItem="selectedHistoryItem" @close-modal="closeSavedModal" />
+  <SavedModal
+    v-if="showModal"
+    :selectedHistoryItem="selectedHistoryItem"
+    @close-modal="closeSavedModal"
+  />
 </template>
 
 <script>
-import { createClient } from '@supabase/supabase-js';
-import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
-import { v4 as uuidv4 } from 'uuid';
-import SavedModal from './SavedModal.vue';
+import {
+  SavedModal,
+  SUPABASEKEY,
+  SUPABASEURL,
+  createClient,
+  uuidv4,
+} from './MixingImports.vue';
 
 let uuid = '';
 export default {
- 
   props: {
     history: Array,
     inputValue: String,
-    
   },
   components: {
     SavedModal,
@@ -82,12 +86,11 @@ export default {
   },
 
   methods: {
-
     async clearDatabase() {
       const { error } = await this.supabaseClient
         .from('history')
         .delete()
-        .match({ color: ['blue']});
+        .match({ color: ['blue'] });
 
       if (error) {
         console.error('Error deleting blue or empty color items:', error);
@@ -135,7 +138,7 @@ export default {
       uuid = uuidv4(); // generate a new uuid for each item
       console.log(this.history.id);
 
-      item.color ? item.color : item.color = "blue";
+      item.color ? item.color : (item.color = 'blue');
 
       const { error } = await this.supabaseClient.from('history').insert({
         id: this.history.id,
