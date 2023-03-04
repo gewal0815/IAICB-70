@@ -165,6 +165,14 @@ export default {
     // Process Client
     const supabase = createClient(SUPABASEURL, SUPABASEKEY);
 
+    // TODO get the auth user
+   /* const session = supabase.auth.getSession();
+
+    const { user } = session;
+    console.log('UserId:->' + user);
+
+    */
+
     // get Data from the Background Server on Setup
     const url = ref('');
     const text = ref('');

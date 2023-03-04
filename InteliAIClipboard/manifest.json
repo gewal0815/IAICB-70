@@ -1,7 +1,7 @@
 {
   "name": "InteliAI ClipBoard",
   "version": "1.0",
-  "description": "Captures copied data and sends it to a Nuxt3 API",
+  "description": "Captures copied data and sends it to InteliAI Clipboard",
   "manifest_version": 3,
 
 
