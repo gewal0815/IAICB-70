@@ -166,7 +166,7 @@ export default {
     const supabase = createClient(SUPABASEURL, SUPABASEKEY);
 
     // TODO get the auth user
-   /* const session = supabase.auth.getSession();
+    /* const session = supabase.auth.getSession();
 
     const { user } = session;
     console.log('UserId:->' + user);
@@ -184,6 +184,7 @@ export default {
           url.value = event.data.url;
           text.value = event.data.text.result;
           aTags.value = event.data.aTags;
+
           let documentId;
 
           // Iterate over the array to find the object that contains the desired documentId property
