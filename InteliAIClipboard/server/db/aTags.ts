@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-
+import { v4 as uuidv4 } from 'uuid';
 interface aTag {
   id: string;
   href: string;
@@ -17,31 +17,25 @@ const supabase = createClient(
 );
 
 export async function addTag(tag: aTag[]): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      setTimeout(async () => {
-        try {
-          db_atags.aTags.push(...tag);
-          
-          const { data, error } = await supabase
-            .from('aTags')
-            .insert(
-              db_atags.aTags.map((t) => ({
-                id: t.id,
-                href: t.href,
-                text: t.text,
-                id_aTag: t.id_aTag,
-              }))
-            );
-  
-          if (error) {
-            throw error;
-          }
-          console.table('TagLead' + JSON.stringify(tag));
-          resolve();
-        } catch (error) {
-          reject(error);
-        }
-      }, 0);
-    });
-  }
-  
+  return new Promise<void>((resolve, reject) => {
+    
+    const uuid = uuidv4;
+    setTimeout(async () => {
+      try {
+        db_atags.aTags.push(...tag);
+
+        supabase
+          .from('aTags')
+          .insert({ id_aTag: JSON.parse(JSON.stringify(tag)), uuid: uuid })
+          .then((response) => {
+            console.log('Stringified Tag' + response);
+          });
+
+        console.table('TagLead' + JSON.stringify(tag));
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    }, 0);
+  });
+}
