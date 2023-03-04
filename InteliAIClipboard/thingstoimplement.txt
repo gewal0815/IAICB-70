@@ -37,8 +37,8 @@ files :             background.js
                     manifest.json
                     Setup Method in Main.vue
 
-Todo:              * done* get The Text from the different Tabs in the same Browser.
-                    next point is to get it also from a other Chrome Instance.
+Todo:              * done *  get The Text from the different Tabs in the same Browser.
+                   TODO:     next point is to get it also from a other Chrome Instance.
 
 
 
@@ -53,6 +53,6 @@ ___ * Done * make an server Endpoint called /api/aTags
                         aTags.js (server/db)
                         index.js (server/aTags)
 
-        * DONE * PUT the given objext in supabase DB documentID and Result 
+        * DONE *    PUT the given objext in supabase DB documentID and Result 
         
-        This given Data should be a base to train A AI model
+         TODO:      This given Data should be a base to train A AI model
