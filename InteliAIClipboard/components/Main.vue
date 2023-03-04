@@ -68,23 +68,23 @@
   </div>
 
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
-  <!--<EndpointModel />-->
-  <!--<ShowUrlAndText />-->
 </template>
 
 <script>
-import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
-import EndpointModel from './Notes/EndpointModel.vue';
-import SavedModal from '~/components/SavedModal.vue';
-import ShowUrlAndText from '../ShowUrlAndText.vue';
-import { db_atags, addTag } from '~~/server/db/aTags';
-import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
-import { v4 as uuidv4 } from 'uuid';
-import { createClient } from '@supabase/supabase-js';
+import {
+  HistoryNavigatorMethods,
+  SavedModal,
+  db_atags,
+  addTag,
+  SUPABASEKEY,
+  SUPABASEURL,
+  createClient,
+} from './MixingImports.vue';
+
 
 export default {
   mixins: [HistoryNavigatorMethods, db_atags, addTag],
-  components: { ShowUrlAndText, SavedModal, EndpointModel },
+  components: { SavedModal },
 
   data() {
     return {
@@ -168,7 +168,6 @@ export default {
     const url = ref('');
     const text = ref('');
     const aTags = ref([]);
-    const uuid = uuidv4();
 
     if (process.client) {
       window.addEventListener('message', (event) => {
@@ -205,15 +204,6 @@ export default {
               });
           }
 
-          const testDiv = document.querySelector('.test');
-          testDiv.innerHTML =
-            'URL: ' +
-            url.value +
-            '<br>Text: ' +
-            text.value +
-            '<br>aTags: ' +
-            JSON.stringify(aTags.value);
-
           // Add the Atags into Array
 
           addTag(aTags.value)
@@ -234,15 +224,6 @@ export default {
       // Update the clipboard items
       this.checkClipboard();
     });
-
-    fetch('/api/users/')
-      .then((response) => response.json())
-      .then((data) => {
-        const filteredData = data.filter((user) => user.id === '12');
-        const item = filteredData[0].item;
-        console.log(item);
-      })
-      .catch((error) => console.error(error));
   },
 };
 </script>

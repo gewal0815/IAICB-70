@@ -13,7 +13,15 @@ import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
 const supabase = createClient(SUPABASEURL, SUPABASEKEY);
 
 const logout = async () => {
-
+  
+  setTimeout(
+    async () => {
+      console.log("Logout")
+      console.log(await supabase.auth.signOut())
+    },
+    3000
+  );
+  
 };
 
 const login = async () => {
