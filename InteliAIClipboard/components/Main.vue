@@ -188,19 +188,22 @@ export default {
           }
           // Insert the values to the Db Table aTags
           if (aTags.value && documentId) {
+            if (url.value === null || text.value === null) {
+              console.log('url value is null. Skipping insert.');
+              return;
+            }
             supabase
               .from('aTags')
               .insert({
                 id_aTag: JSON.stringify(aTags.value),
                 uuid: documentId,
+                copiedText: text.value,
+                url: url.value,
               })
               .then((response) => {
                 console.log('Stringified Tag' + response);
               });
           }
-
-          // Delete if null values in id_aTag
-          supabase.from('aTags').delete().eq('id_aTag', 'null');
 
           const testDiv = document.querySelector('.test');
           testDiv.innerHTML =
@@ -223,7 +226,6 @@ export default {
     return { url, text, aTags };
   },
   mounted() {
-
     // Check the clipboard when the component is mounted
     this.checkClipboard();
 
