@@ -1,7 +1,7 @@
 // create the Gopy Data into context Menu
 chrome.contextMenus.create({
   id: 'copy-data',
-  title: 'Copy Data to InteliAI Clipboard',
+  title: 'Copy Data',
   contexts: ['page', 'selection'],
 });
 
