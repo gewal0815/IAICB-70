@@ -31,6 +31,8 @@
     </ul>
   </div>
 
+  
+
   <SavedModal
     v-if="showModal"
     :selectedHistoryItem="selectedHistoryItem"
@@ -46,6 +48,7 @@ import {
   SUPABASEURL,
   createClient,
   uuidv4,
+
 } from './MixingImports.vue';
 
 let uuid = '';
@@ -55,7 +58,7 @@ export default {
     inputValue: String,
   },
   components: {
-    SavedModal,
+    SavedModal
   },
 
   data() {
@@ -64,6 +67,7 @@ export default {
       showTextArea: false,
       showModal: false, // Add showModal data property
       selectedHistoryItem: null, // Add selectedHistoryItem data property
+
     };
   },
   created() {

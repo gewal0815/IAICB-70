@@ -63,17 +63,8 @@
     </div>
   </div>
 
-  <div>
-    <div class="content" ref="content">
-      <div v-for="(card, index) in cards" :key="index">
-        <div class="card">
-          <div class="card-header">{{ card.title }}</div>
-          <div class="card-body">{{ card.content }}</div>
-        </div>
-      </div>
-    </div>
-  </div>
 
+  <Content :history="history" />
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
 </template>
 
@@ -87,11 +78,12 @@ import {
   SUPABASEKEY,
   SUPABASEURL,
   createClient,
+  Content
 } from './MixingImports.vue';
 
 export default {
   mixins: [HistoryNavigatorMethods, HistoryNavigatorTemplate, db_atags, addTag],
-  components: { SavedModal },
+  components: { SavedModal, Content},
 
   data() {
     return {
@@ -102,11 +94,7 @@ export default {
       clipboardItems: [],
       showModal: false,
       inputValue: '',
-      cards: [
-        { title: "Card 1", content: "This is the content of Card 1" },
-        { title: "Card 2", content: "This is the content of Card 2" },
-        { title: "Card 3", content: "This is the content of Card 3" },
-      ],
+
     };
   },
 
