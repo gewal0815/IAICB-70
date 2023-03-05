@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import supabase from '~~/plugins/supabase';
 import {
   SavedModal,
   SUPABASEKEY,
@@ -66,7 +67,6 @@ export default {
     };
   },
   created() {
-   
     this.clearDatabase();
     // fetch items from the database with color green
     this.supabaseClient
@@ -135,34 +135,94 @@ export default {
     },
 
     async saveToDatabase(item, uuid) {
-      //uuid = uuidv4(); // generate a new uuid for each item
-      console.log(this.history.id);
+  item.color = item.color || 'blue'; // Use a default value for the color property
 
-      item.color ? item.color : (item.color = 'blue');
+  // Check if there is already a row in the history table with the same content
+  const { data: existingData, error: selectError } = await this.supabaseClient
+    .from('history')
+    .select('id')
+    .eq('content', item.content)
+    .order('created_at', { ascending: false }); // Order the results by date in descending order
 
-      const { error } = await this.supabaseClient.from('history').insert({
-        id: this.history.id,
+  if (selectError) {
+    console.error('Error selecting data:', selectError);
+    return;
+  }
+
+  if (existingData && existingData.length > 1) {
+    // If there are multiple rows with the same content, delete all except the last one
+    const lastId = existingData[0].id;
+    const deleteIds = existingData.slice(1).map((row) => row.id);
+
+    const { error: deleteError } = await this.supabaseClient
+      .from('history')
+      .delete()
+      .in('id', deleteIds);
+
+    if (deleteError) {
+      console.error('Error deleting duplicate rows:', deleteError);
+      return;
+    }
+
+    console.log(`Deleted ${deleteIds.length} duplicate rows with content "${item.content}"`);
+
+    // Update the last remaining row with the new UUID and any other changes
+    const { error: updateError } = await this.supabaseClient
+      .from('history')
+      .update({
         color: item.color,
         date: item.date,
-        content: item.content,
-        uuid: uuid, // include the uuid property in the item object
-      });
+        uuid: uuid,
+      })
+      .eq('id', lastId);
 
-      if (error) {
-        console.error('Error saving item:', error);
-        return;
-      }
+    if (updateError) {
+      console.error('Error updating last row:', updateError);
+      return;
+    }
 
-      console.log('Item saved to database:', item);
-    },
+    console.log(`Updated last row with new UUID and changes for content "${item.content}"`);
+  } else if (existingData && existingData.length === 1) {
+    // If there is only one row with the same content, update it with the new UUID and any other changes
+    const { error: updateError } = await this.supabaseClient
+      .from('history')
+      .update({
+        color: item.color,
+        date: item.date,
+        uuid: uuid,
+      })
+      .eq('id', existingData[0].id);
+
+    if (updateError) {
+      console.error('Error updating row:', updateError);
+      return;
+    }
+
+    console.log(`Updated row with new UUID and changes for content "${item.content}"`);
+  } else {
+    // If there are no rows with the same content, insert the new data
+    const { error: insertError } = await this.supabaseClient.from('history').insert({
+      color: item.color,
+      date: item.date,
+      content: item.content,
+      uuid: uuid,
+    });
+
+    if (insertError) {
+      console.error('Error saving item:', insertError);
+      return;
+    }
+
+    console.log(`Inserted new row with content "${item.content}" and UUID "${uuid}"`);
+  }
+}
+
   },
   watch: {
     history: {
       handler(newVal, oldVal) {
-       
-
         const newItems = newVal.slice(oldVal.length);
-        
+
         // add the uuid property to each new item
         newItems.forEach((item) => {
           item.uuid = uuidv4();
@@ -178,8 +238,10 @@ export default {
           };
           const uuidNewItem = uuidv4();
           newItem.uuid = uuidNewItem; // generate a uuid for the new item
-          console.log(`NEWItem UID:-> ${newItem.uuid} \n NewVal:-> ${newVal} \n InputValue:-> ${this.inputValue}`);
-          this.saveToDatabase(newItem,newItem.uuid);
+          console.log(
+            `NEWItem UID:-> ${newItem.uuid} \n NewVal:-> ${newVal} \n InputValue:-> ${this.inputValue}`
+          );
+          this.saveToDatabase(newItem, newItem.uuid);
         }
 
         console.log('History array after saving new items:', this.history);
