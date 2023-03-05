@@ -214,15 +214,26 @@ export default {
               .then((response) => {
                 console.log('Stringified Tag' + response);
               });
-          }
+              
+            if (text.value) {
+              supabase
+                .from('history')
+                .insert({
+                  content: text.value,
+                  uuid: documentId,
+                  color: 'blue',
+                  created_at: new Date(),
+                })
+                .then((response) => {
+                  console.log('Stringified Tag' + response);
+                });
 
-          if (text.value) {
-            
-            history.value.push({
-              content: text.value,
-              color: 'blue',
-              created_at: new Date(),
-            });
+              history.value.push({
+                content: text.value,
+                color: 'blue',
+                created_at: new Date(),
+              });
+            }
           }
 
           // Add the Atags into Array
