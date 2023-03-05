@@ -107,7 +107,7 @@ export default {
       }
     },
 
-    async deleteItem(uuid1) {
+    async deleteItem(uuid) {
       console.log('Deleting item with UUID:', uuid);
 
       const { error } = await this.supabaseClient
