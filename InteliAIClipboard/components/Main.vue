@@ -202,7 +202,7 @@ export default {
               console.log('url value is null. Skipping insert.');
               return;
             }
-
+            // Push the atags into DB Table
             supabase
               .from('aTags')
               .insert({
@@ -214,13 +214,14 @@ export default {
               .then((response) => {
                 console.log('Stringified Tag' + response);
               });
-              
+
+              // push the text.value in the history DB Table
             if (text.value) {
               supabase
                 .from('history')
                 .insert({
                   content: text.value,
-                  uuid: documentId,
+                  //uuid: documentId,
                   color: 'blue',
                   created_at: new Date(),
                 })
@@ -232,6 +233,7 @@ export default {
                 content: text.value,
                 color: 'blue',
                 created_at: new Date(),
+                //uuid: documentId,
               });
             }
           }

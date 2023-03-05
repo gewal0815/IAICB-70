@@ -66,7 +66,7 @@ export default {
     };
   },
   created() {
-    //const { data: { user } } = supabase.auth.getUser()
+   
     this.clearDatabase();
     // fetch items from the database with color green
     this.supabaseClient
@@ -134,8 +134,8 @@ export default {
       this.showModal = false;
     },
 
-    async saveToDatabase(item, updateHistory) {
-      uuid = uuidv4(); // generate a new uuid for each item
+    async saveToDatabase(item, uuid) {
+      //uuid = uuidv4(); // generate a new uuid for each item
       console.log(this.history.id);
 
       item.color ? item.color : (item.color = 'blue');
@@ -159,11 +159,15 @@ export default {
   watch: {
     history: {
       handler(newVal, oldVal) {
+       
+
         const newItems = newVal.slice(oldVal.length);
+        
         // add the uuid property to each new item
         newItems.forEach((item) => {
           item.uuid = uuidv4();
-          this.saveToDatabase(item);
+          //this.saveToDatabase(item);
+          console.log(`item UID:-> ${item.uuid} \n NewVal:-> ${newVal}`);
         });
 
         if (newVal.length > 0 && this.inputValue !== '') {
@@ -172,8 +176,10 @@ export default {
             color: 'blue',
             created_at: new Date(),
           };
-          newItem.uuid = uuidv4(); // generate a uuid for the new item
-          this.saveToDatabase(newItem);
+          const uuidNewItem = uuidv4();
+          newItem.uuid = uuidNewItem; // generate a uuid for the new item
+          console.log(`NEWItem UID:-> ${newItem.uuid} \n NewVal:-> ${newVal} \n InputValue:-> ${this.inputValue}`);
+          this.saveToDatabase(newItem,newItem.uuid);
         }
 
         console.log('History array after saving new items:', this.history);
