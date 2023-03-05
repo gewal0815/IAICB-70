@@ -134,7 +134,7 @@ export default {
       this.showModal = false;
     },
 
-    async saveToDatabase(item) {
+    async saveToDatabase(item, updateHistory) {
       uuid = uuidv4(); // generate a new uuid for each item
       console.log(this.history.id);
 

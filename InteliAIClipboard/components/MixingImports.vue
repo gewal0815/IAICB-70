@@ -1,5 +1,6 @@
 <script>
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
+import HistoryNavigatorTemplate from './HistoryNavigatorTemplate.vue'
 import EndpointModel from './Notes/EndpointModel.vue';
 import SavedModal from '~/components/SavedModal.vue';
 import ShowUrlAndText from '../ShowUrlAndText.vue';
@@ -9,6 +10,7 @@ import { createClient } from '@supabase/supabase-js';
 import { v4 as uuidv4 } from 'uuid';
 export {
   HistoryNavigatorMethods,
+  HistoryNavigatorTemplate,
   EndpointModel,
   SavedModal,
   ShowUrlAndText,
@@ -18,7 +20,9 @@ export {
   SUPABASEURL,
   createClient,
   uuidv4,
+
 };
+
 </script>
 
 

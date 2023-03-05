@@ -73,6 +73,7 @@
 <script>
 import {
   HistoryNavigatorMethods,
+  HistoryNavigatorTemplate,
   SavedModal,
   db_atags,
   addTag,
@@ -82,7 +83,7 @@ import {
 } from './MixingImports.vue';
 
 export default {
-  mixins: [HistoryNavigatorMethods, db_atags, addTag],
+  mixins: [HistoryNavigatorMethods, HistoryNavigatorTemplate, db_atags, addTag],
   components: { SavedModal },
 
   data() {
@@ -177,6 +178,7 @@ export default {
     const url = ref('');
     const text = ref('');
     const aTags = ref([]);
+    const history = ref([]);
 
     if (process.client) {
       window.addEventListener('message', (event) => {
@@ -214,6 +216,15 @@ export default {
               });
           }
 
+          if (text.value) {
+            
+            history.value.push({
+              content: text.value,
+              color: 'blue',
+              created_at: new Date(),
+            });
+          }
+
           // Add the Atags into Array
           addTag(aTags.value)
             .then(() => console.log('Tags added successfully'))
@@ -222,7 +233,7 @@ export default {
       });
     }
 
-    return { url, text, aTags };
+    return { url, text, aTags, history };
   },
 
   mounted() {
