@@ -64,7 +64,14 @@
   </div>
 
   <div>
-    <div class="test" ref="test"></div>
+    <div class="content" ref="content">
+      <div v-for="(card, index) in cards" :key="index">
+        <div class="card">
+          <div class="card-header">{{ card.title }}</div>
+          <div class="card-body">{{ card.content }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
@@ -95,6 +102,11 @@ export default {
       clipboardItems: [],
       showModal: false,
       inputValue: '',
+      cards: [
+        { title: "Card 1", content: "This is the content of Card 1" },
+        { title: "Card 2", content: "This is the content of Card 2" },
+        { title: "Card 3", content: "This is the content of Card 3" },
+      ],
     };
   },
 

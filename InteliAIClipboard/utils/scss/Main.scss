@@ -200,6 +200,15 @@ textarea {
     border-bottom: 1px solid #ddd;
   }
 
+  .card {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  .card-header {
+    font-weight: bold;
+  }
+  
 /* Media Query larger screen */
 @media (min-width: 768px) {
   * {

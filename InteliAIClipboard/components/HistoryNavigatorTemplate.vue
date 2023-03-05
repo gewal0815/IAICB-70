@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import supabase from '~~/plugins/supabase';
+
 import {
   SavedModal,
   SUPABASEKEY,
