@@ -11,13 +11,13 @@
         :style="{ color: item.color }"
       >
         <span class="content" v-if="item.color !== 'green'">{{
-          item.content.length > 15
-            ? item.content.slice(0, 15) + '...'
+          item.content.length > 100
+            ? item.content.slice(0, 100) + '...'
             : item.content
         }}</span>
         <span class="content" v-else>{{
-          item.content.length > 30
-            ? item.content.slice(0, 30) + '...'
+          item.content.length > 100
+            ? item.content.slice(0, 100) + '...'
             : item.content
         }}</span>
 
