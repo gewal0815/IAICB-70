@@ -79,8 +79,10 @@ export default {
         } else {
           // add the items to the history array
           data.forEach((item) => {
+            this.history = [];
             this.history.push(item);
           });
+
         }
       });
   },
@@ -135,88 +137,98 @@ export default {
     },
 
     async saveToDatabase(item, uuid) {
-  item.color = item.color || 'blue'; // Use a default value for the color property
+      item.color = item.color || 'blue'; // Use a default value for the color property
 
-  // Check if there is already a row in the history table with the same content
-  const { data: existingData, error: selectError } = await this.supabaseClient
-    .from('history')
-    .select('id')
-    .eq('content', item.content)
-    .order('created_at', { ascending: false }); // Order the results by date in descending order
+      // Check if there is already a row in the history table with the same content
+      const { data: existingData, error: selectError } =
+        await this.supabaseClient
+          .from('history')
+          .select('id')
+          .eq('content', item.content)
+          .order('created_at', { ascending: false }); // Order the results by date in descending order
 
-  if (selectError) {
-    console.error('Error selecting data:', selectError);
-    return;
-  }
+      if (selectError) {
+        console.error('Error selecting data:', selectError);
+        return;
+      }
 
-  if (existingData && existingData.length > 1) {
-    // If there are multiple rows with the same content, delete all except the last one
-    const lastId = existingData[0].id;
-    const deleteIds = existingData.slice(1).map((row) => row.id);
+      if (existingData && existingData.length > 1) {
+        // If there are multiple rows with the same content, delete all except the last one
+        const lastId = existingData[0].id;
+        const deleteIds = existingData.slice(1).map((row) => row.id);
 
-    const { error: deleteError } = await this.supabaseClient
-      .from('history')
-      .delete()
-      .in('id', deleteIds);
+        const { error: deleteError } = await this.supabaseClient
+          .from('history')
+          .delete()
+          .in('id', deleteIds);
 
-    if (deleteError) {
-      console.error('Error deleting duplicate rows:', deleteError);
-      return;
-    }
+        if (deleteError) {
+          console.error('Error deleting duplicate rows:', deleteError);
+          return;
+        }
 
-    console.log(`Deleted ${deleteIds.length} duplicate rows with content "${item.content}"`);
+        console.log(
+          `Deleted ${deleteIds.length} duplicate rows with content "${item.content}"`
+        );
 
-    // Update the last remaining row with the new UUID and any other changes
-    const { error: updateError } = await this.supabaseClient
-      .from('history')
-      .update({
-        color: item.color,
-        date: item.date,
-        uuid: uuid,
-      })
-      .eq('id', lastId);
+        // Update the last remaining row with the new UUID and any other changes
+        const { error: updateError } = await this.supabaseClient
+          .from('history')
+          .update({
+            color: item.color,
+            date: item.date,
+            uuid: uuid,
+          })
+          .eq('id', lastId);
 
-    if (updateError) {
-      console.error('Error updating last row:', updateError);
-      return;
-    }
+        if (updateError) {
+          console.error('Error updating last row:', updateError);
+          return;
+        }
 
-    console.log(`Updated last row with new UUID and changes for content "${item.content}"`);
-  } else if (existingData && existingData.length === 1) {
-    // If there is only one row with the same content, update it with the new UUID and any other changes
-    const { error: updateError } = await this.supabaseClient
-      .from('history')
-      .update({
-        color: item.color,
-        date: item.date,
-        uuid: uuid,
-      })
-      .eq('id', existingData[0].id);
+        console.log(
+          `Updated last row with new UUID and changes for content "${item.content}"`
+        );
+      } else if (existingData && existingData.length === 1) {
+        // If there is only one row with the same content, update it with the new UUID and any other changes
+        const { error: updateError } = await this.supabaseClient
+          .from('history')
+          .update({
+            color: item.color,
+            date: item.date,
+            uuid: uuid,
+          })
+          .eq('id', existingData[0].id);
 
-    if (updateError) {
-      console.error('Error updating row:', updateError);
-      return;
-    }
+        if (updateError) {
+          console.error('Error updating row:', updateError);
+          return;
+        }
 
-    console.log(`Updated row with new UUID and changes for content "${item.content}"`);
-  } else {
-    // If there are no rows with the same content, insert the new data
-    const { error: insertError } = await this.supabaseClient.from('history').insert({
-      color: item.color,
-      date: item.date,
-      content: item.content,
-      uuid: uuid,
-    });
+        console.log(
+          `Updated row with new UUID and changes for content "${item.content}"`
+        );
+      } else {
+        // If there are no rows with the same content, insert the new data
+        const { error: insertError } = await this.supabaseClient
+          .from('history')
+          .insert({
+            color: item.color,
+            date: item.date,
+            content: item.content,
+            uuid: uuid,
+          });
 
-    if (insertError) {
-      console.error('Error saving item:', insertError);
-      return;
-    }
+        if (insertError) {
+          console.error('Error saving item:', insertError);
+          return;
+        }
 
-    console.log(`Inserted new row with content "${item.content}" and UUID "${uuid}"`);
-  }
-}
-
+        console.log(
+          `Inserted new row with content "${item.content}" and UUID "${uuid}"`
+        );
+      }
+    },
   },
   watch: {
     history: {
