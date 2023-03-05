@@ -67,25 +67,31 @@ export default {
     };
   },
   created() {
-    this.clearDatabase();
-    // fetch items from the database with color green
-    this.supabaseClient
-      .from('history')
-      .select('*')
-      .eq('color', 'green')
-      .then(({ data, error }) => {
-        if (error) {
-          console.error('Error fetching data from the database:', error);
-        } else {
-          // add the items to the history array
-          data.forEach((item) => {
-            this.history = [];
-            this.history.push(item);
-          });
+  this.clearDatabase();
+  // fetch items from the database with color green
+    
+  this.supabaseClient
+    .from('history')
+    .select('*')
+    .eq('color', 'green')
+    .then(({ data, error }) => {
+      if (error) {
+        console.error('Error fetching data from the database:', error);
+      } else {
+        
+        const uniqueItems = data.reduce((acc, item) => {
+          if (!acc[item.id]) {
+            acc[item.id] = item;
+          }
+          return acc;
+        }, {});
 
-        }
-      });
-  },
+        this.history = Object.values(uniqueItems);
+      }
+    });
+},
+
+
 
   methods: {
     async clearDatabase() {
