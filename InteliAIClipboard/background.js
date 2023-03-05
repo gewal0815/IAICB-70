@@ -88,7 +88,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                     chrome.contextMenus.update('copy-data', {
                       title: 'Copy Data',
                     });
-                  }, 5000);
+                  }, 500);
                 }
               );
             });
