@@ -21,7 +21,7 @@
             : item.content
         }}</span>
 
-        <span class="delete-item" @click.stop="deleteItem(item.uuid)">
+        <span class="delete-item" @click.stop="deleteItem(item.id)">
           <img
             src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
             alt="Delete"
@@ -67,31 +67,28 @@ export default {
     };
   },
   created() {
-  this.clearDatabase();
-  // fetch items from the database with color green
-    
-  this.supabaseClient
-    .from('history')
-    .select('*')
-    .eq('color', 'green')
-    .then(({ data, error }) => {
-      if (error) {
-        console.error('Error fetching data from the database:', error);
-      } else {
-        
-        const uniqueItems = data.reduce((acc, item) => {
-          if (!acc[item.id]) {
-            acc[item.id] = item;
-          }
-          return acc;
-        }, {});
+    this.clearDatabase();
+    // fetch items from the database with color green
 
-        this.history = Object.values(uniqueItems);
-      }
-    });
-},
+    this.supabaseClient
+      .from('history')
+      .select('*')
+      .eq('color', 'green')
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Error fetching data from the database:', error);
+        } else {
+          const uniqueItems = data.reduce((acc, item) => {
+            if (!acc[item.id]) {
+              acc[item.id] = item;
+            }
+            return acc;
+          }, {});
 
-
+          this.history = Object.values(uniqueItems);
+        }
+      });
+  },
 
   methods: {
     async clearDatabase() {
@@ -107,23 +104,24 @@ export default {
       }
     },
 
-    async deleteItem(uuid) {
-      console.log('Deleting item with UUID:', uuid);
+    async deleteItem(id) {
+      console.log('Deleting item with UUID:', id);
 
       const { error } = await this.supabaseClient
         .from('history')
         .delete()
-        .eq('uuid', uuid);
+        .eq('id', id);
 
       if (error) {
         console.error('Error deleting item:', error);
         return;
       }
 
-      const index = this.history.findIndex((item) => item.uuid === uuid);
+      const index = this.history.findIndex((item) => item.id === id);
       if (index >= 0) {
         this.history.splice(index, 1);
       }
+
 
       console.log('History array after deletion:', this.history);
 
