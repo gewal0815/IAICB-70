@@ -2,8 +2,8 @@
     <div class="content" ref="content">
       <div class="card" v-for="(item, index) in history" :key="index" :style="{'background-color': cardBackgroundColor}">
         <div class="card-inside">
-          <div class="card-content">{{ item.content }}</div>
-          <div>{{ item.color }}</div>
+          <div class="card-content">{{ truncatedContent(item.content) }}</div>
+          <div v-if="item.color === 'green'" class="circle"></div>
           <div class="card-buttons">
             <button class="business-btn" @click="deleteItem(index)">
               Delete
@@ -24,6 +24,17 @@
       return {
         cardBackgroundColor: "#fff",
       };
+    },
+    computed: {
+      // create a computed property that returns truncated content
+      truncatedContent() {
+        return (content) => {
+          if (content.length > 200) {
+            return content.slice(0, 200) + "...";
+          }
+          return content;
+        };
+      },
     },
     mounted() {
       window.addEventListener("focus", this.handleWindowFocus);
@@ -50,7 +61,7 @@
     },
   };
   </script>
-  
+
   <style scoped>
   .content {
     max-width: 100%;
@@ -63,6 +74,7 @@
   }
   
   .card {
+  position: relative; /* add position: relative to the card */
   border: var(--BorderSize) solid #ddd;
   background-color: #fff;
   border-radius: 5px;
@@ -72,6 +84,16 @@
   display: flex; /* add display flex */
   flex-direction: column; /* align content in a column */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* add shadow */
+}
+
+.circle {
+  position: absolute; /* add position: absolute to the circle */
+  bottom: 10px; /* set the distance from the bottom of the card */
+  right: 10px; /* set the distance from the right of the card */
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: green;
 }
 
   
@@ -101,6 +123,7 @@
     display: flex;
     justify-content: flex-end;
     margin-top: auto; /* push card-buttons to the bottom */
+    margin-bottom: 8px;
   }
   
   .business-btn {
@@ -122,6 +145,8 @@
   .business-btn:active {
     background-color: #0052cc;
   }
+
+
   
   @media (max-width: 768px) {
     .content {
