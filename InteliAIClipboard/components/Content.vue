@@ -18,12 +18,28 @@
               :class="{ animated: animatedItems.includes(index) }"
               :data-index="index"
             />
+            <CardOverlay
+              v-if="showOverlay"
+              overlay-text="Green"
+              @hide-overlay="showOverlay = false"
+            />
           </div>
         </div>
 
         <div class="card-content">{{ truncatedContent(item.content) }}</div>
 
-        <div v-if="item.color === 'green'" class="circle"></div>
+        <div
+          v-if="item.color === 'green'"
+          class="circle"
+          @click="
+            if (item.color === 'green') {
+              showOverlay = true;
+             
+            } else if (item.color === '') {
+              showOverlay = false;
+            }
+          "
+        ></div>
         <div class="card-buttons">
           <button class="business-btn" @click="deleteItem(index)">
             Delete
@@ -36,7 +52,12 @@
 </template>
 
 <script>
+import CardOverlay from './CardOverlay.vue';
+
 export default {
+  components: {
+    CardOverlay,
+  },
   props: {
     history: Array,
   },
@@ -44,6 +65,7 @@ export default {
     return {
       cardBackgroundColor: '#fff',
       animatedItems: [], // initialize an empty array to store the indexes of animated items
+      showOverlay: false, // add a new data property to control the overlay visibility
     };
   },
   computed: {
@@ -65,21 +87,20 @@ export default {
   },
   methods: {
     animateItem(index) {
-  // Add the index of the clicked item to the animatedItems array
-  this.animatedItems.push(index);
+      // Add the index of the clicked item to the animatedItems array
+      this.animatedItems.push(index);
 
-  // Change the src URL of the img element to the new URL
-  const icon = document.querySelector(`.fav_icon[data-index="${index}"]`);
-  const newUrl = 'https://cdn-icons-png.flaticon.com/512/2698/2698202.png'; // replace with the desired URL
-  icon.src = newUrl; // set the new URL
+      // Change the src URL of the img element to the new URL
+      const icon = document.querySelector(`.fav_icon[data-index="${index}"]`);
+      const newUrl = 'https://cdn-icons-png.flaticon.com/512/2698/2698202.png'; // replace with the desired URL
+      icon.src = newUrl; // set the new URL
 
-  // Remove the index from the animatedItems array after the animation finishes
-  setTimeout(() => {
-    const i = this.animatedItems.indexOf(index);
-    this.animatedItems.splice(i, 1);
-  }, 500);
-},
-
+      // Remove the index from the animatedItems array after the animation finishes
+      setTimeout(() => {
+        const i = this.animatedItems.indexOf(index);
+        this.animatedItems.splice(i, 1);
+      }, 500);
+    },
 
     formatDate(dateString) {
       const date = new Date(dateString);
@@ -150,13 +171,12 @@ export default {
 .circle {
   position: absolute;
   bottom: 10px;
-  right: 20px;
+  right: 10px;
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  box-shadow: inset 0 0 0 7px rgb(177, 243, 199), 0 0 0 2px green;
+  box-shadow: inset 0 0 0 7px rgb(188, 242, 173), 0 0 0 2px green;
 }
-
 
 .card.green {
   background-color: green;
@@ -217,11 +237,24 @@ export default {
 
 .icon-container {
   margin-left: auto;
+  position: relative; /* add position relative to the icon container */
 }
 
 .fav_icon {
   width: 25px;
   height: auto;
+}
+
+/* Style the overlay */
+.card-overlay {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  background-color: rgba(0, 128, 0, 0.9);
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: small;
 }
 
 @media (max-width: 768px) {
@@ -239,8 +272,8 @@ export default {
 
   .card-buttons {
     justify-content: space-between;
-    margin-top: auto; /* push card-buttons to the bottom */
-    padding: 10px; /* add some padding for better alignment */
+    margin-top: auto; /* push card-buttons to the bottom /
+padding: 10px; / add some padding for better alignment */
   }
 }
 </style>
