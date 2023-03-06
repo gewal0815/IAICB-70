@@ -1,6 +1,5 @@
 <template>
   <div class="content" ref="content">
-    <label class="label">Content:</label>
     <div class="card" v-for="(item, index) in history" :key="index">
       <div class="card-grid">
         <div class="card-header">{{ item.content }}</div>
@@ -36,11 +35,13 @@ export default {
 </script>
 
 <style scoped>
-.label {
-  margin: 0 20px;
-  font-size: large;
-  font-weight: 700;
-  color: blue;
+
+.content {
+    width: 99vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .card {
