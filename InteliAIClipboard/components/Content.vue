@@ -48,7 +48,7 @@ export default {
   border: var(--BorderSize) solid #ddd;
   background-color: #fff;
   border-radius: 5px;
-  margin: 0 200px; /* added margin for large screens */
+  margin: 0 200px 4px; /* added margin for large screens */
   
 }
 
@@ -57,6 +57,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   padding: 10px;
+  
 }
 
 .card-inside > div:first-child {
@@ -99,7 +100,7 @@ export default {
   }
 
   .card {
-    margin: 0 22px; /* added margin for small screens */
+    margin: 0 22px 4px; /* added margin for small screens */
   }
 
   .card-inside {
