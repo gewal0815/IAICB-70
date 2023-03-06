@@ -1,37 +1,39 @@
 <template>
-    <div class="content" ref="content">
-      <div
-        class="card"
-        v-for="(item, index) in history"
-        :key="index"
-        :style="{ 'background-color': cardBackgroundColor }"
-      >
-        <div class="card-inside">
-          <div class="created_at">
-            <label>Date:</label>{{ formatDate(item.created_at) }}
-            <div class="icon-container">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/2899/2899445.png"
-                alt="icon" class="fav_icon"
-                @click="animateItem(index)"
-                :class="{ animated: animatedItems.includes(index) }"
-              />
-            </div>
+  <div class="content" ref="content">
+    <div
+      class="card"
+      v-for="(item, index) in history"
+      :key="index"
+      :style="{ 'background-color': cardBackgroundColor }"
+    >
+      <div class="card-inside">
+        <div class="created_at">
+          <label>Date:</label>{{ formatDate(item.created_at) }}
+          <div class="icon-container">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/2899/2899445.png"
+              alt="icon"
+              class="fav_icon"
+              @click="animateItem(index)"
+              :class="{ animated: animatedItems.includes(index) }"
+              :data-index="index"
+            />
           </div>
-  
-          <div class="card-content">{{ truncatedContent(item.content) }}</div>
-  
-          <div v-if="item.color === 'green'" class="circle"></div>
-          <div class="card-buttons">
-            <button class="business-btn" @click="deleteItem(index)">
-              Delete
-            </button>
-            <button class="business-btn" @click="copyItem(index)">Copy</button>
-          </div>
+        </div>
+
+        <div class="card-content">{{ truncatedContent(item.content) }}</div>
+
+        <div v-if="item.color === 'green'" class="circle"></div>
+        <div class="card-buttons">
+          <button class="business-btn" @click="deleteItem(index)">
+            Delete
+          </button>
+          <button class="business-btn" @click="copyItem(index)">Copy</button>
         </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
 
 <script>
 export default {
@@ -62,17 +64,22 @@ export default {
     window.removeEventListener('focus', this.handleWindowFocus);
   },
   methods: {
-
     animateItem(index) {
-      // Add the index of the clicked item to the animatedItems array
-      this.animatedItems.push(index);
+  // Add the index of the clicked item to the animatedItems array
+  this.animatedItems.push(index);
 
-      // Remove the index from the animatedItems array after the animation finishes
-      setTimeout(() => {
-        const i = this.animatedItems.indexOf(index);
-        this.animatedItems.splice(i, 1);
-      }, 500);
-    },
+  // Change the src URL of the img element to the new URL
+  const icon = document.querySelector(`.fav_icon[data-index="${index}"]`);
+  const newUrl = 'https://cdn-icons-png.flaticon.com/512/2698/2698202.png'; // replace with the desired URL
+  icon.src = newUrl; // set the new URL
+
+  // Remove the index from the animatedItems array after the animation finishes
+  setTimeout(() => {
+    const i = this.animatedItems.indexOf(index);
+    this.animatedItems.splice(i, 1);
+  }, 500);
+},
+
 
     formatDate(dateString) {
       const date = new Date(dateString);
@@ -99,7 +106,6 @@ export default {
 </script>
 
 <style scoped>
-
 /* Define the animation */
 @keyframes heartBeat {
   0% {
@@ -115,7 +121,7 @@ export default {
 
 /* Apply the animation to the fav_icon element */
 .fav_icon.animated {
-  animation: heartBeat 0.5s linear;
+  animation: heartBeat 0.4s linear;
 }
 
 .content {
@@ -213,10 +219,9 @@ export default {
 }
 
 .fav_icon {
-    width: 25px;
-    height: auto;
+  width: 25px;
+  height: auto;
 }
-
 
 @media (max-width: 768px) {
   .content {
