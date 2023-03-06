@@ -38,8 +38,9 @@ export default {
 .content {
   max-width: 90%;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 20px;
   word-wrap: break-word;
   word-break: break-word;
 }
@@ -48,8 +49,7 @@ export default {
   border: var(--BorderSize) solid #ddd;
   background-color: #fff;
   border-radius: 5px;
-  margin: 0 200px 4px; /* added margin for large screens */
-  
+  box-sizing: border-box;
 }
 
 .card-inside {
@@ -57,7 +57,6 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   padding: 10px;
-  
 }
 
 .card-inside > div:first-child {
@@ -93,23 +92,19 @@ export default {
 
 @media (max-width: 768px) {
   .content {
-    flex-direction: column;
-    align-items: center;
-    word-wrap: break-word;
-    word-break: break-word;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .card {
-    margin: 0 22px 4px; /* added margin for small screens */
+    margin: 0 22px 4px 22px;
+    margin-right: 22px;
   }
 
-  .card-inside {
-    padding: 20px; /* increased padding for small screens */
-  }
-
-  .business-btn {
-    width: 100%; /* full width for small screens */
+  .card-buttons {
+    justify-content: space-between;
   }
 }
 </style>
-
