@@ -40,6 +40,7 @@
           <button @click="handleSubmit()">Delete</button>
         </div>
       </div>
+      <Content :history="history" />
     </div>
 
     <div class="side-navigator">
@@ -64,7 +65,7 @@
   </div>
 
 
-  <Content :history="history" />
+
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
 </template>
 

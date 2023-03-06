@@ -42,7 +42,7 @@
         this.history.push(newItem);
       },
       handleWindowFocus() {
-        this.cardBackgroundColor = "green";
+        this.cardBackgroundColor = "#0099ff";
         setTimeout(() => {
           this.cardBackgroundColor = "#fff";
         }, 2000);
@@ -53,7 +53,7 @@
   
   <style scoped>
   .content {
-    max-width: 90%;
+    max-width: 100%;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -67,6 +67,11 @@
     background-color: #fff;
     border-radius: 5px;
     box-sizing: border-box;
+    transition: background-color 2s;
+  }
+  
+  .card.green {
+    background-color: green;
   }
   
   .card-inside {
@@ -116,8 +121,8 @@
     }
   
     .card {
-      margin: 0 22px 4px 22px;
-      margin-right: 22px;
+      margin: 0 0px 4px 0px;
+      
     }
   
     .card-buttons {
@@ -125,4 +130,5 @@
     }
   }
   </style>
+  
   
