@@ -148,14 +148,15 @@ export default {
 }
 
 .circle {
-  position: absolute; /* add position: absolute to the circle */
-  bottom: 10px; /* set the distance from the bottom of the card */
-  right: 10px; /* set the distance from the right of the card */
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: green;
+  box-shadow: inset 0 0 0 7px rgb(177, 243, 199), 0 0 0 2px green;
 }
+
 
 .card.green {
   background-color: green;
