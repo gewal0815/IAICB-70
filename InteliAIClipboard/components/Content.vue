@@ -42,7 +42,7 @@
         this.history.push(newItem);
       },
       handleWindowFocus() {
-        this.cardBackgroundColor = "#0099ff";
+        this.cardBackgroundColor = "#a8d8f7";
         setTimeout(() => {
           this.cardBackgroundColor = "#fff";
         }, 2000);
@@ -63,12 +63,17 @@
   }
   
   .card {
-    border: var(--BorderSize) solid #ddd;
-    background-color: #fff;
-    border-radius: 5px;
-    box-sizing: border-box;
-    transition: background-color 2s;
-  }
+  border: var(--BorderSize) solid #ddd;
+  background-color: #fff;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: background-color 2s;
+  height: 250px; /* default height */
+  display: flex; /* add display flex */
+  flex-direction: column; /* align content in a column */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* add shadow */
+}
+
   
   .card.green {
     background-color: green;
@@ -79,17 +84,23 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 10px;
+    height: 100%; /* make sure card-inside fills the height of the card */
   }
   
   .card-inside > div:first-child {
     white-space: pre-wrap;
     overflow-wrap: break-word;
+    margin-top: auto; /* push card-content to the top */
+  }
+  
+  .card-content {
+    flex-grow: 1; /* make sure card-content fills the remaining space */
   }
   
   .card-buttons {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    margin-top: auto; /* push card-buttons to the bottom */
   }
   
   .business-btn {
@@ -121,14 +132,18 @@
     }
   
     .card {
+      height: 200px; /* update height */
       margin: 0 0px 4px 0px;
-      
     }
   
     .card-buttons {
       justify-content: space-between;
+      margin-top: auto; /* push card-buttons to the bottom */
+      padding: 10px; /* add some padding for better alignment */
     }
   }
-  </style>
+</style>
+
+
   
   
