@@ -20,7 +20,7 @@
             />
             <CardOverlay
               v-if="showOverlay"
-              overlay-text="Green"
+              overlay-text="Saved Objects"
               @hide-overlay="showOverlay = false"
             />
           </div>
@@ -248,13 +248,17 @@ export default {
 /* Style the overlay */
 .card-overlay {
   position: absolute;
+  width: 100px;
   top: -30px;
   right: -30px;
-  background-color: rgba(0, 128, 0, 0.9);
+  background-color: rgba(245, 169, 99, 0.9);
   color: #fff;
   padding: 5px;
   border-radius: 5px;
   font-size: small;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
