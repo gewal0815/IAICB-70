@@ -19,7 +19,7 @@
               :data-index="index"
             />
             <CardOverlay
-              v-if="showOverlay"
+              v-if="item.color === 'green' && showOverlay"
               overlay-text="Saved Objects"
               @hide-overlay="showOverlay = false"
             />
@@ -34,12 +34,14 @@
           @click="
             if (item.color === 'green') {
               showOverlay = true;
-             
-            } else if (item.color === '') {
+            } else if (item.color === 'blue') {
               showOverlay = false;
             }
           "
         ></div>
+
+        <div v-else="item.color === 'blue'"></div>
+
         <div class="card-buttons">
           <button class="business-btn" @click="deleteItem(index)">
             Delete
@@ -81,8 +83,6 @@ export default {
   },
   mounted() {
     window.addEventListener('focus', this.handleWindowFocus);
-  
-    
   },
   beforeDestroy() {
     window.removeEventListener('focus', this.handleWindowFocus);
@@ -124,7 +124,6 @@ export default {
         this.cardBackgroundColor = '#fff';
       }, 2000);
     },
-
   },
 };
 </script>
@@ -179,6 +178,16 @@ export default {
   height: 15px;
   border-radius: 50%;
   box-shadow: inset 0 0 0 7px rgb(188, 242, 173), 0 0 0 2px green;
+}
+
+.circle-blue {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 7px rgb(154, 192, 237), 0 0 0 2px rgb(35, 64, 190);
 }
 
 .card.green {

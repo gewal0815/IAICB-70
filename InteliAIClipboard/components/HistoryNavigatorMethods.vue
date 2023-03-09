@@ -11,7 +11,7 @@ export default {
           // The last item is empty, remove it
           this.history.pop();
         }
-        this.history.push({ id: Date.now(), content: '' });
+        this.history.push({ id: Date.now(), content: '' , color: 'blue' });
         this.inputValue = '';
         this.showTextArea = true;
       } else {
@@ -36,10 +36,11 @@ export default {
             this.history[existingItemIndex] = {
               id: Date.now(),
               content: this.inputValue,
+              color: 'blue'
             };
           } else {
             // Add new item
-            this.history.push({ id: Date.now(), content: this.inputValue });
+            this.history.push({ id: Date.now(), content: this.inputValue, color: 'blue' });
           }
         }
         this.showTextArea = true;
