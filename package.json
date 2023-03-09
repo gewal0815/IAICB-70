@@ -8,6 +8,7 @@
     "@tensorflow-models/toxicity": "^1.2.2",
     "@tensorflow/tfjs": "^4.2.0",
     "chrome": "^0.1.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "nuxt3": "^3.3.0-27969873.3f1e0235"
   }
 }

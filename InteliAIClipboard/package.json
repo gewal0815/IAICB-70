@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --host 0.0.0.0",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -27,9 +27,9 @@
     "clipboard": "^2.0.11",
     "clippy": "^0.0.0",
     "express": "^4.18.2",
-    "h3": "^1.5.0",
     "moment": "^2.29.4",
     "mysql": "^2.18.1",
+    "nuxt3": "^3.3.0-27971845.17f080ca",
     "prettier": "^2.8.4",
     "prisma": "^4.10.1",
     "uuid": "^9.0.0",
