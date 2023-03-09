@@ -81,6 +81,8 @@ export default {
   },
   mounted() {
     window.addEventListener('focus', this.handleWindowFocus);
+  
+    
   },
   beforeDestroy() {
     window.removeEventListener('focus', this.handleWindowFocus);
@@ -122,6 +124,7 @@ export default {
         this.cardBackgroundColor = '#fff';
       }, 2000);
     },
+
   },
 };
 </script>

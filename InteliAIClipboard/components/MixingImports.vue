@@ -1,14 +1,15 @@
 <script>
 import HistoryNavigatorMethods from './HistoryNavigatorMethods.vue';
-import HistoryNavigatorTemplate from './HistoryNavigatorTemplate.vue'
+import HistoryNavigatorTemplate from './HistoryNavigatorTemplate.vue';
 import EndpointModel from './Notes/EndpointModel.vue';
 import SavedModal from '~/components/SavedModal.vue';
 import ShowUrlAndText from '../ShowUrlAndText.vue';
 import { db_atags, addTag } from '~~/server/db/aTags';
 import { SUPABASEKEY, SUPABASEURL } from '../utils/key/key.vue';
 import { createClient } from '@supabase/supabase-js';
-import Content from './Content.vue'
+import Content from './Content.vue';
 import { v4 as uuidv4 } from 'uuid';
+
 export {
   HistoryNavigatorMethods,
   HistoryNavigatorTemplate,
@@ -21,10 +22,7 @@ export {
   SUPABASEURL,
   createClient,
   uuidv4,
-  Content
-
+  Content,
+ 
 };
-
 </script>
-
-
