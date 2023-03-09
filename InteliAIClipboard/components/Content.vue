@@ -40,7 +40,6 @@
           "
         ></div>
 
-        <div v-else="item.color === 'blue'"></div>
 
         <div class="card-buttons">
           <button class="business-btn" @click="deleteItem(index)">
@@ -180,15 +179,6 @@ export default {
   box-shadow: inset 0 0 0 7px rgb(188, 242, 173), 0 0 0 2px green;
 }
 
-.circle-blue {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 7px rgb(154, 192, 237), 0 0 0 2px rgb(35, 64, 190);
-}
 
 .card.green {
   background-color: green;
