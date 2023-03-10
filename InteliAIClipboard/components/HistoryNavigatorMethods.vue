@@ -43,7 +43,7 @@ export default {
         // Check if the item already exists in the Supabase table
         const { data: matchingItems, error } = await supabase
           .from('history')
-          .select('id')
+          .select('id,created_at')
           .eq('content', this.inputValue);
         if (error) {
           console.error(error);
@@ -63,12 +63,12 @@ export default {
           }
           if (matchingItems.length) {
             const match = matchingItems[0]; // Assume only one match for simplicity
-            const content = match.content;
             const id = match.id;
+            const date = match.created_at;
             alert(
-              `Item with content "${content}" and id "${id}" already exists.`
+              `Item with id "${id}" already exists.\n put into DB on ${date}`
             );
-
+            this.showTextArea = false;
 
           }
         } else {
