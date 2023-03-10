@@ -40,7 +40,6 @@
           "
         ></div>
 
-
         <div class="card-buttons">
           <button class="business-btn" @click="deleteItem(index)">
             Delete
@@ -67,6 +66,7 @@ export default {
       cardBackgroundColor: '#fff',
       animatedItems: [], // initialize an empty array to store the indexes of animated items
       showOverlay: false, // add a new data property to control the overlay visibility
+      
     };
   },
   computed: {
@@ -122,6 +122,7 @@ export default {
       setTimeout(() => {
         this.cardBackgroundColor = '#fff';
       }, 2000);
+
     },
   },
 };
@@ -178,7 +179,6 @@ export default {
   border-radius: 50%;
   box-shadow: inset 0 0 0 7px rgb(188, 242, 173), 0 0 0 2px green;
 }
-
 
 .card.green {
   background-color: green;

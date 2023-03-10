@@ -66,8 +66,10 @@ export default {
             const content = match.content;
             const id = match.id;
             alert(
-              `Item with id "${id}" already exists.`
+              `Item with content "${content}" and id "${id}" already exists.`
             );
+
+
           }
         } else {
           const existingItemIndex = this.history.findIndex(
@@ -114,6 +116,7 @@ export default {
       this.inputValue = item.content;
       this.showTextArea = true;
     },
+
   },
 };
 </script>
