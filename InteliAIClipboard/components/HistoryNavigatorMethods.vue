@@ -26,6 +26,7 @@ export default {
             id: Date.now(),
             content: this.inputValue,
             color: 'green',
+            created_at: Date.now()
           });
         } else {
           const existingItemIndex = this.history.findIndex(
@@ -40,7 +41,7 @@ export default {
             };
           } else {
             // Add new item
-            this.history.push({ id: Date.now(), content: this.inputValue, color: 'blue' });
+            this.history.push({ id: Date.now(), content: this.inputValue, color: 'blue', created_at: Date.now() });
           }
         }
         this.showTextArea = true;

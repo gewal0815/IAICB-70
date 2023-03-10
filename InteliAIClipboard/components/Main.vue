@@ -64,8 +64,6 @@
     </div>
   </div>
 
-
-
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
 </template>
 
@@ -79,12 +77,12 @@ import {
   SUPABASEKEY,
   SUPABASEURL,
   createClient,
-  Content
+  Content,
 } from './MixingImports.vue';
 
 export default {
   mixins: [HistoryNavigatorMethods, HistoryNavigatorTemplate, db_atags, addTag],
-  components: { SavedModal, Content},
+  components: { SavedModal, Content },
 
   data() {
     return {
@@ -95,7 +93,6 @@ export default {
       clipboardItems: [],
       showModal: false,
       inputValue: '',
-
     };
   },
 
@@ -167,13 +164,7 @@ export default {
     // Process Client
     const supabase = createClient(SUPABASEURL, SUPABASEKEY);
 
-    // TODO get the auth user
-    /* const session = supabase.auth.getSession();
 
-    const { user } = session;
-    console.log('UserId:->' + user);
-
-    */
 
     // get Data from the Background Server on Setup
     const url = ref('');
@@ -216,7 +207,7 @@ export default {
                 console.log('Stringified Tag' + response);
               });
 
-              // push the text.value in the history DB Table
+            // push the text.value in the history DB Table
             if (text.value) {
               supabase
                 .from('history')
