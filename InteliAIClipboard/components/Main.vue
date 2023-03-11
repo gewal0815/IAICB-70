@@ -209,39 +209,51 @@ export default {
 
             // push the text.value in the history DB Table
             if (text.value) {
-              
               supabase
                 .from('history')
-                .insert({
-                  content: text.value,
-                  uuid: documentId,
-                  color: 'blue',
-                  created_at: new Date(),
-                })
-                .then((response) => {
-                  console.log('Stringified Tag' + response);
-                });
+                .select('id')
+                .order('id', { ascending: false })
+                .limit(1)
+                .then(({ data, error }) => {
+                  if (error) {
+                    console.error(error);
+                    return;
+                  }
 
-             
-             
-              if (!history) {
-                history.value.push({
-                  id: '',
-                  content: text.value,
-                  color: 'blue',
-                  created_at: new Date(),
-                  //uuid: documentId,
+                  const lastId = data.length > 0 ? data[0].id : 0;
+
+                  supabase
+                    .from('history')
+                    .insert({
+                      id: lastId + 1,
+                      content: text.value,
+                      uuid: documentId,
+                      color: 'blue',
+                      created_at: new Date(),
+                    })
+                    .then((response) => {
+                      console.log('Inserted new history entry:', response);
+                    })
+                    .catch((error) => {
+                      console.error(
+                        'Failed to insert new history entry:',
+                        error
+                      );
+                    });
+
+                  history.value.push({
+                    id: lastId + 1,
+                    content: text.value,
+                    color: 'blue',
+                    created_at: new Date(),
+                  });
+                })
+                .catch((error) => {
+                  console.error(
+                    'Failed to retrieve last history entry:',
+                    error
+                  );
                 });
-              } else {
-                const number = 10001;
-                history.value.push({
-                  id: number +1,
-                  content: text.value,
-                  color: 'blue',
-                  created_at: new Date(),
-                  //uuid: documentId,
-                });
-              }
             }
           }
 
@@ -266,7 +278,6 @@ export default {
       this.checkClipboard();
     });
   },
-
 };
 </script>
 
