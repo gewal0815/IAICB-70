@@ -61,12 +61,12 @@ export default {
   props: {
     history: Array,
   },
+
   data() {
     return {
       cardBackgroundColor: '#fff',
       animatedItems: [], // initialize an empty array to store the indexes of animated items
       showOverlay: false, // add a new data property to control the overlay visibility
-      
     };
   },
   computed: {
@@ -122,7 +122,6 @@ export default {
       setTimeout(() => {
         this.cardBackgroundColor = '#fff';
       }, 2000);
-
     },
   },
 };

@@ -65,12 +65,11 @@
   </div>
 
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
-<!--<ChatGPTVue />-->
+  <!--<ChatGPTVue />-->
 </template>
 
 <script>
-
-import ChatGPTVue from './ChatGPT.vue'
+import ChatGPTVue from './ChatGPT.vue';
 import {
   HistoryNavigatorMethods,
   HistoryNavigatorTemplate,
@@ -85,7 +84,7 @@ import {
 
 export default {
   mixins: [HistoryNavigatorMethods, HistoryNavigatorTemplate, db_atags, addTag],
-  components: { SavedModal, Content, ChatGPTVue},
+  components: { SavedModal, Content, ChatGPTVue },
 
   data() {
     return {
@@ -167,8 +166,6 @@ export default {
     // Process Client
     const supabase = createClient(SUPABASEURL, SUPABASEKEY);
 
-
-
     // get Data from the Background Server on Setup
     const url = ref('');
     const text = ref('');
@@ -212,11 +209,12 @@ export default {
 
             // push the text.value in the history DB Table
             if (text.value) {
+              
               supabase
                 .from('history')
                 .insert({
                   content: text.value,
-                  //uuid: documentId,
+                  uuid: documentId,
                   color: 'blue',
                   created_at: new Date(),
                 })
@@ -224,12 +222,26 @@ export default {
                   console.log('Stringified Tag' + response);
                 });
 
-              history.value.push({
-                content: text.value,
-                color: 'blue',
-                created_at: new Date(),
-                //uuid: documentId,
-              });
+             
+             
+              if (!history) {
+                history.value.push({
+                  id: '',
+                  content: text.value,
+                  color: 'blue',
+                  created_at: new Date(),
+                  //uuid: documentId,
+                });
+              } else {
+                const number = 10001;
+                history.value.push({
+                  id: number +1,
+                  content: text.value,
+                  color: 'blue',
+                  created_at: new Date(),
+                  //uuid: documentId,
+                });
+              }
             }
           }
 
@@ -254,6 +266,7 @@ export default {
       this.checkClipboard();
     });
   },
+
 };
 </script>
 
