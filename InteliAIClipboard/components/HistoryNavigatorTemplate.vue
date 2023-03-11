@@ -17,7 +17,7 @@
         }}</span>
         <span class="content" v-else>{{
           item.content.length > 50
-            ? item.content.slice(0, 50) + '...'
+            ? item.content.slice(0, 100) + '...'
             : item.content
         }}</span>
 
