@@ -24,7 +24,7 @@
           stop: "\n",
         };
   
-        const chatgptKey = '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'
+        const chatgptKey = ''
         const headers = {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${chatgptKey}`,
