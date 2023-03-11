@@ -96,6 +96,11 @@ export default {
   },
 
   methods: {
+
+    refreshPage() {
+       window.location.reload();
+    },
+
     async clearDatabase() {
       const { error } = await this.supabaseClient
         .from('history')
@@ -136,7 +141,9 @@ export default {
       this.$emit('select-item', item);
       this.selectedHistoryItem = item;
       this.showModal = true;
+
       this.saveToDatabase(item);
+      refreshPage();
     },
 
     closeSavedModal() {
@@ -265,7 +272,7 @@ export default {
           );
           this.saveToDatabase(newItem, newItem.uuid);
         }
-
+        
         console.log('History array after saving new items:', this.history);
       },
       deep: true,
