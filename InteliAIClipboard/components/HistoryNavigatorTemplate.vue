@@ -11,13 +11,13 @@
         :style="{ color: item.color }"
       >
         <span class="content" v-if="item.color !== 'green'">{{
-          item.content.length > 100
-            ? item.content.slice(0, 100) + '...'
+          item.content.length > 50
+            ? item.content.slice(0, 50) + '...'
             : item.content
         }}</span>
         <span class="content" v-else>{{
-          item.content.length > 100
-            ? item.content.slice(0, 100) + '...'
+          item.content.length > 50
+            ? item.content.slice(0, 50) + '...'
             : item.content
         }}</span>
 
@@ -183,7 +183,7 @@ export default {
         const { error: updateError } = await this.supabaseClient
           .from('history')
           .update({
-            color: item.color,
+            color: 'green',
             date: item.date,
             uuid: uuid,
           })
@@ -202,7 +202,7 @@ export default {
         const { error: updateError } = await this.supabaseClient
           .from('history')
           .update({
-            color: item.color,
+            color: 'green',
             date: item.date,
             uuid: uuid,
           })
