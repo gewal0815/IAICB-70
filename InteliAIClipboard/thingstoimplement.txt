@@ -16,19 +16,16 @@ __ Include a Supabase OAuth GOOGLE provider  * Done *
 
 _______________________________________________________________________________
 
-__ Put in the Memory Lane, an delete object to demark it to blue, should be a modal named unmarked shown , 
+__ Put in the Memory Lane (HistoryNavigator) 
 
-    in MemoryLane after green link checkmark placed on the right.
-    When the save or unmarked modal shown , close it automatically after 2 sec - the sec should count down in upper left from the modal
-
-_______________________________________________________________________________
-
-__ Fix the code and refactor the code.
-
-
-__ Refactor the HistoryNavigatorTemplate and the HistoryNavigatorMethods, Main
+   TODO:    an delete object to demark it to blue, should be a modal named unmarked shown ,
+            Split the inserted URLs in the HistoryNavigator and splice it to 30 characters
+            in MemoryLane after green link checkmark placed on the right.
+            When the save or unmarked modal shown , close it automatically after 2 sec
+            the seconds should count down in upper left from the modal
 
 _______________________________________________________________________________
+
 
 * started *
 __ make an Chrome Extension 
@@ -37,7 +34,7 @@ files :             background.js
                     manifest.json
                     Setup Method in Main.vue
 
-Todo:              * done *  get The Text from the different Tabs in the same Browser.
+Todo:              * done *  get The urls from the a Tags from the different Tabs in the same Browser.
                    TODO:     next point is to get it also from a other Chrome Instance.
 
 
@@ -56,6 +53,29 @@ ___ * Done * make an server Endpoint called /api/aTags
                         aTags.js (server/db)
                         index.js (server/aTags)
 
-        * DONE *    PUT the given objext in supabase DB documentID and Result 
+        * DONE *    PUT the given object in supabase DB documentID and Result as Json
         
-         TODO:      This given Data should be a base to train A AI model
+         TODO:      read all the text data, from the Urls
+                    This given Data should be a base to train the AI model
+
+
+_______________________________________________________________________________
+
+___ Make a Bookmark Section who shows all the bookmarked items
+
+    *done* the icons to bookmark with an animated Icon coloring from Yellow to red *
+    TODO   Show the bookmarked Items in the main content.
+
+
+_______________________________________________________________________________
+
+__ Fix the code and refactor the code.
+
+
+__ Refactor the HistoryNavigatorTemplate and the HistoryNavigatorMethods, Main
+
+_______________________________________________________________________________
+
+
+_______________________________________________________________________________
+
