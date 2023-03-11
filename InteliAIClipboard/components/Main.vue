@@ -65,9 +65,12 @@
   </div>
 
   <SavedModal v-show="showModal" @close-modal="showModal = false" />
+<!--<ChatGPTVue />-->
 </template>
 
 <script>
+
+import ChatGPTVue from './ChatGPT.vue'
 import {
   HistoryNavigatorMethods,
   HistoryNavigatorTemplate,
@@ -82,7 +85,7 @@ import {
 
 export default {
   mixins: [HistoryNavigatorMethods, HistoryNavigatorTemplate, db_atags, addTag],
-  components: { SavedModal, Content },
+  components: { SavedModal, Content, ChatGPTVue},
 
   data() {
     return {
