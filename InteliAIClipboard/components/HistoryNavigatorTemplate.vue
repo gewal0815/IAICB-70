@@ -17,7 +17,7 @@
         }}</span>
         <span class="content" v-else>{{
           item.content.length > 50
-            ? item.content.slice(0, 100) + '...'
+            ? item.content.slice(0, 50) + '...'
             : item.content
         }}</span>
 
@@ -26,12 +26,16 @@
             src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
             alt="Delete"
           />
+          <span class="content-circle" v-if="item.color === 'blue'">
+            <span class="not-saved"></span>
+          </span>
+          <span class="content-circle" v-if="item.color === 'green'">
+            <span class="saved"></span>
+          </span>
         </span>
       </li>
     </ul>
   </div>
-
-  
 
   <SavedModal
     v-if="showModal"
@@ -41,14 +45,12 @@
 </template>
 
 <script>
-
 import {
   SavedModal,
   SUPABASEKEY,
   SUPABASEURL,
   createClient,
   uuidv4,
-
 } from './MixingImports.vue';
 
 let uuid = '';
@@ -58,7 +60,7 @@ export default {
     inputValue: String,
   },
   components: {
-    SavedModal
+    SavedModal,
   },
 
   data() {
@@ -67,7 +69,6 @@ export default {
       showTextArea: false,
       showModal: false, // Add showModal data property
       selectedHistoryItem: null, // Add selectedHistoryItem data property
-
     };
   },
   created() {
@@ -126,7 +127,6 @@ export default {
         this.history.splice(index, 1);
       }
 
-
       console.log('History array after deletion:', this.history);
 
       this.$emit('delete-item', index);
@@ -146,7 +146,9 @@ export default {
 
     async saveToDatabase(item, uuid) {
       item.color = item.color || 'blue'; // Use a default value for the color property
-
+      if (item.color === 'blue') {
+        const coloring = 'not Saved';
+      }
       // Check if there is already a row in the history table with the same content
       const { data: existingData, error: selectError } =
         await this.supabaseClient
@@ -271,3 +273,29 @@ export default {
   },
 };
 </script>
+
+<style>
+.not-saved {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(255, 140, 0);
+  margin-right: 1px;
+}
+
+.saved {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(17, 120, 51);
+  margin-right: 1px;
+}
+
+.content-circle {
+  position: absolute;
+  margin-left: 20px;
+  margin-top: -17px;
+}
+</style>
