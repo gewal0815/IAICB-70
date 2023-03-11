@@ -99,6 +99,10 @@ export default {
   },
 
   methods: {
+    refreshPage() {
+      //location.reload(); // Refresh the page
+    },
+
     showFullText(event) {
       const target = event.target;
       const fullText = target.dataset.fullText;
@@ -277,6 +281,14 @@ export default {
       // Update the clipboard items
       this.checkClipboard();
     });
+
+    // Set up the mousemove event listener and the inactivity timer
+    let inactivityTimer = setTimeout(this.refreshPage, 10000);
+    document.addEventListener('mousemove', () => {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(this.refreshPage, 10000);
+    });
+
   },
 };
 </script>
