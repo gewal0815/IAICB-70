@@ -57,7 +57,7 @@ export default {
             this.history.push({
               id: lastItemId + 1,
               content: this.inputValue,
-              color: 'green',
+              color: 'blue',
               created_at: Date.now(),
             });
           }
