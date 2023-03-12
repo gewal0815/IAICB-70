@@ -247,6 +247,7 @@ export default {
 
 .card-content {
   flex-grow: 1; /* make sure card-content fills the remaining space */
+  font-size: small;
 }
 
 .card-buttons {
