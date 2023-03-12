@@ -85,3 +85,7 @@ Fix in the content the functionality for delete (will ot be deleted from dbase) 
 _______________________________________________________________________________
 
 Fix the side navigator, make buttons such as copy and fix the issues with the shown text
+
+_______________________________________________________________________________
+
+Generate a thumbnail link for social media in your Vue JS site using Open Graph
