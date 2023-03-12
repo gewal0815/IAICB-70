@@ -13,7 +13,7 @@
         <div class="created_at">
 
           <!-- Check if the content has a URL and create a link -->
-          <div v-if="hasUrl(item.content)" >
+          <div v-if="hasUrl(item.content)" class="url-positioning">
             <a :href="`${getUrl(item.content)}`" target="_blank" class="url-link">{{
               shortenUrl(getUrl(item.content))
             }}</a>
@@ -115,8 +115,8 @@ export default {
     },
 
     shortenUrl(url) {
-      if (url.length > 100) {
-        return url.slice(0, 100) + '...';
+      if (url.length > 20) {
+        return url.slice(0, 50) + '...';
       }
       return url;
     },
@@ -187,6 +187,12 @@ export default {
   font-size: small;
   font-weight: 200;
   color: brown;
+}
+
+.url-positioning {
+  position: relative;
+  margin-top: -0.3vh;
+  margin-left: -14px;
 }
 .content {
   max-width: 100%;
@@ -275,6 +281,7 @@ export default {
   align-items: center;
   font-size: small;
   font-weight: 300;
+  margin-left: 13px;
   color: rgb(247, 149, 125);
 }
 
