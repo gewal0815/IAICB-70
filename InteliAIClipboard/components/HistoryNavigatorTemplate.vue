@@ -302,7 +302,7 @@ export default {
 
 .content-circle {
   position: absolute;
-  margin-left: 22px;
-  margin-top: -19px;
+  margin-left: 20px;
+  margin-top: -17px;
 }
 </style>

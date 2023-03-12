@@ -99,6 +99,8 @@ export default {
   },
 
   methods: {
+
+
     refreshPage() {
       //location.reload(); // Refresh the page
     },
@@ -288,7 +290,6 @@ export default {
       clearTimeout(inactivityTimer);
       inactivityTimer = setTimeout(this.refreshPage, 10000);
     });
-
   },
 };
 </script>
