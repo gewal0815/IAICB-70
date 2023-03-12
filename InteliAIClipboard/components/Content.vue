@@ -24,6 +24,9 @@
               @hide-overlay="showOverlay = false"
             />
           </div>
+          <div class="unsaved-text" v-if="shouldShowUnsavedText">
+            <p>Unsaved changes. Are you sure you want to leave?</p>
+          </div>
         </div>
 
         <div class="card-content">{{ truncatedContent(item.content) }}</div>
@@ -67,26 +70,49 @@ export default {
       cardBackgroundColor: '#fff',
       animatedItems: [], // initialize an empty array to store the indexes of animated items
       showOverlay: false, // add a new data property to control the overlay visibility
+      isContentModified: false,
     };
   },
   computed: {
+    shouldShowUnsavedText() {
+      return (
+        this.isContentModified &&
+        this.history.filter((item) => item.color !== 'green').length > 0
+      );
+    },
     // create a computed property that returns truncated content
     truncatedContent() {
-      return (content) => {
+      return (content, contentModified) => {
         if (content.length > 200) {
           return content.slice(0, 200) + '...';
+        }
+        if (contentModified) {
+          this.onContentModified();
         }
         return content;
       };
     },
   },
   mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
     window.addEventListener('focus', this.handleWindowFocus);
   },
   beforeDestroy() {
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
     window.removeEventListener('focus', this.handleWindowFocus);
   },
   methods: {
+    handleBeforeUnload(event) {
+      if (this.shouldShowUnsavedText) {
+        event.preventDefault();
+        event.returnValue = '';
+      }
+    },
+
+    onContentModified() {
+      this.isContentModified = true;
+    },
+
     animateItem(index) {
       // Add the index of the clicked item to the animatedItems array
       this.animatedItems.push(index);
