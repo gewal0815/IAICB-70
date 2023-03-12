@@ -6,16 +6,19 @@
       :key="index"
       :style="{ 'background-color': cardBackgroundColor }"
     >
+    
+    <div class="created_at">
+                 <label>Date:</label>{{ formatDate(item.created_at) }} </div>
       <div class="card-inside">
         <div class="created_at">
-          <label>Date:</label>{{ formatDate(item.created_at) }}
 
           <!-- Check if the content has a URL and create a link -->
-          <div v-if="hasUrl(item.content)" class="url-link">
-            <a :href="`https:${getUrl(item.content)}`" target="_blank">{{
+          <div v-if="hasUrl(item.content)" >
+            <a :href="`${getUrl(item.content)}`" target="_blank" class="url-link">{{
               shortenUrl(getUrl(item.content))
             }}</a>
           </div>
+         
 
           <div class="icon-container">
             <img
@@ -31,11 +34,12 @@
               overlay-text="Saved Objects"
               @hide-overlay="showOverlay = false"
             />
+           
           </div>
         </div>
 
         <div class="card-content">{{ truncatedContent(item.content) }}</div>
-
+ 
         <div
           v-if="item.color === 'green'"
           class="circle"
@@ -105,14 +109,14 @@ export default {
 
     getUrl(content) {
       const regex =
-        '/(https?:\/\/)?([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}|localhost)(:[0-9]{1,5})?(\/.*)?/';
+        /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
       const match = content.match(regex);
       return match ? match[0] : '';
     },
 
     shortenUrl(url) {
-      if (url.length > 50) {
-        return url.slice(0, 50) + '...';
+      if (url.length > 100) {
+        return url.slice(0, 100) + '...';
       }
       return url;
     },
@@ -179,7 +183,11 @@ export default {
 .fav_icon.animated {
   animation: heartBeat 0.4s linear;
 }
-
+.url-link {
+  font-size: small;
+  font-weight: 200;
+  color: brown;
+}
 .content {
   max-width: 100%;
   margin: 0 auto;
