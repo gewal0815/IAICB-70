@@ -69,7 +69,7 @@
     @close-modal="showModal = false"
     
   />
-  <ChatGPTVue />
+  <!--<ChatGPTVue />-->
 </template>
 
 <script>
