@@ -90,19 +90,16 @@ export default {
 
   methods: {
     getColorStatus(item) {
-  if (this.selectedHistoryItem && this.selectedHistoryItem.id === item.id) {
-    
-    if (item.color === 'blue') {
-      return 'not-saved';
-    } 
-
-  } else if (item.color === 'green') {
-    return 'saved';
-  } else {
-    return 'not-saved';
-  }
-},
-
+      if (this.selectedHistoryItem && this.selectedHistoryItem.id === item.id) {
+        if (item.color === 'blue') {
+          return 'not-saved';
+        }
+      } else if (item.color === 'green') {
+        return 'saved';
+      } else {
+        return 'not-saved';
+      }
+    },
 
     refreshPage() {
       window.location.reload();
@@ -255,7 +252,6 @@ export default {
   watch: {
     history: {
       handler(newVal, oldVal) {
-        
         const newItems = newVal.slice(oldVal.length);
 
         // add the uuid property to each new item
@@ -293,7 +289,7 @@ export default {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: rgb(255, 140, 0);
+  box-shadow: inset 0 0 0 7px rgb(231, 215, 134), 0 0 0 2px rgb(241, 172, 69);
   margin-right: 1px;
 }
 
@@ -302,7 +298,7 @@ export default {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: rgb(17, 120, 51);
+  box-shadow: inset 0 0 0 7px rgb(188, 242, 173), 0 0 0 2px green;
   margin-right: 1px;
 }
 
@@ -310,14 +306,12 @@ export default {
   display: inline-block;
   width: 10px;
   height: 10px;
-  border-radius: 50%;
-  background-color: rgb(115, 118, 116);
   margin-right: 1px;
 }
 
 .content-circle {
   position: absolute;
-  margin-left: 20px;
-  margin-top: -17px;
+  margin-left: -15px;
+  margin-top: 2px;
 }
 </style>
