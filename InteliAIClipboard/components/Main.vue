@@ -64,7 +64,11 @@
     </div>
   </div>
 
-  <SavedModal v-show="showModal" @close-modal="showModal = false" />
+  <SavedModal
+    v-show="showModal"
+    @close-modal="showModal = false"
+    
+  />
   <!--<ChatGPTVue />-->
 </template>
 
@@ -95,6 +99,7 @@ export default {
       clipboardItems: [],
       showModal: false,
       inputValue: '',
+
     };
   },
 
