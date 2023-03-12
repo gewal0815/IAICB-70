@@ -80,3 +80,4 @@ ___ TODO: Notification and Error Handler
 
 _______________________________________________________________________________
 
+Fix in the content the functionality for delete (will ot be deleted from dbase) and copy
