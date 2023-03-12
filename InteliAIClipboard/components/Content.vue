@@ -12,7 +12,7 @@
           
           <!-- Check if the content has a URL and create a link -->
           <div v-if="hasUrl(item.content)" class="url-link">
-            <a :href="getUrl(item.content)" target="_blank">{{ shortenUrl(getUrl(item.content)) }}</a>
+            <a :href="`https:${getUrl(item.content)}`" target="_blank">{{ shortenUrl(getUrl(item.content)) }}</a>
           </div>
 
           <div class="icon-container">
