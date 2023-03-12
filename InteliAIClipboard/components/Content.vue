@@ -9,10 +9,12 @@
       <div class="card-inside">
         <div class="created_at">
           <label>Date:</label>{{ formatDate(item.created_at) }}
-          
+
           <!-- Check if the content has a URL and create a link -->
           <div v-if="hasUrl(item.content)" class="url-link">
-            <a :href="`https:${getUrl(item.content)}`" target="_blank">{{ shortenUrl(getUrl(item.content)) }}</a>
+            <a :href="`https:${getUrl(item.content)}`" target="_blank">{{
+              shortenUrl(getUrl(item.content))
+            }}</a>
           </div>
 
           <div class="icon-container">
@@ -30,7 +32,6 @@
               @hide-overlay="showOverlay = false"
             />
           </div>
-
         </div>
 
         <div class="card-content">{{ truncatedContent(item.content) }}</div>
@@ -78,7 +79,6 @@ export default {
     };
   },
   computed: {
-
     // create a computed property that returns truncated content
     truncatedContent() {
       return (content, contentModified) => {
@@ -93,76 +93,73 @@ export default {
     },
   },
   mounted() {
-
     window.addEventListener('focus', this.handleWindowFocus);
   },
   beforeDestroy() {
-
     window.removeEventListener('focus', this.handleWindowFocus);
   },
   methods: {
-
     hasUrl(content) {
       return content.includes('http') || content.includes('www');
     },
 
     getUrl(content) {
-      const regex = '/(https?:\/\/)?([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}|localhost)(:[0-9]{1,5})?(\/.*)?/';
-  const match = content.match(regex);
-  return match ? match[0] : '';
-},
+      const regex =
+        '/(https?:\/\/)?([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}|localhost)(:[0-9]{1,5})?(\/.*)?/';
+      const match = content.match(regex);
+      return match ? match[0] : '';
+    },
 
-shortenUrl(url) {
-  if (url.length > 50) {
-    return url.slice(0, 50) + '...';
-  }
-  return url;
-},
+    shortenUrl(url) {
+      if (url.length > 50) {
+        return url.slice(0, 50) + '...';
+      }
+      return url;
+    },
 
-onContentModified() {
-  this.isContentModified = true;
-},
+    onContentModified() {
+      this.isContentModified = true;
+    },
 
-animateItem(index) {
-  // Add the index of the clicked item to the animatedItems array
-  this.animatedItems.push(index);
+    animateItem(index) {
+      // Add the index of the clicked item to the animatedItems array
+      this.animatedItems.push(index);
 
-  // Change the src URL of the img element to the new URL
-  const icon = document.querySelector(`.fav_icon[data-index="${index}"]`);
-  const newUrl = 'https://cdn-icons-png.flaticon.com/512/2698/2698202.png'; // replace with the desired URL
-  icon.src = newUrl; // set the new URL
+      // Change the src URL of the img element to the new URL
+      const icon = document.querySelector(`.fav_icon[data-index="${index}"]`);
+      const newUrl = 'https://cdn-icons-png.flaticon.com/512/2698/2698202.png'; // replace with the desired URL
+      icon.src = newUrl; // set the new URL
 
-  // Remove the index from the animatedItems array after the animation finishes
-  setTimeout(() => {
-    const i = this.animatedItems.indexOf(index);
-    this.animatedItems.splice(i, 1);
-  }, 500);
-},
+      // Remove the index from the animatedItems array after the animation finishes
+      setTimeout(() => {
+        const i = this.animatedItems.indexOf(index);
+        this.animatedItems.splice(i, 1);
+      }, 500);
+    },
 
-formatDate(dateString) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString();
-},
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString();
+    },
 
-deleteItem(index) {
-  // delete the item from the history array
-  this.history.splice(index, 1);
-},
-copyItem(index) {
-  // make a copy of the item and add it to the end of the history array
-  const newItem = { ...this.history[index] };
-  this.history.push(newItem);
-},
-handleWindowFocus() {
-  this.cardBackgroundColor = '#a8d8f7';
-  setTimeout(() => {
-    this.cardBackgroundColor = '#fff';
-  }, 2000);
-},
-},
+    deleteItem(index) {
+      // delete the item from the history array
+      this.history.splice(index, 1);
+    },
+    copyItem(index) {
+      // make a copy of the item and add it to the end of the history array
+      const newItem = { ...this.history[index] };
+      this.history.push(newItem);
+    },
+    handleWindowFocus() {
+      this.cardBackgroundColor = '#a8d8f7';
+      setTimeout(() => {
+        this.cardBackgroundColor = '#fff';
+      }, 2000);
+    },
+  },
 };
 </script>
-
 
 <style scoped>
 /* Define the animation */
