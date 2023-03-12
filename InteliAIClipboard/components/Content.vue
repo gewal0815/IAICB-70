@@ -7,6 +7,8 @@
       :style="{ 'background-color': cardBackgroundColor }"
     >
       <div class="card-inside">
+        <div id="thumbnailContainer"></div>
+
         <div class="created_at">
           <label>Date:</label>{{ formatDate(item.created_at) }}
           <div class="icon-container">
@@ -24,7 +26,6 @@
               @hide-overlay="showOverlay = false"
             />
           </div>
-
         </div>
 
         <div class="card-content">{{ truncatedContent(item.content) }}</div>
@@ -41,6 +42,7 @@
           "
         ></div>
 
+
         <div class="card-buttons">
           <button class="business-btn" @click="deleteItem(index)">
             Delete
@@ -54,6 +56,7 @@
 
 <script>
 import CardOverlay from './CardOverlay.vue';
+import puppeteer from 'puppeteer';
 
 export default {
   components: {
@@ -69,10 +72,15 @@ export default {
       animatedItems: [], // initialize an empty array to store the indexes of animated items
       showOverlay: false, // add a new data property to control the overlay visibility
       isContentModified: false,
+
     };
   },
+  beforeDestroy() {
+    if (this.browser) {
+      this.browser.close()
+    }
+  },
   computed: {
-
     // create a computed property that returns truncated content
     truncatedContent() {
       return (content, contentModified) => {
@@ -87,14 +95,14 @@ export default {
     },
   },
   mounted() {
-
     window.addEventListener('focus', this.handleWindowFocus);
   },
   beforeDestroy() {
-
     window.removeEventListener('focus', this.handleWindowFocus);
   },
   methods: {
+
+
     handleBeforeUnload(event) {
       if (this.shouldShowUnsavedText) {
         event.preventDefault();
