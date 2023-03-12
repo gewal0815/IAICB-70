@@ -76,6 +76,7 @@ __ Refactor the HistoryNavigatorTemplate and the HistoryNavigatorMethods, Main
 
 _______________________________________________________________________________
 
+___ TODO: Notification and Error Handler
 
 _______________________________________________________________________________
 
