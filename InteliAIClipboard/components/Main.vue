@@ -64,11 +64,11 @@
     </div>
   </div>
 
-  <SavedModal
+  <!--<SavedModal
     v-show="showModal"
     @close-modal="showModal = false"
     
-  />
+  />-->
   <!--<ChatGPTVue />-->
 </template>
 

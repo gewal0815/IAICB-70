@@ -20,23 +20,16 @@
             ? item.content.slice(0, 50) + '...'
             : item.content
         }}</span>
-
         <span class="delete-item" @click.stop="deleteItem(item.id)">
           <img
             src="https://cdn-icons-png.flaticon.com/512/5974/5974771.png"
             alt="Delete"
           />
-          <span class="content-circle" v-if="item.color === 'blue'">
-            <span class="not-saved"></span>
-          </span>
-          <span class="content-circle" v-if="item.color === 'green'">
-            <span class="saved"></span>
-          </span>
+          <span class="content-circle" :class="getColorStatus(item)"></span>
         </span>
       </li>
     </ul>
   </div>
-
   <SavedModal
     v-if="showModal"
     :selectedHistoryItem="selectedHistoryItem"
@@ -96,9 +89,23 @@ export default {
   },
 
   methods: {
+    getColorStatus(item) {
+  if (this.selectedHistoryItem && this.selectedHistoryItem.id === item.id) {
+    
+    if (item.color === 'blue') {
+      return 'not-saved';
+    } 
+
+  } else if (item.color === 'green') {
+    return 'saved';
+  } else {
+    return 'not-saved';
+  }
+},
+
 
     refreshPage() {
-       window.location.reload();
+      window.location.reload();
     },
 
     async clearDatabase() {
@@ -143,9 +150,7 @@ export default {
       this.showModal = true;
 
       this.saveToDatabase(item);
-      refreshPage();
     },
-
     closeSavedModal() {
       this.selectedHistoryItem = null;
       this.showModal = false;
@@ -250,6 +255,7 @@ export default {
   watch: {
     history: {
       handler(newVal, oldVal) {
+        
         const newItems = newVal.slice(oldVal.length);
 
         // add the uuid property to each new item
@@ -272,7 +278,7 @@ export default {
           );
           this.saveToDatabase(newItem, newItem.uuid);
         }
-        
+
         console.log('History array after saving new items:', this.history);
       },
       deep: true,
@@ -297,6 +303,15 @@ export default {
   height: 10px;
   border-radius: 50%;
   background-color: rgb(17, 120, 51);
+  margin-right: 1px;
+}
+
+.refresh {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(115, 118, 116);
   margin-right: 1px;
 }
 

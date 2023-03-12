@@ -1,31 +1,39 @@
 <template>
   <transition name="modal-fade">
-    <div class="modal-overlay" @click="$emit('close-modal')">
-      <div class="modal" @click.stop>
-        <img class="check" src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="" />
-        <h6>Copied!</h6>
-        <p v-if="selectedHistoryItem">{{ selectedHistoryItem.content }}</p>
-        <div class="buttons-container">
-          <button class="save-button" @click="$emit('close-modal')">Save to your static History</button>
-          <button class="cancel-button" @click="$emit('close-modal')">Cancel</button>
-        </div>
-      </div>
-      <div class="close" @click="$emit('close-modal')">
-        <img class="close-img" src="https://cdn-icons-png.flaticon.com/512/2763/2763138.png" alt="" />
-      </div>
-    </div>
+  <div class="modal-overlay" @click="$emit('close-modal')">
+  <div class="modal" @click.stop>
+  <img class="check" src="https://cdn-icons-png.flaticon.com/512/845/845646.png" alt="" />
+  <h6>Copied!</h6>
+  <p v-if="selectedHistoryItem">{{ selectedHistoryItem.content }}</p>
+  <div class="buttons-container">
+  <button class="save-button" @click="saveToHistory">Save to your static History</button>
+  <button class="cancel-button" @click="$emit('close-modal')">Cancel</button>
+  </div>
+  </div>
+  <div class="close" @click="$emit('close-modal')">
+  <img class="close-img" src="https://cdn-icons-png.flaticon.com/512/2763/2763138.png" alt="" />
+  </div>
+  </div>
   </transition>
-</template>
-
-
-<script>
-export default {
-  props: {
-    selectedHistoryItem: Object, // Add selectedHistoryItem prop
-  },
-
-}
-</script>
+  </template>
+  
+  <script>
+  export default {
+    props: {
+      selectedHistoryItem: Object,
+    },
+    methods: {
+      saveToHistory() {
+        // Change the color status of the selected item to green
+        this.selectedHistoryItem.color = 'green';
+        // Emit an event to the parent component with the updated item
+        this.$emit('save-to-history', this.selectedHistoryItem);
+        // Close the modal
+        this.$emit('close-modal');
+      },
+    },
+  };
+  </script>
 
 <style scoped>
 
