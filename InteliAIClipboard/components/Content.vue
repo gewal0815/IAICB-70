@@ -24,9 +24,7 @@
               @hide-overlay="showOverlay = false"
             />
           </div>
-          <div class="unsaved-text" v-if="shouldShowUnsavedText">
-            <p>Unsaved changes. Are you sure you want to leave?</p>
-          </div>
+
         </div>
 
         <div class="card-content">{{ truncatedContent(item.content) }}</div>
@@ -74,12 +72,7 @@ export default {
     };
   },
   computed: {
-    shouldShowUnsavedText() {
-      return (
-        this.isContentModified &&
-        this.history.filter((item) => item.color !== 'green').length > 0
-      );
-    },
+
     // create a computed property that returns truncated content
     truncatedContent() {
       return (content, contentModified) => {
