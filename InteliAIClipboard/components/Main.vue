@@ -241,6 +241,7 @@ export default {
                       uuid: documentId,
                       color: 'blue',
                       created_at: new Date(),
+                      linkactive: url.value,
                     })
                     .then((response) => {
                       console.log('Inserted new history entry:', response);
@@ -257,6 +258,7 @@ export default {
                     content: text.value,
                     color: 'blue',
                     created_at: new Date(),
+                    linkactive: url.value,
                   });
                 })
                 .catch((error) => {

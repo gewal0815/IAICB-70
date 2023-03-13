@@ -6,19 +6,32 @@
       :key="index"
       :style="{ 'background-color': cardBackgroundColor }"
     >
-    
-    <div class="created_at">
-                 <label>Date:</label>{{ formatDate(item.created_at) }} </div>
+      <div class="created_at">
+        <label>Date:</label>{{ formatDate(item.created_at) }}
+      </div>
       <div class="card-inside">
         <div class="created_at">
-
           <!-- Check if the content has a URL and create a link -->
-          <div v-if="hasUrl(item.content)" class="url-positioning">
-            <a :href="`${getUrl(item.content)}`" target="_blank" class="url-link">{{
-              shortenUrl(getUrl(item.content))
-            }}</a>
+          <div
+            v-if="
+              (item.content && hasUrl(item.content)) ||
+              (item.linkactive && hasUrl(item.linkactive))
+            "
+            class="url-positioning"
+          >
+            <a
+              :href="`${
+                item.linkactive ? item.linkactive : getUrl(item.content)
+              }`"
+              target="_blank"
+              class="url-link"
+              >{{
+                shortenUrl(
+                  item.linkactive ? item.linkactive : getUrl(item.content)
+                )
+              }}</a
+            >
           </div>
-         
 
           <div class="icon-container">
             <img
@@ -34,12 +47,11 @@
               overlay-text="Saved Objects"
               @hide-overlay="showOverlay = false"
             />
-           
           </div>
         </div>
 
         <div class="card-content">{{ truncatedContent(item.content) }}</div>
- 
+
         <div
           v-if="item.color === 'green'"
           class="circle"
