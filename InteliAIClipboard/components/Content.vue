@@ -8,7 +8,23 @@
     >
       <div class="created_at">
         <label>Date:</label>{{ formatDate(item.created_at) }}
+        <div class="icon-container">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/2899/2899445.png"
+              alt="icon"
+              class="fav_icon"
+              @click="animateItem(index)"
+              :class="{ animated: animatedItems.includes(index) }"
+              :data-index="index"
+            />
+            <CardOverlay
+              v-if="item.color === 'green' && showOverlay"
+              overlay-text="Saved Objects"
+              @hide-overlay="showOverlay = false"
+            />
+          </div>
       </div>
+      
       <div class="card-inside">
         <div class="created_at">
           <!-- Check if the content has a URL and create a link -->
@@ -33,21 +49,7 @@
             >
           </div>
 
-          <div class="icon-container">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/2899/2899445.png"
-              alt="icon"
-              class="fav_icon"
-              @click="animateItem(index)"
-              :class="{ animated: animatedItems.includes(index) }"
-              :data-index="index"
-            />
-            <CardOverlay
-              v-if="item.color === 'green' && showOverlay"
-              overlay-text="Saved Objects"
-              @hide-overlay="showOverlay = false"
-            />
-          </div>
+
         </div>
 
         <div class="card-content">{{ truncatedContent(item.content) }}</div>
